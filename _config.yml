@@ -33,6 +33,7 @@ github_username:  n132
 theme: minima
 plugins:
   - jekyll-feed
+excerpt_separator:  '<!--more-->'
 
 # Exclude from processing.
 # The following items will not be processed, by default.
