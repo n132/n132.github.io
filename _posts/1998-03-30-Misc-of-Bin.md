@@ -846,8 +846,8 @@ printf("%d\n",a[i]);
 ## shellcode 遍历search
 257号调用+ 78号调用
 
-## docker run for PWN
-`docker run -it --security-opt seccomp=unconfined --privileged 6f8 zsh`
+## docker run with privileg
+`docker run -it  --security-opt seccomp=unconfined --privileged --cap-add=SYS_PTRACE 81bcf752ac3d /bin/bash`
 
 ## tmux 语言问题
 `apt search locales`
