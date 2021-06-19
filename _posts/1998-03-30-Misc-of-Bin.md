@@ -1037,6 +1037,10 @@ sudo apt-get install libc6-mipsel-cross libc6-dev-mipsel-cross
 sudo apt-get install binutils-mipsel-linux-gnu gcc-mipsel-linux-gnu
 sudo apt-get install g++-mipsel-linux-gnu
 ```
+# Seccomp
+```
+sudo apt install seccomp libseccomp-dev -y
+```
 
 [1]: https://blog.csdn.net/chdhust/article/details/8495921
 [2]: http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
