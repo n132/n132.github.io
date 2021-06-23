@@ -6,6 +6,8 @@ layout: post
 ---
 Daily
 <!--more-->
+# AD2021-06-23
+ONE PUNCH MAN
 
 # AD2021-06-22
 	LOOOOK! WHO'S BACK
