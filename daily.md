@@ -1,223 +1,227 @@
 ---
+layout: page
 title: Looooooog
-date: 1997-10-26 23:59:59
-tags: updating
-layout: post
+permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-06-24
+	* cheatsheet setcontext update - 
+	* cheatsheet row update -
+	* Hitcon: one punch man: writeup
+
 # AD2021-06-23
-ONE PUNCH MAN
+	* ONE PUNCH MAN: tcache stash unlink attak if tcache has 6 chunks. 
 
 # AD2021-06-22
-	LOOOOK! WHO'S BACK
+	* LOOOOK! WHO'S BACK
 
 # AD2019-12-30
-	Reviewing my ASM language class...
+	* Reviewing my ASM language class...
 
 # AD2019-07-16
-	#调整期.
+	* 调整期.
 
 # AD2019-07-14
-	#内核编译完成
+	* 内核编译完成
 
 # AD2019-07-11
-	#printf 分析暂时告一段落
+	* printf 分析暂时告一段落
 	准备开始kernel题目入门
 
 # AD2019-07-06
-	#开始printf分析.
+	* 开始printf分析.
 
 # AD2019-07-04
-	#完成了CAOV.
+	* 完成了CAOV.
 
 # AD2019-07-03
-	#终于找到CAOV的漏洞点了.
-	#坚持早睡..明天应该可以做出来..自己的C++还是太柴了.
+	* 终于找到CAOV的漏洞点了.
+	* 坚持早睡..明天应该可以做出来..自己的C++还是太柴了.
 
 # AD2019-07-02
-	#早睡..不早睡效率太低.
-	#完成了ISITDTU的writeup
+	* 早睡..不早睡效率太低.
+	* 完成了ISITDTU的writeup
 
 # AD2019-07-01
-	#复现了babyshellcode...真阴险写在arrayinit里面我完全没感觉我还以为是用alarm拿shell...
-	#复现了token...当时没时间做继续做完了原来思路是对的不过我code能力有点辣鸡.写了半天发现思路还不够犀利.
+	* 复现了babyshellcode...真阴险写在arrayinit里面我完全没感觉我还以为是用alarm拿shell...
+	* 复现了token...当时没时间做继续做完了原来思路是对的不过我code能力有点辣鸡.写了半天发现思路还不够犀利.
 
 # AD2019-06-30
-	#越南的一个CTF混了几道题.
+	* 越南的一个CTF混了几道题.
 
 # AD2019-06-28
-	#V8 research start
+	* V8 research start
 
 # AD2019-06-27
-	#之前作死升级了catalina
+	* 之前作死升级了catalina
 	结果IDA用不了重装以后发现博客出了点问题修了我好久
 	SCTF2019题目复现.
 
 # AD2019-06-19
-	#看书看不进去..做题就一坐就是4,5个小时...
+	* 看书看不进去..做题就一坐就是4,5个小时...
 	分数要紧..
 
 # AD2019-06-03
-	#复习周..一周学一学期的内容.
+	* 复习周..一周学一学期的内容.
 
 # AD2019-05-30
-	#补了半个学期的作业.
+	* 补了半个学期的作业.
 
 # AD2019-05-26
-	#明日模拟topic...记了一天单词...
+	* 明日模拟topic...记了一天单词...
 
 # AD2019-05-25
-	#看了几眼强网...发现自己一点都不会....真.Babypwner..
+	* 看了几眼强网...发现自己一点都不会....真.Babypwner..
 
 # AD2019-05-24
-	#进入复习时期...
+	* 进入复习时期...
 
 # AD2019-05-21
-	#搞了一天发现`shellcoder`其实还是挺有趣的
+	* 搞了一天发现`shellcoder`其实还是挺有趣的
 
 # AD2019-05-20
-	#失败人士..复习一天英语考的都不会.
+	* 失败人士..复习一天英语考的都不会.
 
 # AD2019-05-19
-	#RCTF 心态打崩了太菜了...
+	* RCTF 心态打崩了太菜了...
 
 # AD2019-05-15
-	#speedrun1-5
+	* speedrun1-5
 
 # AD0219-05-14
-	#Finish babyheap of DCQ 
+	* Finish babyheap of DCQ 
 
 # AD2019-05-13
-	##博客主题更新...方便阅读.
+	* * 博客主题更新...方便阅读.
 
 # AD2019-05-10-12
-	##ZJGSUCTF运维.
+	* * ZJGSUCTF运维.
 
 # AD2019-03-08~AD2019-05-9
-	#Keep Hungary,Keep foolish 
+	* Keep Hungary,Keep foolish 
 	失败人士...
 
 # AD2019-03-07
-	#critical_heap++终于搞下来了..学到不少..
+	* critical_heap++终于搞下来了..学到不少..
 
 # AD2019-03-02
-	#house of 总结
+	* house of 总结
 	House of Orange & House of Spirit & House of Force 
 
 # AD2019-03-01
-	#Shellcode 总结
+	* Shellcode 总结
 
 # AD2019-02-13
-	#De-ASLR
+	* De-ASLR
 
 # AD2019-02-12
-	#Kidding
+	* Kidding
 
 # AD2019-02-09
-	#Heap Paradise
+	* Heap Paradise
 
 # AD2019-02-09
-	#Tcache Tear
+	* Tcache Tear
 
 # AD2019-02-04
-	#Starbound
+	* Starbound
 
 # AD2019-02-01
-	#Secret Of My Heart
+	* Secret Of My Heart
 
 # AD2019-01-31
-	#unexploitable
+	* unexploitable
 
 # AD2019-01-26
-	#Bookwriter
+	* Bookwriter
 
 # AD2019-01-23~25
-	#See movies Go hiking with friends
+	* See movies Go hiking with friends
 
 # AD2019-01-22
-	#Alive Note
+	* Alive Note
 
 # AD2019-01-20
 
 # AD2019-01-21
-	#Have good time with my friends in Ningbo
+	* Have good time with my friends in Ningbo
 
 # AD2019-01-19
-	#BabyStack
+	* BabyStack
 
 # AD2019-01-18
-	#Secret Garden
+	* Secret Garden
 
 # AD2019-01-17
-	#calc
+	* calc
 
 # AD2019-01-16
-	#Spirited Away
+	* Spirited Away
 
 # AD2019-01-15
-	#Death Note
+	* Death Note
 
 # AD2019-01-12
-	#pwnable.tw applestore
+	* pwnable.tw applestore
 	wp还没出...
 
 # AD2019-01-11
-	#发现自己菜成狗...从做过的题开始恢复
+	* 发现自己菜成狗...从做过的题开始恢复
 	复现了一波easyiest（bctf）
 
 # AD2019-01-09
-	#昨日考完最后一门.发现好巧恰好复习一个月...
+	* 昨日考完最后一门.发现好巧恰好复习一个月...
 	考试总的来说乏善可陈...先立个FLAG{寒假看完_CS:APP}
 	...我看<程序员的自我修养>看了一年多了还没看完...看书虽然不如自己动手刺激但是不看对很多东西的理解还是没有那么到位
 
 # AD2019-01-01
-	#Nice new year to .
+	* Nice new year to .
 
 # AD2018-12-16
-	#看了一大堆线代到30..还剩下28
+	* 看了一大堆线代到30..还剩下28
 	证明一下自己还活着
 
 # Ad2018-12-12
-	#干了一天大作业....
+	* 干了一天大作业....
 
 # AD2018-12-10-11
-	#线代从0开始15章finish还有40....
+	* 线代从0开始15章finish还有40....
 
 # AD2018-12-9
-	#house of atum finished
+	* house of atum finished
 	学业重要.开始闭关1个月...1月见...
 
 # AD2018-12-8
-	#铁三的little note 和 bookstore wp
+	* 铁三的little note 和 bookstore wp
 
 # AD2018-12-7
-	#铁三结束,膜一波各位师傅.复现一波题目回去照顾学业了.
+	* 铁三结束,膜一波各位师傅.复现一波题目回去照顾学业了.
 
 # AD2018-12-3
-	#finish sdtout & io file
+	* finish sdtout & io file
 
 # AD2018-12-2
-	#今天看完电影走在回实验室的路上感觉最近几个月学ctf的目的有点走歪了,
-	#总想着已经学了不少东西，@#￥%……然后做题的时候又发现自己还是差的不是一点两点.
-	#陷入期望与现实的差距 打一次比赛就感觉自己好菜...然后目前比赛又多...打乱了学习的节奏
-	#没能看清自己的实力,从开始学pwn到现在也只过了8，9个月，学到的只是皮毛，分析漏洞，实现利用的能力
-	#也只停留在做做过的题而不是去分析问题然后利用对计算机对程序的了解去想方设法实现利用.
-	#行百里者半九十可自己确实连百分之一都还不可及.现在自我感觉良好也未免太早.
-	#革命尚未完成,同志仍需努力
+	* 今天看完电影走在回实验室的路上感觉最近几个月学ctf的目的有点走歪了,
+	* 总想着已经学了不少东西，@* ￥%……然后做题的时候又发现自己还是差的不是一点两点.
+	* 陷入期望与现实的差距 打一次比赛就感觉自己好菜...然后目前比赛又多...打乱了学习的节奏
+	* 没能看清自己的实力,从开始学pwn到现在也只过了8，9个月，学到的只是皮毛，分析漏洞，实现利用的能力
+	* 也只停留在做做过的题而不是去分析问题然后利用对计算机对程序的了解去想方设法实现利用.
+	* 行百里者半九十可自己确实连百分之一都还不可及.现在自我感觉良好也未免太早.
+	* 革命尚未完成,同志仍需努力
 
 # AD2018-11-21
-	* 太浮躁了
-	* 安静下来慢慢来
+	# 太浮躁了
+	# 安静下来慢慢来
 
 # AD2018-10-22-11-7
-	#Blog 再次死亡...洗心革面重新做人直接拿最原始的模板了
-	* XCTF Final 题目会尽快复现
-	* ZJCTF Final 没啥好题...唯一一题pwn昨日复现完成
+	* Blog 再次死亡...洗心革面重新做人直接拿最原始的模板了
+	# XCTF Final 题目会尽快复现
+	# ZJCTF Final 没啥好题...唯一一题pwn昨日复现完成
 	学业要紧去北京浪了3天作业都没做
 
 # AD2018-10-21
-	#电脑坏掉了....忘记这几日干了啥
+	* 电脑坏掉了....忘记这几日干了啥
 	kamikaze finished
 	chall2—bank finished
 	blog rebuild
@@ -228,128 +232,128 @@ ONE PUNCH MAN
 	uninitalized variable
 
 # AD2018-09-22
-	## Finish:WDB_babyheap
+	* # Finish:WDB_babyheap
 	unlink好久没用....
 
 # AD2018-09-21
-	## WP:easycoin
+	* # WP:easycoin
 	完成大作业终于步入中秋趁着几日闲学点东西
 
 # AD2018-09-19
-	## apk:基于RSA盲签名实现
+	* # apk:基于RSA盲签名实现
 
 # AD2018-09-17
-	## bin:easycoin
+	* # bin:easycoin
 
 # AD2018-09-11
-	## Wp：Grocery_List_Noxctf & Army
+	* # Wp：Grocery_List_Noxctf & Army
 
 # AD2018-09-10
-	## wp：easy_fmtstr_of_Noxctf
+	* # wp：easy_fmtstr_of_Noxctf
 
 # AD2018-09-09
-	## HackIT CTF
+	* # HackIT CTF
 
 # AD2018-09-07 to AD2018-09-08
-	## Nox-ctf
+	* # Nox-ctf
 
 # AD2018-09-06
-	## Swap_ret :grow the stack
+	* # Swap_ret :grow the stack
 
 # AD2018-09-05
-	## once_time : get two skills
+	* # once_time : get two skills
 
 # AD2018-09-04
-	## I am alive ....
+	* # I am alive ....
 	summer vacation is busssssy
 	a lot of log lost...
 	ennnn,i am back now
 
 # AD2018-07-13
-	## Pass ASLR of houses
+	* # Pass ASLR of houses
 	Finished
 	Write a blog about houses
 
 # AD2018-07-12
-	## house of einherjar
+	* # house of einherjar
 	use one byte off to contrl the pre_size to contrl top chunk
 	finished
 
 # AD2018-07-11
-	## Have claas about shellcode&ROP
+	* # Have claas about shellcode&ROP
 
 # AD2018-07-10
-	## house of force
+	* # house of force
 	topchunk改写成0xffffffff
 	所以可以malloc任意长度
 	来使下一个chunk落在预期位置
 	从而实现对预期位置的写
 
 # AD2018-07-09
-	## house of spirit
+	* # house of spirit
 	free 掉本来不存在的fake chunk
 	注意 fake_chunk's Next chunk‘s size
 
 # AD2018-06-24 to 2018-07-8
-	## lots of tests
+	* # lots of tests
 	考完之后调整状态花了很长时间。
 	lanlanlan...
 
 # AD2018-06-23
-	## 计网结束
-	我爱计组 密码学 c++ 编译原理 大雾 毛概 
+	* # 计网结束
+	我爱计组 密码学 c+# 编译原理 大雾 毛概 
 
 # AD2018-06-15
-	## 实验考试over 感觉应该还不错
+	* # 实验考试over 感觉应该还不错
 	今天搞了一下rsa
 	明天吧几种攻击方法 特征 实验一遍
 
 # AD2018-06-09
-    ## 在赛场上感觉自己啥都不会 
+    * # 在赛场上感觉自己啥都不会 
 	哎走的还是不踏实太浮躁 厉害的人太厉害 差得太多
 
 # AD2018-06-08
-	## 至苏 游半日
+	* # 至苏 游半日
 
 # AD2018-06-06
-	## 22.37
+	* # 22.37
 	//为国赛做准备临时抱佛脚
 	各种环境下情况下 反弹shell
 	线下赛AWD套路 技巧
 	一航的 反弹shell工具使用
 
 # AD2018-06-05
-	## 23.00
+	* # 23.00
 	预习计组实验
 	循环加循环减
 	越到考试我越浪
 
 # AD2018-06-04
-	## 23.13
+	* # 23.13
 	pwnable_tw_cal的re部分
 	琐事不断 学时堪忧
 
 # AD2018-06-03
-	## 22:05
+	* # 22:05
 	外出游玩
 	悠闲一日
 	度过美好周末
 	taskofnextweek finished
 
 # AD2018-06-02
-	## 23.53
+	* # 23.53
 	计网实验q1
 	pwnable_tw_cal not finished
 
 # AD2018-06-01
-	## 21:20
+	* # 21:20
 	pwnable.tw_orw finish
 	one wp about that
 	周末把社会调查结束掉
 	and 计网实验
 
 # AD2018-05-31
-	## 23:06
+	* # 23:06
 	*ctf2018-note:not finished
 	pwnable.tw_start finish
 	基础不牢靠，前置技能缺乏 
@@ -359,17 +363,17 @@ ONE PUNCH MAN
 	and itis import to comfirm the leakaddr
 
 # AD2018-05-20
-	## 23:22
+	* # 23:22
 	编译原理15-20
-	c++ hw:finished
+	c+# hw:finished
 	*ctf2018-note:not finished
 
 # AD2018-05-29
-	## 23:06
+	* # 23:06
 	编译原理bilibili 上0-14
 	3天速成
 
 # AD2018-05-28
-    ## 12:25
+    * # 12:25
     刚开始写日志就开始复习阶段了，书本都搞不定还想长pwn是不切实际的，考试要紧考试要紧。
     最近的两门 计组实验 计网实验
