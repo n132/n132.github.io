@@ -6,19 +6,17 @@ tags: glibc-2.29
 Tcache-stashing-unlink-atk
 <!--more-->
 # prelogue
-[one_punch_man][1](glibc-2.29)
-[twochunk][0](glibc-2.30)
-There are two challenges: one_punch_man(glibc-2.29) & twochunk(libc-2.30)
-This passage would introduce a method which is call "tcache stashing unlink attack" 
-mainly used when 
-1. can't tacache-attack (ex: `calloc` + in some conditions you can malloc...)
-2. can't fastbin-attack (size is limited)
+1. [one_punch_man][1](glibc-2.29)
+2. [twochunk][0](glibc-2.30)
+
+one_punch_man(glibc-2.29) & twochunk(libc-2.30)
+This passage would introduce a new tcache attach method: "tcache stashing unlink attack" 
 
 
 # what's new in glibc-2.29
 before the main part, it's important to know what's new in glibc-2.29.
 ## setcontext
-setcontext would not be as useful as before, becouse it will set `rbx` as a base-ptr rather than `rdi`.
+I found we can't use `setcontext` as before, becouse it will set `rbx` as a base-ptr rather than `rdi`.
 ```arm
 //setcontext
 push rdi
@@ -29,7 +27,8 @@ mov rsp, qword ptr [rbx+0xa0]
 ...
 ```
 ## tcache double free 
-Tcache is much friedly than fastbin. We can `free(p);free(p)` in glibc-2.27 but not in 2.29 for 
+In the past, tcache is much more friendly than fastbin. We can double-free the same chunk in glibc-2.27 
+However, in 2.29:
 ```arm
 //_int_free()
 if (__glibc_unlikely (e->key == tcache))
@@ -45,8 +44,6 @@ if (__glibc_unlikely (e->key == tcache))
 	       few cycles, but don't abort.  */
 	  }
 ```
-How wonderful time flies....but don't worry, we still have fastbin-atk.(haha
-However, today we just can't malloc <= global_fast_max ... 
 ## unsorted bin atk
 ```amd64
 if (__glibc_unlikely (bck->fd != victim)
@@ -81,19 +78,17 @@ If you get a chunk from small bin, the remained chunk will be stashed in the tca
 	            }
 		}
 ```
-there is an example to help understanding the code showed:
+there is an example to help understanding:
 1. small bin[0x90] : 0x55555555a000 --> 0x55555555b000 && tcache[0x90](0) : 0  
 2. calloc(0x88)
-3. small-bin First in first out, so we will get chunk at 0x55555555b000
+3. FIFO, we will get chunk at 0x55555555b000
 4. smallbin[0x90].tc_idx == 0x0 is less than 0x7 so chunk at  0x55555555a000 will be stashed into tache[0x90]
 5. small bin[0x90] : none && tcache[0x90](1) : 0x55555555a000
-
-we can use the unlink-option in this procedure.
 
 # one_punch_man
 an amazing punch of hitcon 2019.
 ## Analysis
-UAF in delect function.
+UAF in delete function.
 ```amd64
 void __fastcall del(__int64 a1, __int64 a2)
 {
@@ -106,7 +101,7 @@ void __fastcall del(__int64 a1, __int64 a2)
   free((void *)list[idx].ptr);
 }
 ```
-but we have the only malloc in the backdoor function and calloc in add func.
+but we have the only malloc in the backdoor function and calloc in add.
 ```amd64
 ssize_t __fastcall magic(__int64 a1, __int64 a2)
 {
@@ -124,7 +119,7 @@ ssize_t __fastcall magic(__int64 a1, __int64 a2)
   return puts((const char *)buf);
 }
 ``` 
-In normal condition, `HAEP + 32 <= 6` means we can get the first chunk of tcache[0x220] or smallbin[0x220].
+`HAEP + 32 <= 6` means we can get the first chunk of tcache[0x220] or smallbin[0x220].
 
 ```amd64
 unsigned __int64 __fastcall add(__int64 a1, __int64 a2)
@@ -154,7 +149,7 @@ unsigned __int64 __fastcall add(__int64 a1, __int64 a2)
   return __readfsqword(0x28u) ^ v6;
 }
 ```
-the size of calloc is limited between [0x80,0x400] ,so in this condition(glibc 2.29+calloc+size-limit)double-free is not accessible. 
+the size of calloc is limited between [0x80,0x400]. in this condition(glibc 2.29+calloc+size-limit)double-free is not accessible. 
 
 ## solution
 0. leak heap & libc
@@ -163,7 +158,7 @@ the size of calloc is limited between [0x80,0x400] ,so in this condition(glibc 2
 3. orw get flag.
 
 #### small bin unlink
-set unlink in the procedure of getting smallbin is checked. 
+check the victim first
 ```amd64
  if (__glibc_unlikely (bck->fd != victim))
 	    malloc_printerr ("malloc(): smallbin double linked list corrupted");
@@ -171,7 +166,7 @@ set unlink in the procedure of getting smallbin is checked.
           bin->bk = bck;
           bck->fd = bin;
 ```
-but unlink in the procedure of moving rest smallbin to the tcache is not checked.
+after that we can find an unsafe unlink.
 ```amd64
 if (tc_victim != 0)
 		    {
@@ -283,8 +278,7 @@ p.interactive()
 ```
 
 # twochunk
-an exquisite expanding of one_punch_man 
-英文不好写篇文章累个半死...换中文..还是中文情切.
+英文不好写篇文章累个半死...换中文..还是中文亲切.
 这题比赛时候我们队用的是另一种方法类似的方法做出来...跑了好几个小时....碰撞地址...其实这题有其特殊性.首先咱来分析一下这题.
 ## Analysis
 这题主要有7个功能大多数功能都是有使用次数限制的(做的时候太难受了!)
@@ -470,8 +464,8 @@ cmd(7)
 p.interactive()
 ```
 # summary
-了解了很多新版glibc.感谢师傅们的题目!
 `tcache stashing unlink atk`利用场景
+
 1. calloc+限量 malloc
 2. calloc 大小不能为fastbin
 3. 可以unsortedbin atk 就unsortedbin atk 不可以就smallbin atk
