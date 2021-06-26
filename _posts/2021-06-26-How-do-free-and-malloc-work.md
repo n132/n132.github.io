@@ -1,6 +1,6 @@
 ---
 title: How do free&malloc work
-date: 2020-06-26 14:53:19
+date: 2021-06-26 14:53:19
 tags: 
 ---
 How do free&malloc work
