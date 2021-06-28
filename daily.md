@@ -5,6 +5,19 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-06-28
+	* Workday
+	* solve stage3
+
+# AD2021-06-27
+	* focus on challenge "stage3"
+	* book the tickets to QWB/HZ
+	* collecte info about `Physical examination`
+
+# AD2021-06-26
+	* update new post "How do malloc & free work"
+	* review 2.29's check and source code of malloc&free
+
 # AD2021-06-24
 	* cheatsheet setcontext update - 
 	* cheatsheet row update -
