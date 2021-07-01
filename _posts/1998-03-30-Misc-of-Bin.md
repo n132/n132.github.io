@@ -130,6 +130,7 @@ def fmt_leak(lenth):
 #!/bin/bash
 for i in `seq 1 5000`; do python exp.py; done;
 ```
+
 ## uninitialized variable
 堆栈的内容可能被之前的函数控制
 

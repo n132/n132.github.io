@@ -5,6 +5,14 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-01
+	* Workday
+	* Focus on baby-daily
+
+# AD2021-06-28-30
+	* Apply for r3kapig
+	* go HZ and back to SH
+  
 # AD2021-06-28
 	* Workday
 	* solve stage3
