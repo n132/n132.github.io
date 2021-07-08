@@ -5,6 +5,16 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-08
+	* covid second does
+	* prepare for QWB final
+
+# AD2021-07-07
+	* write up of babypwn2021 & listbook
+
+# AD2021-07-03-04
+	* 0CTF Qul
+
 # AD2021-07-01
 	* Workday
 	* Focus on baby-daily
