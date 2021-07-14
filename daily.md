@@ -5,6 +5,14 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-14
+	* new work week
+	* v8 environ setup
+
+# AD2021-07-09
+	* Had a fantastic QWB-CTF with old friends and meet great ctf players
+	* A great trip to Zhengzhou, Henan, China
+
 # AD2021-07-08
 	* covid second does
 	* prepare for QWB final
