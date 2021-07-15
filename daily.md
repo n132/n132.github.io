@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-15
+	* vmnote finished
+
 # AD2021-07-14
 	* new work week
 	* v8 environ setup
