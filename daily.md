@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-18
+	* Too vegetable to play kernel
+
 # AD2021-07-17
 	* Google CTF
 
