@@ -16,6 +16,8 @@ qwb vm note
 （完整的逆向内容我就不贴了想体验这题的建议从逆向开始<3）
 
 # 0x1 Prepare
+> attachment: https://github.com/n132/attachment/tree/main/QWB_2021_Final/vmnote
+> update 07/20/2021 vmnote decompiler: https://github.com/P4nda0s/qwb_vmnote_recompiler
 
 这题有个`note.bin`的文件，`binary`实现了一个虚拟机，`note.bin`是一个程序可以放在虚拟机里面跑，直接运行的话有个密码。
 

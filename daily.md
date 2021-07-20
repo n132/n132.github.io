@@ -5,6 +5,14 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-20
+	* Update additinal info of vmnote
+	* Upload Attachment of googleCTF
+
+# AD2021-07-19
+	* Register the courses
+	* plan to go 2 NJ 
+
 # AD2021-07-18
 	* Too vegetable to play kernel
 
