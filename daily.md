@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-21
+	* Back from NJ
+
 # AD2021-07-20
 	* Update additinal info of vmnote
 	* Upload Attachment of googleCTF
