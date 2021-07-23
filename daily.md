@@ -5,6 +5,12 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-23
+	* Learn kernel 
+
+# AD2021-07-22
+	* A normal work day
+
 # AD2021-07-21
 	* Back from NJ
 
