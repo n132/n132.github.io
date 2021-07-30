@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-07-30
+	* Weekend coming
+	* Kernel ROP / UAF and FSOP coming 
+
 # AD2021-07-23
 	* Learn kernel 
 
