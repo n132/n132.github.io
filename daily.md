@@ -6,6 +6,10 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 # AD2021-07-30
+	* Kernel UAF ROP finished
+	* prepare for Kernel double fetch
+
+# AD2021-07-30
 	* Weekend coming
 	* Kernel ROP / UAF and FSOP coming 
 
