@@ -7,8 +7,8 @@ Daily
 <!--more-->
 # AD2021-08-01
 	* kernel double fetch finished
-	* kernel sideway finished
-	
+	* kernel side-channel finished
+
 # AD2021-07-31
 	* Kernel UAF ROP finished
 	* prepare for Kernel double fetch
