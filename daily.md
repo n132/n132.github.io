@@ -5,7 +5,11 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-07-30
+# AD2021-08-01
+	* kernel double fetch finished
+	* kernel sideway finished
+	
+# AD2021-07-31
 	* Kernel UAF ROP finished
 	* prepare for Kernel double fetch
 
