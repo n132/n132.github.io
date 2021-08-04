@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-08-04
+	* workdays
+
 # AD2021-08-01
 	* kernel double fetch finished
 	* kernel side-channel finished
