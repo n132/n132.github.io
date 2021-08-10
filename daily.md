@@ -5,6 +5,12 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-08-10
+	* Preparing for Next Semester
+
+# AD2021-08-07
+	* DC29
+
 # AD2021-08-04
 	* workdays
 
