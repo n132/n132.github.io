@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-08-16
+	* Preparing for Next Semester 2
+
 # AD2021-08-10
 	* Preparing for Next Semester
 
