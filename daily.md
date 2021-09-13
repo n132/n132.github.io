@@ -5,6 +5,11 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-09-13
+	* CSAW DONE
+	* Focus On Courses
+	* Move Above
+
 # AD2021-08-16
 	* Preparing for Next Semester 2
 
