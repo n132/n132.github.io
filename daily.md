@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-09-14
+	* Course AC
+
 # AD2021-09-13
 	* CSAW DONE
 	* Focus On Courses
