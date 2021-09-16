@@ -5,7 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-09-14
+# AD2021-09-16
+	* Project1 Setup
+
+# AD2021-09-15
 	* Courses Review
 	* Misccccc
 
