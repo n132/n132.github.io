@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-09-26
+	* 0CTF Final Finished
+
 # AD2021-09-16
 	* Project1 Setup
 
