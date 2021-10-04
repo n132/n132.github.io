@@ -10,6 +10,11 @@ Updating
 
 ## Start
 
+## Github Action
+Permission denied.
+`git update-index --chmod=+x ./.github/scripts/backend_decrypt.sh`
+
+
 ## Linux ncat 部署服务
 ncat -vc ./test -l 1024
 
