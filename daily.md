@@ -5,6 +5,11 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-05
+	* Another Tuesday with struggling on AC, luckily get 100 on the quizz
+	* Start work about Project1
+	* Plan to finish Project1 as soon as possible and work on reviewing Challenges on 0CTF 2021 Final
+
 # AD2021-09-28
 	* Struggling on AC AS ISP
 
