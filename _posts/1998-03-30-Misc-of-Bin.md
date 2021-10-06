@@ -10,6 +10,12 @@ Updating
 
 ## Start
 
+## mmap
+`mmap(address,0x1000,0x7,0x22,0,0)`
+
+## default buffer (STDOUT)
+fllush by fill the buffer (which may be as large as 0xe00)
+
 ## Github Action
 Permission denied.
 `git update-index --chmod=+x ./.github/scripts/backend_decrypt.sh`
