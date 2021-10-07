@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-06
+	* run too far on a wrong way and back to a correct way (project of AC)
+
 # AD2021-10-05
 	* Another Tuesday with struggling on AC, luckily get 100 on the quizz
 	* Start work about Project1
