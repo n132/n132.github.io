@@ -5,6 +5,11 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+
+# AD2021-10-06
+	* AS Crash5&6 finished, learned ASAN
+	* AC update the basic solution 
+
 # AD2021-10-06
 	* run too far on a wrong way and back to a correct way (project of AC)
 
