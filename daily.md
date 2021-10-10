@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-09
+	* check mater solve 0.05
+	* new vulnerability found!
+
 # AD2021-10-08
 	* fix 6 bugs of check_mate.py, it can run quickly while the cut_size is small and r is small.
 	* todo implement to actual environ
