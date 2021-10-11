@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-10
+	* finished 1337, pwn the scheme
+	* not a good day
+
 # AD2021-10-09
 	* check mater solve 0.05
 	* new vulnerability found!
