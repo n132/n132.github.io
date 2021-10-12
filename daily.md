@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-11
+	* finished oracle, pwn the scheme even if the last byte is random
+  
 # AD2021-10-10
 	* finished 1337, pwn the scheme
 	* not a good day
