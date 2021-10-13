@@ -5,7 +5,12 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-10-11
+# AD2021-10-12
+	* Public Courses of Cryptography 1/13
+	* Prepare for Live for Friday
+	* HW 1-3
+
+# AD2021-10-12
 	* crypto Project Finished
 	* going to finish crypto weekly quizzes
 
