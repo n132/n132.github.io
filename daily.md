@@ -6,6 +6,10 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 # AD2021-10-11
+	* crypto Project Finished
+	* going to finish crypto weekly quizzes
+
+# AD2021-10-11
 	* finished oracle, pwn the scheme even if the last byte is random
   
 # AD2021-10-10
