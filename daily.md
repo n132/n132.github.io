@@ -5,10 +5,24 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-10-12
+# AD2021-10-16
+	* one challenge in ByteCTF
+	* Challenge Writting
+
+# AD2021-10-15
+	* v8 object struct
+	* reading <fast properties>
+
+# AD2021-10-14
+	* oob-js basic
+	* v8 env & debug
+  
+# AD2021-10-13
 	* Public Courses of Cryptography 1/13
 	* Prepare for Live for Friday
 	* HW 1-5
+	* Start works of ISP Programming and Challenge Writing
+	* Had a good day for finishing a lot of tasks
 
 # AD2021-10-12
 	* crypto Project Finished
