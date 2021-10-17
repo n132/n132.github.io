@@ -7,7 +7,7 @@ Daily
 <!--more-->
 # AD2021-10-16
 	* one challenge in ByteCTF
-	* Challenge Writting
+	* Challenge Writting EnvSet
 
 # AD2021-10-15
 	* v8 object struct
