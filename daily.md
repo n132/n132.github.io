@@ -5,6 +5,11 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-17
+	* Challenge Writting Base finished
+	* HW2 start
+	* Schedule The semester
+
 # AD2021-10-16
 	* one challenge in ByteCTF
 	* Challenge Writting EnvSet
