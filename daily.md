@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-18
+	* OOB!
+
 # AD2021-10-17
 	* Challenge Writting Base finished
 	* HW2 start
