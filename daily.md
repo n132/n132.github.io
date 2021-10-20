@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-19
+	* Great experience, having a competetion in person
+
 # AD2021-10-18
 	* A day for AC
  
