@@ -6,6 +6,9 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 # AD2021-10-18
+	* A day for AC
+ 
+# AD2021-10-18
 	* OOB!
 
 # AD2021-10-17
