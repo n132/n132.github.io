@@ -5,10 +5,13 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-10-19
+# AD2021-10-21
+	* I am dying over the DDL.
+
+# AD2021-10-20
 	* Great experience, having a competetion in person
 
-# AD2021-10-18
+# AD2021-10-19
 	* A day for AC
  
 # AD2021-10-18
