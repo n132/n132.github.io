@@ -6,7 +6,7 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 # AD2021-10-22
-	* Assignment2 Part1
+	* Assignment2 Part1.
 
 # AD2021-10-21
 	* I am dying over the DDL.
