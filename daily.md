@@ -5,6 +5,12 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-24
+	* Reviewing AC 4-6 for the coming Midterm
+
+# AD2021-10-23
+	* Reviewing AC 1-3 for the coming Midterm
+
 # AD2021-10-22
 	* Assignment2 Part1.
 
