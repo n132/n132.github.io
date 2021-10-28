@@ -5,9 +5,13 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-10-27
+	* Assignment2
+	* OOB wasm & wp
+
 # AD2021-10-26
 	* Midterm Day
-* 
+
 # AD2021-10-25
 	* Reviewing AC
 
