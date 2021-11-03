@@ -5,6 +5,24 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+
+
+# AD2021-11-03
+	* Review ISP
+
+# AD2021-11-01
+	* Challenge Writing
+
+# AD2021-10-30
+	* Prensentation Finished
+	* Assignment2 Finished
+
+# AD2021-10-29
+	* ISP 
+
+# AD2021-10-28
+	* Presentation Preparing
+
 # AD2021-10-27
 	* Assignment2
 	* OOB wasm & wp
