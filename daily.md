@@ -5,10 +5,20 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-11-03
+# AD2021-11-13
+	* CSAW finished
+
+# AD2021-11-12
+	* ISP HW Finished
+	* AC Quizzzzzzz
+
+# AD2021-11-11
+	* ISP HW
+
+# AD2021-11-05
 	* v8 point compression
 
-# AD2021-11-03
+# AD2021-11-04
 	* ISP Midterm
 
 # AD2021-11-03
