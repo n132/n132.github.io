@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-11-14
+	* Thues for Cryptogtaphy
+
 # AD2021-11-13
 	* CSAW finished
 
