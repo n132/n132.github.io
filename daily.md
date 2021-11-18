@@ -5,7 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-11-14
+# AD2021-11-17
+	* PWNPWNPWN
+  
+# AD2021-11-16
 	* Thues for Cryptogtaphy
 
 # AD2021-11-13
