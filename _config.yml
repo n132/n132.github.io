@@ -30,7 +30,9 @@ twitter_username: y0un9_n132
 github_username:  n132
 
 # Build settings
-theme: minima
+
+theme: # Build settingstheme: 
+
 plugins:
   - jekyll-feed
 excerpt_separator:  '<!--more-->'
