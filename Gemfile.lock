@@ -29,8 +29,14 @@ GEM
       rouge (~> 3.0)
       safe_yaml (~> 1.0)
       terminal-table (~> 2.0)
+    jekyll-dash (2.3.0)
+      jekyll (~> 4.0)
+      jekyll-feed (~> 0.14)
+      jekyll-paginate
+      jekyll-seo-tag (~> 2.1)
     jekyll-feed (0.15.1)
       jekyll (>= 3.7, < 5.0)
+    jekyll-paginate (1.1.0)
     jekyll-sass-converter (2.1.0)
       sassc (> 2.0.1, < 3.0)
     jekyll-seo-tag (2.7.1)
@@ -67,9 +73,11 @@ GEM
 
 PLATFORMS
   universal-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   jekyll (~> 4.2.0)
+  jekyll-dash
   jekyll-feed (~> 0.12)
   minima (~> 2.5)
   tzinfo (~> 1.2)
