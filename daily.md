@@ -5,9 +5,6 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2021-11-23
-	* AC DAY
-   
 # AD2021-11-21
 	* n1CTF 2nd
 
