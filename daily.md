@@ -5,6 +5,12 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-11-29
+	* ISP Assignment 2 finished
+
+# AD2021-11-28
+	* AC review
+
 # AD2021-11-24
 	* Setup AS assigment3
 
