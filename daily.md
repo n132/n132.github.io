@@ -8,6 +8,9 @@ Daily
 # AD2021-12-05
 	* HITCON 2021 
 
+# AD2021-12-03
+	* SMC/MPC learning
+
 # AD2021-11-29
 	* ISP Assignment 2 finished
 
