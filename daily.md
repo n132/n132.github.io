@@ -6,7 +6,7 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 # AD2021-12-05
-	* HITCON 2021 11
+	* HITCON 2021 111
 
 # AD2021-12-03
 	* SMC/MPC learning
