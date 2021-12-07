@@ -10,6 +10,10 @@ Updating
 
 ## Start
 
+## git commit amend
+
+`git commit --amend --date "Sun Dec  4 20:35:02 EST 2021"`
+
 ## multithread exp
 
 ```python
