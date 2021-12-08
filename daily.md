@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-12-07
+	* AD Lecture 12
+
 # AD2021-12-05
 	* HITCON 2021
 
