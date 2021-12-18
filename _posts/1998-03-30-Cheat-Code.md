@@ -10,6 +10,21 @@ Updating
 
 ## Start
 
+## Python Figures 
+
+```python
+def graph(x1,y1,eb1,x2=None,y2=None,eb2=None,Name='Default.jpg'):
+    fig = plt.figure()
+    plt.errorbar(x1,y1,fmt='ro--',yerr=eb1,capsize=10,ecolor="red",alpha=0.5,label="Oracle")
+    if(x2 and y2 and eb2):
+        plt.errorbar(x2,y2,fmt='bo--',yerr=eb2,capsize=10,ecolor="blue",alpha=0.5,label="Orgr")
+    plt.xlabel("Number of choice", fontdict=font)
+    plt.ylabel("Time Cost in s", fontdict=font)
+    plt.title("Time Cost for Per Run (What if we have more than 5 choice)", fontdict=font)
+    plt.legend(loc='upper left',fontsize=20)
+    plt.show()
+```
+
 ## git commit amend
 
 `git commit --amend --date "Sun Dec  4 20:35:02 EST 2021"`
