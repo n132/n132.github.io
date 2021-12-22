@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2021-12-22
+	* Final Finished
+	* Research & Study Start
+
 # AD2021-12-07
 	* Final
 
