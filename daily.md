@@ -5,6 +5,12 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-01-02
+	* Algorithm Practice
+
+# AD2022-01-01
+	* Algorithm Practice
+
 # AD2021-12-29
 	* intern 
 	* pwnable
