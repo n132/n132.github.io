@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-01-06
+	* 1-day Holiday finished, back to work
+	* Retrieve The contribution
+
 # AD2022-01-03
 	* Algorithm Practice
 
