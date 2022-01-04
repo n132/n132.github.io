@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-01-03
+	* Algorithm Practice
+
 # AD2022-01-02
 	* Algorithm Practice
 
