@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-01-23
+	* Had a great weekend with Real World CTF
+
 # AD2022-01-06
 	* 1-day Holiday finished, back to work
 	* Retrieve The contribution

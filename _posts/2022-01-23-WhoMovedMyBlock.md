@@ -15,6 +15,7 @@ This challenge is my first real-world challenge. Someone calls it “clone and p
 Also, nbd is a small project and we could finish the code review part quickly.
 
 # Set-up
+Challenge Attachment: `https://github.com/n132/attachment/blob/main/RWCTF_2022/WhoMovedMyBlock_471d96239f86cb3f7c61991b44d74623.zip`
 
 Project Link: [https://github.com/NetworkBlockDevice/nbd](https://github.com/NetworkBlockDevice/nbd)
 
