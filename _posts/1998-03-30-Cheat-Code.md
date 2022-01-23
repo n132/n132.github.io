@@ -9,6 +9,21 @@ Updating
 <!--more-->
 
 ## Start
+
+## Compact WSL vDisk
+
+```powershell
+wsl --shutdown
+diskpart
+# open window Diskpart
+select vdisk file="C:\Users\n132\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc\LocalState\ext4.vhdx"
+attach vdisk readonly
+compact vdisk
+detach vdisk
+exit
+```
+
+
 ## reversed shell
 system:
 ```bash
