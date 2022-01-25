@@ -10,6 +10,10 @@ Updating
 
 ## Start
 
+## Git sslverify 
+
+`git config --global http.sslverify false`
+
 ## Compact WSL vDisk
 
 ```powershell
