@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-02-02
+	* Doing homework
+
 # AD2022-01-23
 	* Had a great weekend with Real World CTF
 
