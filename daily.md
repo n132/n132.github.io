@@ -5,6 +5,12 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-02-06
+	* Dice CTF
+
+# AD2022-02-03
+	* What a busy Thu.
+
 # AD2022-02-02
 	* Doing homework
 
