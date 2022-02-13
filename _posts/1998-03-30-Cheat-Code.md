@@ -32,7 +32,19 @@ attach vdisk readonly
 compact vdisk
 detach vdisk
 exit
+# docker wsl
+docker system prune -a -f
+net stop com.docker.service
+taskkill /F /IM "Docker Desktop.exe"
+wsl --shutdown
+Optimize-VHD -Path "C:\Users\n132\AppData\Local\Docker\wsl\data\ext4.vhdx" -Mode Full
+wsl
+net start com.docker.service
 ```
+
+
+
+
 
 
 ## reversed shell
