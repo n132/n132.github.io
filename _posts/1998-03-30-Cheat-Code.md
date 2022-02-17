@@ -9,7 +9,15 @@ Updating
 <!--more-->
 
 ## Start
-
+## angr basic
+```
+import angr
+p = angr.Project('./pwn', auto_load_libs=False)
+state = p.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
+simgr = p.factory.simulation_manager(state)
+simgr.explore(find=0, avoid=0)
+print(simgr.found[0].posix.dumps(0))
+```
 ## reconstruct /dev/null
 run as a root
 `rm -f /dev/null; mknod -m 666 /dev/null c 1 3`
