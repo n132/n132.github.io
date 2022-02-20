@@ -9,6 +9,13 @@ Updating
 <!--more-->
 
 ## Start
+## init_array
+```
+void __attribute__((constructor))foo()
+{
+    ;
+}
+```
 ## angr basic
 ```
 import angr
