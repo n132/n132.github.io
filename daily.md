@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+#  AD2022-03-10
+	* Share Memory
+	* TA Works
+
 #  AD2022-03-03
 	* Homework day
   
