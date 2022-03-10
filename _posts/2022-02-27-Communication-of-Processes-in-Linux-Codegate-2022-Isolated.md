@@ -1,5 +1,5 @@
 ---
-title: Communication of Process in Linux - Isolated
+title: Communication of Processes in Linux - Isolated
 date: 2022-02-27 11:11:21
 tags: CTF
 ---
