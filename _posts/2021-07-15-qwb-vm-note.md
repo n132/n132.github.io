@@ -1,5 +1,5 @@
 ---
-title: QWB final vm note
+title: Virtual Machine Escaping:VM note
 date: 2021-07-15 14:53:19
 tags: 
 ---
