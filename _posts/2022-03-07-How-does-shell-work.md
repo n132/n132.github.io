@@ -51,7 +51,7 @@ struct backcmd {
   struct cmd *cmd;
 };
 ```
-It's meaning less to analysis them now, you can go back to check the struct when analysising the parsing part.
+It's meaningless to analyze them now, you can go back to check the struct when analysing the parsing part.
 
 
 # Primitive Functions
@@ -134,25 +134,25 @@ gettoken(char **ps, char *es, char **q, char **eq)
 ```
 
 This function is more complex than the previous one.
-- `ps` is a pointer which points to a input string start pointer
-- `es` points to the end of input string 
-- `q` is a pointer, it would store the start of splited command.
-- `eq` is a pointer, it would store the end of splited command.
+- `ps` is a pointer that points to an input string start pointer
+- `es` points to the end of the input string 
+- `q` is a pointer, it would store the start of the split command.
+- `eq` is a pointer, it would store the end of the splited command.
 
 This function would:
 
-First, jump over the whitespaces at the start of input
+First, jump over the whitespaces at the start of the input
 
-Sencond, if the input string's first character is a symbol ("|();&<>"), it would
-return the symbol after prune the rest part of input.
-If not, it would set return value as `a` and jump over the no-symbol characters.  
+Second, if the input string's first character is a symbol ("|();&<>"), it would
+return the symbol after pruning the rest part of the input.
+If not, it would set the return value as `a` and jump over the no-symbol characters.  
 Btw, it could also recognize ">>" and set the return value to '+'.
 
 In a word, this function would parse the command
 
 return the type of the first part of the command. Besides, the parsed part would be stored in `q` and `eq`.
 
-The shell.c always combines `peek` function and `gettoken` function. we gonna analysis them later.
+The shell.c always combines the `peek` function and `gettoken` function. we gonna analysis them later.
 
 
 
@@ -197,33 +197,30 @@ parseline(char **ps, char *es)
   return cmd;
 }
 ```
-This is the entry of parses, you can just leave it and go back to this function after analysing all the specific parsers.
+This is the entry of parses, you can just leave it and go back to this function after analyzing all the specific parsers.
 
-## Misc Functions
-## nulterminate
+## Misc
 
-This function is not important in my view. It would set the end ponters to 0.
-
-### getcmd
-
-read the input from the users.
-
-### panic
-
-leave a message and exit 
-
-### fork1
-panic fork
+- nulterminate
+  - This function is not important in my view. It would set the end ponters to 0.
+- getcmd
+  - read the input from the users.
+- panic
+  - leave a message and exit 
+- fork1
+  - panic fork
 
 # Parsing & Execution
 
-Before analyzing specific parser, we'd better move to some special cases, such as running a simple command, a command with redirection, a command with pipe... That would help you to have a high level understanding of the the shell.
+
+Before analyzing a specific parser, we'd better move to some special cases, such as running a simple command, a command with redirection, a command with pipe... That would help you to have a high-level understanding of the shell.
 
 ## Execute Simple Commands
 
-Let's start from some simple commands, such as "/bin/ls /tmp".
 
-For these simple commands without special symbols, the shell uses parseexec to parse it and use runcmd to execute it. We'll start with the parser.
+Let's start with some simple commands, such as "/bin/ls /tmp".
+
+For these simple commands without special symbols, the shell uses `parseexec` to parse it and use `runcmd` to execute it. We'll start with the parser.
 
 
 ```c
@@ -261,11 +258,11 @@ parseexec(char **ps, char *es)
 }
 ```
 
-parseexec is the most common parser. It take input between `*ps` and `es`.
+`parseexec` is the most common parser. It takes an string as input (`*ps` to `es`).
 
-It would check if we have a block in the command, if yes, it would return block's `cmd` and it would also check the redirection. We would talk about thses more complex cases later.
+It would check if we have a block in the command, if yes, it would return block's `cmd` and it would also check the redirection. We would talk about these more complex cases later.
 
-For simple commands, the shell would go into the while loop. The shell uses `gettoken` to get the command pieces. Because " " is one of whitespaces so "/bin/ls /tmp" would be splited to "/bin/sh" and "/tmp". Meanwhile, these pieces's starts would be stored in `cmd->argv` and the ends would be stored in `cmd->eargve` so that we could use "execvp" in `runcmd` to execute the command. Btw, we would also check the redirection before return. The redirection symbol would show after the command because of the redirection syntax.
+For simple commands, the shell would go into the while loop. The shell uses `gettoken` to get the command pieces. Because " " is one of whitespaces so "/bin/ls /tmp" would be split to "/bin/sh" and "/tmp". Meanwhile, these pieces starts would be stored in `cmd->argv` and the ends would be stored in `cmd->eargve` so that we could use "execvp" in `runcmd` to execute the command. Btw, we would also check the redirection before returning. The redirection symbol would show after the command because of the redirection syntax.
 
 
 ```c
@@ -289,7 +286,7 @@ We just go through the procedure of parsing/running a simple command!
 
 This case is just a little more complex than the simple commands, the only difference is we gonna use a specific file as our input/output rather than the stdin/stdout.
 
-We can just replace the original input/output with the redirection file. In `Execute Simple Commands`, we know that the redirection would be check after parsing mornal command pieces. We don't need to parse the command again. We can just replace the stdin/stdou. 
+We can just replace the original input/output with the redirection file. In `Execute Simple Commands`, we know that the redirection would be checked after parsing normal command pieces. We don't need to parse the command again. We can just replace the stdin/stdout.
 
 `parseredirs` is the parser of commands with redirection. 
 
@@ -320,7 +317,7 @@ parseredirs(struct cmd *cmd, char **ps, char *es)
 }
 ```
 
-If the function finds redirection symbols "<>" at the start of the command, the parameter `cmd` would be converted to a `redircmd`. And the parser would build the `redircmd` agaist the redirection symbol. We have three types of redirection, including ">", "<", ">>". According to the redirection symbols, we open the redirection file with corresponding permissions.
+If the function finds redirection symbols "<>" at the start of the command, the parameter `cmd` would be converted to a `redircmd`. And the parser would build the `redircmd` against the redirection symbol. We have three types of redirection, including ">", "<", ">>". According to the redirection symbols, we open the redirection file with corresponding permissions.
 
 ```c
 struct redircmd {
@@ -347,9 +344,10 @@ redircmd(struct cmd *subcmd, char *file, char *efile, int mode, int fd)
   return (struct cmd*)cmd;
 }
 ```
-The `redircmd` strcuture would store the `cmd` as an element. The type would alway be REDIR. Besides, the redirection file's information would be stored in `file` and `efile`. The `fd` element means the file descriptor would be replaced and the `mode` element store the open-permission infromation.
+The `redircmd` strcuture would store the `cmd` as an element. The type would alway be REDIR. Besides, the redirection file's information would be stored in `file` and `efile`. The `fd` element means the file descriptor would be replaced and the `mode` element store the open-permission information.
 
-Now, we get all the necessnrary information and we gonna run the command in `runcmd`.
+
+Now, we get all the necessary information and we gonna run the command in `runcmd`.
 
 ```c
 runcmd(struct cmd *cmd)
@@ -368,18 +366,20 @@ runcmd(struct cmd *cmd)
 }
 ```
 
-In this function, we gonna convert the type of `cmd` so that we can use the information we stored earlier. Then, we close the old input/output fd and open the redirection file to replace the file describtor. For example, if we close "stdin", the `fd` 0 would be released and the new file would use 0 as its `fd`. At the end, we call `runcmd` to run our sub command. The command would run as a redirection command because we have replaced the input/output.
+In this function, we gonna convert the type of `cmd` so that we can use the information we stored earlier. Then, we close the old input/output fd and open the redirection file to replace the file descriptor. For example, if we close "stdin", the `fd` 0 would be released and the new file would use 0 as its `fd`. In the end, we call `runcmd` to run our sub command. The command would run as a redirection command because we have replaced the input/output.
 
 ## Execute Commands with PIPE
 
-Pipe is a little more complex than the redirection. The command is splited to two parts by the pipe symbol and we use a pipe to connect them. I think there are three steps.
+The pipe is a little more complex than the redirection. The command is split into two parts by the pipe symbol and we use a pipe to connect them. I think there are three steps.
 1. Creat the pipe
-2. Fork two process to run two parts of command 
-3. Replace the stdout of left part with the pipe-in.
-4. Replace the stdin of right part with the pipe-out
+2. Fork two processes to run two parts of the command 
+3. Replace the stdout of the left part with the pipe-in.
+4. Replace the stdin of the right part with the pipe-out
 5. run the commands
 
-For the parser, we need to split the command with pipe symbol. The parser is elegant. 
+
+For the parser, we need to split the command with the pipe symbol. The parser is elegant. 
+
 ```c
 struct cmd*
 parsepipe(char **ps, char *es)
@@ -394,10 +394,10 @@ parsepipe(char **ps, char *es)
   return cmd;
 }
 ```
-It use `parseexec` to get the left part and jump over the pipe symbol.
-The it call parsepipe to parse it's right part. I have a question at the first time I saw this line. I was confused why don't it use parseexec to parse the right part. The answer is it's different from the redirection. We only have one redirection symbol in one command. But we don't know how many pipes symbols would be in the command. Using parsepipe is very elegant!
+It uses `parseexec` to get the left part and jump over the pipe symbol.
+It calls `parsepipe` to parse its right part. I have a question the first time I saw this line. I was confused why don't we use `parseexec` to parse the right part. The answer is it's different from the redirection. We only have one redirection symbol in one command. But we don't know how many pipes symbols would be in the command. Using `parsepipe` is very elegant!
 
-The function `pipecmd` would use the information got from parser to fills the element in `strcut pipecmd`.
+The function `pipecmd` would use the information got from the parser to fill the element in `struct pipecmd`.
 ```c
 struct pipecmd {
   int type;
@@ -459,16 +459,16 @@ case PIPE:
     ...
 }
 ```
-It would convert the type of `cmd` and create a pair `pipe`. Just as we said, it would create two kids to run left part and right part. The parent process would do nothing but exit after waiting two kids's termination while the child processes, use dup to replace its original stdin/stdout. The part is also amazing it build a pipe between two processes. The "close+dup" pair is amazing, too! The dup would take the smallest fd and close would release the file describtor.
+It would convert the type of `cmd` and create a pair `pipe`. Just as we said, it would create two kids to run the left part and right part. The parent process would do nothing but exit after waiting for two kids's termination while the child processes, use dup to replace its original stdin/stdout. The part is also amazing it build a pipe between two processes. The "close+dup" pair is amazing, too! The dup would take the smallest fd and close would release the file descriptor.
 
-Let's review the previous example "ls | grep c* | wc". We have (1,4) as at the end of parsing. Now, in `runcmd` it would run 1 first because 4 is waiting for the input of 1.
-After(not exactly but that doesn't matter) getting the output of 1, runcmd would split 4 to (2,3) so that 1's out put would be the input of 2! Now we can see the command run one by one!
+Let's review the previous example "ls | grep c* | wc". We have (1,4) as at the end of the parsing. Now, in `runcmd` it would run 1 first because 4 is waiting for the input of 1.
+After(not exactly but that doesn't matter) getting the output of 1, runcmd would split 4 to (2,3) so that 1's output would be the input of 2! Now we can see the command run one by one!
 
 
 
 ## Execute a List of Commands
 
-Actually list of commands is easier than pipe. And we just need to split the commands to several sub-commands and we don't need to deal with the input/output. 
+Actually, the list of commands is easier than the pipe. And we just need to split the commands into several sub-commands and we don't need to deal with the input/output. 
 
 The entry of hander is in `parseline`
 ```c
@@ -490,8 +490,8 @@ parseline(char **ps, char *es)
 }
 ```
 
-After parsing the first part of command, this function would check if we have a ";".
-If yes, we gonna creat a lists. As we know, the order is important, the second command would only be executed after the first one. In this part, we reuse the "parseline". It is like building a linked list. Every node would include a command and a `next` pointer. We can see it clearly by combining constrcuting part and the parsing part.
+After parsing the first part of the command, this function would check if we have a ";".
+If yes, we gonna create a list so that the order is important, the second command would only be executed after the first one. In this part, we reuse the "parseline". It is like building a linked list. Every node would include command and a `next` pointer. We can see it clearly by combining the constructing part and the parsing part.
 
 ```c
 struct cmd*
@@ -527,13 +527,13 @@ runcmd(struct cmd *cmd)
 ```
 
 The `panic fork` and the `wait` are very important.
-`panic fork` could make sure the child process would terminate if current command would have some error while `wait` could make sure the commands would be executed in correct order! And because we use fork, our parent process would continue to run the second command even if the child was terminated. 
+`panic fork` could make sure the child process would terminate if the current command would have some error while `wait` could make sure the commands would be executed in the correct order! And because we use a fork, our parent process would continue to run the second command even if the child was terminated. 
 
 ## Execute the Commands with `&`
 
 `backcmd` is similar to the previous one, a list of commands. The differences are
 1. `backcmd` should be seen as one command
-2. The second command would be executed only when the first one return normally
+2. The second command would be executed only when the first one returned normally
 
 The entry of dealer is also in `parseline` and because it's only a symbol connecting different parts of one command, the order is important. We should run `backcmd` earlier than `listcmd`.
 
@@ -555,8 +555,8 @@ parseline(char **ps, char *es)
 }
 ```
 
-As the code shown above, we gonna deal with `backcmd` earlier than `listcmd`.
-Also we can parse the first command normally, and check if we need to parse the `backcmd`. For example, we have a command "echo 1 & ls".
+As the code is shown above, we gonna deal with `backcmd` earlier than `listcmd`.
+Also, we can parse the first command normally, and check if we need to parse the `backcmd`. For example, we have a command "echo 1 & ls".
 
 
 ```c
@@ -588,20 +588,20 @@ runcmd(struct cmd *cmd)
 }
 ```
 
-The runner part is also elegant. The only different is it would use one ...
+The runner part is also elegant. The only difference is it would use one ...
 
-Oh, waite a sec, would it work? I don't think the second part would be executed!
+
+Oh, wait a sec, would it work? I don't think the second part would be executed!
 
 I test on xv6 terminal and find it doesn't work... Okay, I think I know why its name is back rather than and. It means backend. So the key is keep it back end. We can just run it in the child process without `wait`.
 
-It's not eleagnt, it's trite. 
-
+It's not elegant, it's trite. 
 # Epilogue
 
 This shell support `cd` and 5 types of commands, including normal, list, backend, pipe, redirection.
 
 For `cd`, we gonna use chdir to complete it simply. But unluckily, we can't combine `cd` with other symbols, such as "cd .. ; ls".
 
-For other types of commands, we have corresponding parser and runner. We analysised them in previous parts. And they are related, if you dive deeper about the constrcution of parsing, you will find this elegant shell is amazing.
+For other types of commands, we have a corresponding parser and runner. We analysed them in previous parts. And they are related, if you dive deeper into the construction of parsing, you will find this elegant shell is amazing.
 
-All in one, we went through the shell.c. And we find it's not as powerful as our bash/zsh. However, we know the constrcution of a basic shell and know the way to parse and run different types of commands. That's amazing to read these awesome codes, I feel like I talked to a great programmer, that's really precious for me.
+All in one, we went through the shell.c. And we find it's not as powerful as our bash/zsh. However, we know the construction of a basic shell and know the way to parse and run different types of commands. That's amazing to read these awesome codes, I feel like I talked to a great programmer, that's really precious for me.
