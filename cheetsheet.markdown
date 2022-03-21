@@ -9,11 +9,11 @@ permalink: /cheatsheet/
 echo "from pwn import *" > exp.py
 echo "context.log_level='debug'" >> exp.py
 echo "context.arch='amd64'" >> exp.py
-echo "context.terminal=['tmux','split','-h']" >> exp.py
+echo "#context.terminal=['tmux','split','-h']" >> exp.py
 echo "p=process('./pwn')" >> exp.py
 echo "sla 	= lambda a,b: p.sendlineafter(a,b)">> exp.py
 echo "sa 		= lambda a,b: p.sendafter(a,b)">> exp.py
-echo "ra 		= lambda a,b: p.readuntil(a,b)">> exp.py
+echo "ra 		= lambda a: p.readuntil(a)">> exp.py
 echo "gdb.attach(p)">> exp.py
 echo "p.interactive()">> exp.py
 
