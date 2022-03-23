@@ -16,7 +16,6 @@ echo "sa 		= lambda a,b: p.sendafter(a,b)">> exp.py
 echo "ra 		= lambda a: p.readuntil(a)">> exp.py
 echo "gdb.attach(p)">> exp.py
 echo "p.interactive()">> exp.py
-
 ```
 # House of Orange
 ```python
