@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-03-23
+	* Midterm
+
 #  AD2022-03-10
 	* Share Memory
 	* TA Works
