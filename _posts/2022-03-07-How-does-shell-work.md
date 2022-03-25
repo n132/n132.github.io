@@ -5,18 +5,18 @@ tags: CTF
 layout: post
 ---
 
-# Prologue
+# 0x00 Prologue
 I'll have a quick look at XV6 shell.c to understand the implementation of its features, such as running command, redirection, pipe, list...
 
 You can find the source code in xv6's repository. (https://github.com/mit-pdos/xv6-public/blob/master/sh.c)
 
-# Main Entrance
+# 0x01 Main Entrance
 
 - main
   - chdir (command `cd`)
   - Parse & Run Command
 
-# Structions
+# 0x02 Structions
 
 We have 6 structions and 5 kinds of command types, including `execcmd`, 
 `redircmd`, `pipcmd`, `listcmd`, and `backcmd`, and they have a common base "class/struct" -- `cmd`.
@@ -61,9 +61,9 @@ struct backcmd {
 It's meaningless to analyze them now, you can go back to check the struct when analysing the parsing part.
 
 
-# Primitive Functions
+# 0x03 Primitive Functions
 
-## 1. peek
+## 0x3.1 peek
 Source:
 
 ```c
@@ -91,7 +91,7 @@ In a word, this function prunes the input string and check if the first characte
 
 In shell.c, this function is used to prune the comamnd and check if the input starts with `(&;|<>)`.
 
-## 2. gettoken
+## 0x3.2 gettoken
 Source:
 
 ```c
@@ -163,7 +163,7 @@ The shell.c always combines the `peek` function and `gettoken` function. we gonn
 
 
 
-## 3. parsecmd
+## 0x3.3 parsecmd
 
 ```c
 struct cmd*
@@ -186,7 +186,7 @@ parsecmd(char *s)
 
 It's just a wrapper and it would call `parseline` to do the parsing work.
 
-## 4. parseline
+## 0x3.4 parseline
 ```c
 parseline(char **ps, char *es)
 {
@@ -206,7 +206,7 @@ parseline(char **ps, char *es)
 ```
 This is the entry of parses, you can just leave it and go back to this function after analyzing all the specific parsers.
 
-## 5. Misc
+## 0x3.5 Misc
 
 - nulterminate
   - This function is not important in my view. It would set the end ponters to 0.
@@ -217,12 +217,12 @@ This is the entry of parses, you can just leave it and go back to this function 
 - fork1
   - panic fork
 
-# Parsing & Execution
+# 0x04 Parsing & Execution
 
 
 Before analyzing a specific parser, we'd better move to some special cases, such as running a simple command, a command with redirection, a command with pipe... That would help you to have a high-level understanding of the shell.
 
-## 1. Execute Simple Commands
+## 0x4.1 Execute Simple Commands
 
 
 Let's start with some simple commands, such as "/bin/ls /tmp".
@@ -289,7 +289,7 @@ runcmd(struct cmd *cmd)
 
 We just go through the procedure of parsing/running a simple command! 
 
-## 2. Execute Commands with Redirection
+## 0x4.2 Execute Commands with Redirection
 
 This case is just a little more complex than the simple commands, the only difference is we gonna use a specific file as our input/output rather than the stdin/stdout.
 
@@ -375,7 +375,7 @@ runcmd(struct cmd *cmd)
 
 In this function, we gonna convert the type of `cmd` so that we can use the information we stored earlier. Then, we close the old input/output fd and open the redirection file to replace the file descriptor. For example, if we close "stdin", the `fd` 0 would be released and the new file would use 0 as its `fd`. In the end, we call `runcmd` to run our sub command. The command would run as a redirection command because we have replaced the input/output.
 
-## 3. Execute Commands with PIPE
+## 0x4.3 Execute Commands with PIPE
 
 The pipe is a little more complex than the redirection. The command is split into two parts by the pipe symbol and we use a pipe to connect them. I think there are three steps.
 1. Creat the pipe
@@ -473,7 +473,7 @@ After(not exactly but that doesn't matter) getting the output of 1, runcmd would
 
 
 
-## 4. Execute a List of Commands
+## 0x4.4 Execute a List of Commands
 
 Actually, the list of commands is easier than the pipe. And we just need to split the commands into several sub-commands and we don't need to deal with the input/output. 
 
@@ -536,7 +536,7 @@ runcmd(struct cmd *cmd)
 The `panic fork` and the `wait` are very important.
 `panic fork` could make sure the child process would terminate if the current command would have some error while `wait` could make sure the commands would be executed in the correct order! And because we use a fork, our parent process would continue to run the second command even if the child was terminated. 
 
-## 5. Execute the Commands with `&`
+## 0x4.5 Execute the Commands with `&`
 
 `backcmd` is similar to the previous one, a list of commands. The differences are
 1. `backcmd` should be seen as one command
@@ -603,7 +603,7 @@ Oh, wait a sec, would it work? I don't think the second part would be executed!
 I test on xv6 terminal and find it doesn't work... Okay, I think I know why its name is back rather than and. It means backend. So the key is keep it back end. We can just run it in the child process without `wait`.
 
 It's not elegant, it's trite. 
-# Epilogue
+# 0x05 Epilogue
 
 This shell support `cd` and 5 types of commands, including normal, list, backend, pipe, redirection.
 

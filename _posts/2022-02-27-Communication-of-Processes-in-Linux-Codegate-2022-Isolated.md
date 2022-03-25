@@ -7,14 +7,14 @@ layout: post
 isolated CodeGate 2022, Preliminary
 <!--more-->
 
-# Prologue
+# 0x00 Prologue
 
 I played this CTF with my teamates @r3kapig, we ranked 10th(5330 points). It's a pity that we need 28 pints more to get the tickets to
 the final. But I really enjoy this CTF. I spent the whole day on this
 challenge, isolated. Besides, I learned a lot about the linux signal and
 communication between porcesses.
 
-# Intro to the challenge
+# 0x01 Intro to the challenge
 
 It's a simple challenge. It uses fork to get a child process They use
 shared memory and signals to communicate with each other.
@@ -41,7 +41,7 @@ Our goal is to escape from the VM and get a shell. The venerability of
 this VM is that the linux signal is out-of-order and the
 handle-functions are not the atomic operations.
 
-# Solution
+# 0x02 Solution
 
 #### Init
 
@@ -86,7 +86,7 @@ The following exploitation is more straightforward. We could modify the
 got and use one-gadget to get a shell. I tried printf@got but failed and
 I succeeded in hijacking put@got.
 
-# Exploit
+# 0x03 Exploit
 ```python
         from pwn import *
         def push(val):
