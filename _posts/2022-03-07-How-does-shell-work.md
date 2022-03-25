@@ -2,7 +2,7 @@
 title: "How to write a shell : XV6 shell.c"
 date: 2022-02-27 11:11:21
 tags: CTF
-layout: post
+layout: default
 ---
 
 # 0x00 Prologue

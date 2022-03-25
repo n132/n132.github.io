@@ -2,7 +2,7 @@
 title: Virtual Machine Escaping:VM note
 date: 2021-07-15 14:53:19
 tags: 
-layout: post
+layout: default
 ---
 qwb vm note
 <!--more-->

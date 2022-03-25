@@ -2,7 +2,7 @@
 title: Extract_Firmware
 date: 2021-02-26 22:11:45
 tags:
-layout: post
+layout: default
 ---
 
 Use binwalk to extract NETGEAR firmware

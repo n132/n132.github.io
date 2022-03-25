@@ -1,7 +1,7 @@
 ---
 title: mips-environ
 date: 2020-04-09 14:22:22
-tags: mips
+layout: default
 ---
 All you need to start learning mips : 介绍，编译，反编译，调试。
 <!--more-->

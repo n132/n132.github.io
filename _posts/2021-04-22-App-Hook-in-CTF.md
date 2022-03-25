@@ -2,7 +2,7 @@
 title: App_Hook_in_CTF
 date: 2021-04-22 23:27:21
 tags:
-layout: post
+layout: default
 ---
 通过一个简单的实例来熟悉使用Frida/objection做hook。
 <!--more-->

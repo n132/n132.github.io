@@ -2,7 +2,7 @@
 title: Off By Half Byte:Baby-Dairy
 date: 2021-07-02 14:53:19
 tags: 
-layout: post
+layout: default
 ---
 baby-dairy qwb 2021
 <!--more-->

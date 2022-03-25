@@ -2,7 +2,7 @@
 title: Communication of Processes in Linux - Isolated
 date: 2022-02-27 11:11:21
 tags: CTF
-layout: post
+layout: default
 ---
 isolated CodeGate 2022, Preliminary
 <!--more-->

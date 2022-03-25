@@ -2,7 +2,7 @@
 title: Android_Cheatsheet
 date: 2021-05-07 15:24:23
 tags:
-layout: post
+layout: default
 ---
 Android Cheatsheet
 <!--more-->
