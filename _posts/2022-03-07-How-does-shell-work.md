@@ -1,3 +1,10 @@
+---
+title: "How to write a shell : XV6 shell.c"
+date: 2022-02-27 11:11:21
+tags: CTF
+layout: post
+---
+
 # Prologue
 I'll have a quick look at XV6 shell.c to understand the implementation of its features, such as running command, redirection, pipe, list...
 

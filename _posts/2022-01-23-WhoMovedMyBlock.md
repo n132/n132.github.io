@@ -2,6 +2,7 @@
 title: Who Moved My Block-Real World Stack Overflow
 date: 2022-01-23 16:22:21
 tags: 
+layout: post
 ---
 Who Moved My Block, rwctf 2022
 <!--more-->

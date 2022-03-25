@@ -2,6 +2,7 @@
 title: Cryptoals_S1
 date: 2021-03-26 17:03:55
 tags:
+layout: post
 ---
 Challenges in Cryptopals Set1
 <!--more-->

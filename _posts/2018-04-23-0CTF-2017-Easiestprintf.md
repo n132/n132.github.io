@@ -66,6 +66,6 @@ exp()
 
 
 
-  [1]: https://github.com/n132/banana/tree/master/Pwn/4-22
-  [2]: https://blog.betamao.me/2018/03/29/0ctf-2017-easiestprintf-150/#more
-  [3]: https://poning.me/2017/03/23/EasiestPrintf/
+[1]: https://github.com/n132/banana/tree/master/Pwn/4-22
+[2]: https://blog.betamao.me/2018/03/29/0ctf-2017-easiestprintf-150/#more
+[3]: https://poning.me/2017/03/23/EasiestPrintf/

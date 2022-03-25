@@ -2,6 +2,7 @@
 title: Attack_on_AES_CBC
 date: 2021-03-24 12:04:28
 tags:
+layout: post
 ---
 
 介绍AES-CBC模式下一些攻击方法，使用场景

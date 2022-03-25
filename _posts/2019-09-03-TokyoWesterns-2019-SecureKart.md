@@ -2,6 +2,7 @@
 title: 'TokyoWesterns_2019:SecureKart'
 date: 2019-09-03 12:06:50
 tags: heap 
+layout: default
 ---
 SecureKart
 <!--more-->

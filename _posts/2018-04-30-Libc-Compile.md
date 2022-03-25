@@ -1,9 +1,8 @@
 ---
-title: How to compile Libc 2.23
+title: How to compile a glibc
 date: 2018-04-30 21:30:19
 tags: basic
 layout: post
-
 ---
 
 装libc困难重重从早上装到了晚上
@@ -13,7 +12,7 @@ layout: post
 
 
 <!--more-->
-# 写在前头
+# Prologue
   发现Ubuntu16.04编译libc 2.23不！会！报！错！
   如果想锻炼自己解决问题能力的可以在kali上编译.
   我发现于编译完3个月后...
