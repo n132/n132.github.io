@@ -9,6 +9,17 @@ Updating
 <!--more-->
 
 ## Start
+
+
+## pwntools EOF
+```python
+from pwn import *
+p= process("./main",stdin=PTY,raw=False)
+p.send(b'\4')#CEOF
+p.interactive()
+# p.sock.shutdown(socket.SHUT_RW)
+```
+
 ## init_array
 ```
 void __attribute__((constructor))foo()
@@ -36,7 +47,7 @@ run as a root
 
 `pip install -U pwntools==4.2.0b0`
 
-## Git sslverify 
+## Git SSL verify 
 
 `git config --global http.sslverify false`
 
