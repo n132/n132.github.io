@@ -1,8 +1,11 @@
-# Files
+# sycall
+
+In this section we would review the syscall from both high level and low level!
+Also, we would also go through other similar mechanisms, such as the interupt, to have a more clear view of the operation system. Let's start from something simple, adding a system call.
 
 # sys_n132
 
-Related Files: `syscall.h`, `syscall.c`, `sysproc.c`, `usys.S`, and `user.h`.
+In this section, we gonna add a new syscall SYS_n132 to the xv6 system! We need to moddify the source code There are 5 related Files: `syscall.h`, `syscall.c`, `sysproc.c`, `usys.S`, and `user.h`.
 
 In order to add a new syscall, we need to add a new definition in `syscall.h`.
 ```C
@@ -83,9 +86,79 @@ Compile the testcode and the system.
 int main(void) 
 {
 printf(1, "%d\n", n132());
-exit();
+exit(1);
 }
 ```
 
 
+# How does the system works
 
+We can trigger a syscall by using some user space interfaces, such as exit. 
+
+```c
+//TestCode
+#include "types.h"
+#include "user.h"
+#include "stat.h"
+int main(void) 
+{
+printf(1, "%d\n", n132());
+exit(1);
+}
+```
+
+Take this program as an example, it would trigger 3 syscalls, `SYS_n132`, `SYS_write` and `SYS_exit`. We can see the syscall in asm code.
+
+```c
+.text:00000000 ; int __cdecl main(int argc, const char **argv, const char **envp)
+.text:00000000                 public main
+.text:00000000 main            proc near
+.text:00000000
+.text:00000000 argc            = dword ptr  8
+.text:00000000 argv            = dword ptr  0Ch
+.text:00000000 envp            = dword ptr  10h
+.text:00000000
+.text:00000000                 lea     ecx, [esp+4]
+.text:00000004                 and     esp, 0FFFFFFF0h
+.text:00000007                 push    dword ptr [ecx-4]
+.text:0000000A                 push    ebp
+.text:0000000B                 mov     ebp, esp
+.text:0000000D                 push    ecx
+.text:0000000E                 sub     esp, 4
+.text:00000011                 call    n132
+.text:00000016                 sub     esp, 4
+.text:00000019                 push    eax
+.text:0000001A                 push    offset fmt      ; fmt
+.text:0000001F                 push    1               ; fd
+.text:00000021                 call    printf
+.text:00000026                 call    exit
+...
+.text:00000322                 public n132
+.text:00000322 n132            proc near               ; CODE XREF: main+11↑p
+.text:00000322                 mov     eax, 16h
+.text:00000327                 int     40h             ; Hard disk - Relocated Floppy Handler (original INT 13h)
+.text:00000329                 retn
+.text:00000329 n132            endp
+```
+
+At `.text+0x11`, we are going to call `n132` function, it's the user-space-interface of the real syscall. And the user space would use the interupts to jump to the kernel. As you can see in the above code, it's `INT 40h`. It calls interrupt 0x40's handle.
+
+You can see the definitions of all the traps and interupts in `trap.h`, like the syscall:
+
+`#define T_SYSCALL       64      // system call`
+
+Also, we know the timers implemented in hardware keep the OS running by interrupting periodically. That would interrupt the current running process and allows other process to use the CPU by function `wakeup` so that the sleeping processes would be runnable.
+```c
+  ...
+  switch(tf->trapno){
+  case T_IRQ0 + IRQ_TIMER:
+    if(cpuid() == 0){
+      acquire(&tickslock);
+      ticks++;
+      wakeup(&ticks);
+      release(&tickslock);
+    }
+    lapiceoi();
+    break;
+  ...
+```
