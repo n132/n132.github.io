@@ -1,5 +1,5 @@
 ---
-title: "How to write a shell : XV6 shell.c"
+title: "XV6: How to write a shell"
 date: 2022-02-27 11:11:21
 tags: CTF
 layout: default
