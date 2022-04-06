@@ -1,4 +1,11 @@
-# sycall
+---
+title: "XV6: Syscall and Scheduler"
+date: 2022-04-01 12:09:21
+tags: 
+layout: default
+---
+
+# Syscall
 
 In this section we would review the syscall from both high level and low level!
 Also, we would also go through other similar mechanisms, such as the interupt, to have a more clear view of the operation system. Let's start from something simple, adding a system call.
@@ -91,7 +98,7 @@ exit(1);
 ```
 
 
-# How does the system works
+# Strace the syscall
 
 We can trigger a syscall by using some user space interfaces, such as exit. 
 
@@ -147,9 +154,61 @@ You can see the definitions of all the traps and interupts in `trap.h`, like the
 
 `#define T_SYSCALL       64      // system call`
 
-Also, we know the timers implemented in hardware keep the OS running by interrupting periodically. That would interrupt the current running process and allows other process to use the CPU by function `wakeup` so that the sleeping processes would be runnable.
+Also, we know the timers implemented in hardware keep the OS running by interrupting periodically to handle kinds of interrupts, such as the `int 0x40`.
+
+```S
+#include "mmu.h"
+
+  # vectors.S sends all traps here.
+.globl alltraps
+alltraps:
+  # Build trap frame.
+  pushl %ds
+  pushl %es
+  pushl %fs
+  pushl %gs
+  pushal
+  
+  # Set up data segments.
+  movw $(SEG_KDATA<<3), %ax
+  movw %ax, %ds
+  movw %ax, %es
+
+  # Call trap(tf), where tf=%esp
+  pushl %esp
+  call trap
+  addl $4, %esp
+
+  # Return falls through to trapret...
+.globl trapret
+trapret:
+  popal
+  popl %gs
+  popl %fs
+  popl %es
+  popl %ds
+  addl $0x8, %esp  # trapno and errcode
+  iret
+
+```
+
+It uses `alltraps` to as the entry of the handle and you can find its source code in `trapasm.S`. It would firstly store the trap frame for furture returning and it would set the data segement to the kernel data segement's address to accomplish the context switch. After that, it calls trap to really heandle the interupts. Btw, you can find the return part in `trapret` it reverses the options we did at the first part of `alltraps` to switch the context back to the user space.
+
 ```c
-  ...
+//trap.c
+void
+trap(struct trapframe *tf)
+{
+  if(tf->trapno == T_SYSCALL){
+    if(myproc()->killed)
+      exit();
+    myproc()->tf = tf;
+    syscall();
+    if(myproc()->killed)
+      exit();
+    return;
+  }
+
   switch(tf->trapno){
   case T_IRQ0 + IRQ_TIMER:
     if(cpuid() == 0){
@@ -160,5 +219,70 @@ Also, we know the timers implemented in hardware keep the OS running by interrup
     }
     lapiceoi();
     break;
-  ...
+  case T_IRQ0 + IRQ_IDE:
+    ideintr();
+    lapiceoi();
+    break;
+  case T_IRQ0 + IRQ_IDE+1:
+    // Bochs generates spurious IDE1 interrupts.
+    break;
+  case T_IRQ0 + IRQ_KBD:
+    kbdintr();
+    lapiceoi();
+    break;
+...
 ```
+
+The `trap` function would handle not only the `syscalls`, but other kinds of trap/interupts, such as the keyborad actions and timer interupts. For the syscall, it would call `syscall` to process the syscall and you can find the source code in `syscall.c`. It takes the paremeters from the tf(`trapfram`) and choose the corresponding function. Aftrer finishing the tasks, it store return value in the tf's eax and return back to `syscall()`, `trap()`, and `alltraps` and use the stored trapfram to recover user space context.
+
+So far, the whole procedure of the syscall finished.
+
+---
+
+# scheduler
+
+In the `boot` part, the CPU would start their work by running the `scheduler`. We can find the source code of this function in `proc.c`. This piece of code is super important. It would be run so many times very second. 
+```c
+void
+scheduler(void)
+{
+  struct proc *p;
+  struct cpu *c = mycpu();
+  c->proc = 0;
+  
+  for(;;){
+    // Enable interrupts on this processor.
+    sti();
+
+    // Loop over process table looking for process to run.
+    acquire(&ptable.lock);
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(p->state != RUNNABLE)
+        continue;
+
+      // Switch to chosen process.  It is the process's job
+      // to release ptable.lock and then reacquire it
+      // before jumping back to us.
+      c->proc = p;
+      switchuvm(p);
+      p->state = RUNNING;
+
+      swtch(&(c->scheduler), p->context);
+      switchkvm();
+
+      // Process is done running for now.
+      // It should have changed its p->state before coming back.
+      c->proc = 0;
+    }
+    release(&ptable.lock);
+
+  }
+}
+```
+
+It has a infinit loop and in each loop, it check every process in the `ptable` (process table) until it finds a runnable one. After that, the scheduler use `switchuvm` to load the context from user space. And use `swtch` to run the process. 
+
+I find an intersting fact about the `swtch`, it can't return by itself. The process return to the scheduler by call it again with different parameters `(&p->context, mycpu()->scheduler)`! 
+
+
+
