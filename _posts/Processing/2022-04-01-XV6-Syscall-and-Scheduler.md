@@ -285,4 +285,99 @@ It has a infinit loop and in each loop, it check every process in the `ptable` (
 I find an intersting fact about the `swtch`, it can't return by itself. The process return to the scheduler by call it again with different parameters `(&p->context, mycpu()->scheduler)`! 
 
 
+```s
+# Context switch
+#
+#   void swtch(struct context **old, struct context *new);
+# 
+# Save the current registers on the stack, creating
+# a struct context, and save its address in *old.
+# Switch stacks to new and pop previously-saved registers.
 
+.globl swtch
+swtch:
+  movl 4(%esp), %eax
+  movl 8(%esp), %edx
+
+  # Save old callee-saved registers
+  pushl %ebp
+  pushl %ebx
+  pushl %esi
+  pushl %edi
+
+  # Switch stacks
+  movl %esp, (%eax)
+  movl %edx, %esp
+
+  # Load new callee-saved registers
+  popl %edi
+  popl %esi
+  popl %ebx
+  popl %ebp
+  ret
+
+```
+
+The source code of `swtch` is in `swtch.S`, and it's quite simple but elegant. The first 2 lines would load the parameters to `eax` and `edx`. And the following 4 instructions would save current registers. After that, the `swtch` siwtch the stack by `movl %edx, %esp` (We did store the second parameter in the `edx`). The use 4 `pop` to pop out the new process's registers. If every process follow this convention, store the registers on stack in order, the `swtch` could switch from different process!
+
+
+As we known, not excatly, there are 4 main types of states of a process, including `RUNNABLE`, `RUNNING`, `SLEEPING`, and `ZOMBIE`. The shceduler would run the runnable process, aka changing `RUNNABLE` to `RUNNING`. And there are some other simple transitions which I didn't take a not about:
+1.  `sleep` would change `RUNNING` to `SLEEPING`
+2.  `exit` would change `RUNNING` to `ZOMBIE`
+3.  `awake` would change `SLEEPING` to `RUNNABLE`
+
+So far, we still didn't talk about the last transition.
+That's the transition from `RUNNING` to `RUNABLE`. Some process would be stopped by the CPU forcibly. More specificlly, the timer would send an `IRQ_TIMER` interupt and the CPU would use the `TRAP` function to handle it.
+
+```c
+  // Force process to give up CPU on clock tick.
+  // If interrupts were on while locks held, would need to check nlock.
+  if(myproc() && myproc()->state == RUNNING &&
+     tf->trapno == T_IRQ0+IRQ_TIMER)
+    yield();
+```
+
+The `yield` function is a wrapper of `sched` and `sched` is a wrapper of `swtch` in deed.
+
+```c
+//porc.c
+// Give up the CPU for one scheduling round.
+void
+yield(void)
+{
+  acquire(&ptable.lock);  //DOC: yieldlock
+  myproc()->state = RUNNABLE;
+  sched();
+  release(&ptable.lock);
+}
+// Enter scheduler.  Must hold only ptable.lock
+// and have changed proc->state. Saves and restores
+// intena because intena is a property of this
+// kernel thread, not this CPU. It should
+// be proc->intena and proc->ncli, but that would
+// break in the few places where a lock is held but
+// there's no process.
+void
+sched(void)
+{
+  int intena;
+  struct proc *p = myproc();
+
+  if(!holding(&ptable.lock))
+    panic("sched ptable.lock");
+  if(mycpu()->ncli != 1)
+    panic("sched locks");
+  if(p->state == RUNNING)
+    panic("sched running");
+  if(readeflags()&FL_IF)
+    panic("sched interruptible");
+  intena = mycpu()->intena;
+  swtch(&p->context, mycpu()->scheduler);
+  mycpu()->intena = intena;
+}
+
+```
+
+In above code, the `yield` function changes the state of the process and dives into the `sched` function. And the `sched` function would call `swtch` to give the control back to the `scheduler` after some verbose checks. 
+
+That totally makes sense!
