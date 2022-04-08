@@ -381,3 +381,20 @@ sched(void)
 In above code, the `yield` function changes the state of the process and dives into the `sched` function. And the `sched` function would call `swtch` to give the control back to the `scheduler` after some verbose checks. 
 
 That totally makes sense!
+
+# Process Switching
+
+Trace the process switching.
+
+1. Process A
+2. Timer Interupt
+3. alltraps()
+4. trap() 
+5. yield()
+6. swtch()
+7. scheduler()
+8. swtch()
+9. yeild()
+10. trap()
+11. alltraps()
+12. Process B
