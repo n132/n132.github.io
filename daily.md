@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-04-09
+	* PlaidCTF helps me to Find How Laji I AM
+	* I need more knowledge
+
 # AD2022-04-07
 	* Homework days
   
