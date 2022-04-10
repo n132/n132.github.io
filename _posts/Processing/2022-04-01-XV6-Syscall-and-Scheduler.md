@@ -5,12 +5,12 @@ tags:
 layout: default
 ---
 
-# Syscall
+# 0x00 Syscall
 
 In this section we would review the syscall from both high level and low level!
 Also, we would also go through other similar mechanisms, such as the interupt, to have a more clear view of the operation system. Let's start from something simple, adding a system call.
 
-# sys_n132
+# 0x01 sys_n132
 
 In this section, we gonna add a new syscall SYS_n132 to the xv6 system! We need to moddify the source code There are 5 related Files: `syscall.h`, `syscall.c`, `sysproc.c`, `usys.S`, and `user.h`.
 
@@ -98,7 +98,7 @@ exit(1);
 ```
 
 
-# Strace the syscall
+# 0x02 Trace the syscall
 
 We can trigger a syscall by using some user space interfaces, such as exit. 
 
@@ -239,7 +239,7 @@ So far, the whole procedure of the syscall finished.
 
 ---
 
-# scheduler
+# 0x03 scheduler
 
 In the `boot` part, the CPU would start their work by running the `scheduler`. We can find the source code of this function in `proc.c`. This piece of code is super important. It would be run so many times very second. 
 ```c
@@ -382,7 +382,7 @@ In above code, the `yield` function changes the state of the process and dives i
 
 That totally makes sense!
 
-# Process Switching
+# 0x04 Process Switching
 
 Trace the process switching.
 
