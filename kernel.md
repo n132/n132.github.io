@@ -40,18 +40,34 @@ insmod /pwn.ko
 echo -e "Boot took $(cut -d' ' -f1 /proc/uptime) seconds"
 setsid /bin/cttyhack setuidgid 0 /bin/sh
 poweroff -f
+```
+# TestCase Template
+```c
 
 ```
-
-# Compile
+# Compile-the-Testcase
 ```s
 obj-m += <name>.o
 
-KDIR =/home/n132/dev/kernel/linux-5.4.98/
+KDIR =/home/n132/Desktop/kernel/linux-5.4.98/
 
 all:
     $(MAKE) -C $(KDIR) M=$(PWD) modules
 
 clean:
     rm -rf *.o *.ko *.mod.* *.symvers *.order
+```
+
+# Filesystem
+```s
+wget https://busybox.net/downloads/busybox-1.32.1.tar.bz2
+cd busybox-1.32.1
+make -j8 bzImage
+make install
+cd _install
+mkdir -p  proc sys dev etc/init.d
+vim init
+chmod +x ./init
+cd /home/n132/Desktop/kernel
+cp -r ./busybox-1.32.1/_install .
 ```
