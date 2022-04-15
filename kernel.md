@@ -71,3 +71,18 @@ chmod +x ./init
 cd /home/n132/Desktop/kernel
 cp -r ./busybox-1.32.1/_install .
 ```
+
+# Gef
+
+Installation 
+```s
+wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py
+echo "source /home/n132/.gdbinit-gef.py" >> ~/.gdbinit
+```
+
+Debugger
+```
+set architecture i386
+gef-remote --qemu-mode localhost:1234
+file ./vmlinux
+```
