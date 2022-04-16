@@ -4,6 +4,7 @@ title: Kernel
 permalink: /kernel/
 ---
 Kernel Cheatsheet
+
 # Run
 ```
 #!/bin/sh
@@ -17,10 +18,12 @@ qemu-system-x86_64 \
     -cpu kvm64
 
 ```
+
 # pack the filesystem
 ```s
 find . | cpio -o --format=newc > ../rootfs.img
 ```
+
 # unpack the filesystem
 ```s
 cpio -idmv < rootfs.img
