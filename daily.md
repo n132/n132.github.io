@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-04-17
+	* Learned some baby Kernel Pwn
+
 # AD2022-04-09
 	* PlaidCTF helps me to Find How Laji I AM
 	* I need more knowledge
