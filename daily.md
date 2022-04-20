@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-04-19
+	* HW days
+
 # AD2022-04-17
 	* Learned some baby Kernel Pwn
 
