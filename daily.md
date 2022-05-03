@@ -5,8 +5,17 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-05-02
+	* OS Finished
+	* OFFsec Finished
+
+# AD2022-04-25
+	* Course Registration
+	* OS Quizz
+
 # AD2022-04-23
 	* Paritally Finish OS-HW FINAL 
+
 # AD2022-04-23
 	* OS-HW5 Finished
   
