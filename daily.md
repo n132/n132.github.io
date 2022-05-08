@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-05-07
+	* All day chill
+	* 吾日三醒吾身，不能再这样下去了，干点有意义的事情。
+
 # AD2022-05-05
 	* CN-HW6 Finished
 
