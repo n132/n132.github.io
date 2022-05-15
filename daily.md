@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-05-14
+	* grading
+
 # AD2022-05-12
 	* Finish all finals
 	* Had a lovely shushi and movie night
