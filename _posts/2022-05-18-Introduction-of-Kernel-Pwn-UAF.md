@@ -1,5 +1,5 @@
 ---
-title: "Introduction of Kernel Exploitations: UAF"
+title: "Introduction of Kernel Pwn: UAF"
 date: 2022-05-18 17:52:21
 tags: 
 layout: default
@@ -12,7 +12,7 @@ This post would not go too deep into the kernel because I am too weak to do that
 
 # 0x01 UAF
 
-In kernel, we could also use `malloc` `kfree` to allocate and return kernel heap chunks. But the management mechanism is a different from in user mode. I didn't know `slab` machenism as all. And I'll start with a simple challenge and go through the exploit script to demonstrate the steps in kernel UAF exploitation. You can get the attachments at this [repo][2]. I'll go through this and provide two different solutions. The first one is a simple one while the second one more general.
+In kernel, we could also use `malloc` `kfree` to allocate and return kernel heap chunks. But the management mechanism is different from in user mode. I didn't know the `slab` mechanism at all. And I'll start with a simple challenge and go through the exploit script to demonstrate the steps in kernel UAF exploitation. You can get the attachments at this [repo][2]. I'll go through this and provide two different solutions. The first one is a simple one while the second one is more general.
 
 # 0x02 Analysis
 
@@ -28,7 +28,7 @@ qemu-system-x86_64 -initrd rootfs.cpio -kernel bzImage \
 cores=1,threads=1 -cpu kvm64,+smep
 ```
 
-This challenge runs with `smep`. But, in the first solution this we don't need to care about the metigation. 
+This challenge runs with `smep`. But, in the first solution, we don't need to care about the mitigation. 
 Then let's check the `init` script in the file system.
 
 ```sh
@@ -88,7 +88,7 @@ int __fastcall babyrelease(inode *inode, file *filp)
 }
 ```
 
-The most important two functions are `babyioctl` and `babyrelease`. It's important to notice there is no sycronization in this device and the `babydev_struct` is a global varible. So we could use after free by following code.
+The most important two functions are `babyioctl` and `babyrelease`. It's important to notice there is no synchronization in this device and the `babydev_struct` is a global variable. So we could trigger the UAF by the following code.
 ```sh
 a = open()
 b = open()
@@ -135,58 +135,58 @@ int main()
 ```
 
 # 0x04 Solution II 
-This is a more general and useful solution, for kernel UAF pwn, `/dev/ptmx` is a good candidate to exploit because the there is a cool element in `tty_stuct` named `const struct tty_operations *ops;`. You can find the souce code of `tty_struct` at this [link][4] and `tty_operations` at this [link][5]. 
+This is a more general and useful solution, for kernel UAF pwn, `/dev/ptmx` is a good candidate to exploit because there is a cool element in `tty_stuct` named `const struct tty_operations *ops;`. You can find the source code of `tty_struct` at this [link][4] and `tty_operations` at this [link][5]. 
 
 It's a struct about the function points.
 ```c
 struct tty_operations {
-	struct tty_struct * (*lookup)(struct tty_driver *driver,
-			struct file *filp, int idx);
-	int  (*install)(struct tty_driver *driver, struct tty_struct *tty);
-	void (*remove)(struct tty_driver *driver, struct tty_struct *tty);
-	int  (*open)(struct tty_struct * tty, struct file * filp);
-	void (*close)(struct tty_struct * tty, struct file * filp);
-	void (*shutdown)(struct tty_struct *tty);
-	void (*cleanup)(struct tty_struct *tty);
-	int  (*write)(struct tty_struct * tty,
-		      const unsigned char *buf, int count);
-	int  (*put_char)(struct tty_struct *tty, unsigned char ch);
-	void (*flush_chars)(struct tty_struct *tty);
-	int  (*write_room)(struct tty_struct *tty);
-	int  (*chars_in_buffer)(struct tty_struct *tty);
-	int  (*ioctl)(struct tty_struct *tty,
-		    unsigned int cmd, unsigned long arg);
-	long (*compat_ioctl)(struct tty_struct *tty,
-			     unsigned int cmd, unsigned long arg);
-	void (*set_termios)(struct tty_struct *tty, struct ktermios * old);
-	void (*throttle)(struct tty_struct * tty);
-	void (*unthrottle)(struct tty_struct * tty);
-	void (*stop)(struct tty_struct *tty);
-	void (*start)(struct tty_struct *tty);
-	void (*hangup)(struct tty_struct *tty);
-	int (*break_ctl)(struct tty_struct *tty, int state);
-	void (*flush_buffer)(struct tty_struct *tty);
-	void (*set_ldisc)(struct tty_struct *tty);
-	void (*wait_until_sent)(struct tty_struct *tty, int timeout);
-	void (*send_xchar)(struct tty_struct *tty, char ch);
-	int (*tiocmget)(struct tty_struct *tty);
-	int (*tiocmset)(struct tty_struct *tty,
-			unsigned int set, unsigned int clear);
-	int (*resize)(struct tty_struct *tty, struct winsize *ws);
-	int (*set_termiox)(struct tty_struct *tty, struct termiox *tnew);
-	int (*get_icount)(struct tty_struct *tty,
-				struct serial_icounter_struct *icount);
-	int  (*get_serial)(struct tty_struct *tty, struct serial_struct *p);
-	int  (*set_serial)(struct tty_struct *tty, struct serial_struct *p);
-	void (*show_fdinfo)(struct tty_struct *tty, struct seq_file *m);
+    struct tty_struct * (*lookup)(struct tty_driver *driver,
+            struct file *filp, int idx);
+    int  (*install)(struct tty_driver *driver, struct tty_struct *tty);
+    void (*remove)(struct tty_driver *driver, struct tty_struct *tty);
+    int  (*open)(struct tty_struct * tty, struct file * filp);
+    void (*close)(struct tty_struct * tty, struct file * filp);
+    void (*shutdown)(struct tty_struct *tty);
+    void (*cleanup)(struct tty_struct *tty);
+    int  (*write)(struct tty_struct * tty,
+              const unsigned char *buf, int count);
+    int  (*put_char)(struct tty_struct *tty, unsigned char ch);
+    void (*flush_chars)(struct tty_struct *tty);
+    int  (*write_room)(struct tty_struct *tty);
+    int  (*chars_in_buffer)(struct tty_struct *tty);
+    int  (*ioctl)(struct tty_struct *tty,
+            unsigned int cmd, unsigned long arg);
+    long (*compat_ioctl)(struct tty_struct *tty,
+                 unsigned int cmd, unsigned long arg);
+    void (*set_termios)(struct tty_struct *tty, struct ktermios * old);
+    void (*throttle)(struct tty_struct * tty);
+    void (*unthrottle)(struct tty_struct * tty);
+    void (*stop)(struct tty_struct *tty);
+    void (*start)(struct tty_struct *tty);
+    void (*hangup)(struct tty_struct *tty);
+    int (*break_ctl)(struct tty_struct *tty, int state);
+    void (*flush_buffer)(struct tty_struct *tty);
+    void (*set_ldisc)(struct tty_struct *tty);
+    void (*wait_until_sent)(struct tty_struct *tty, int timeout);
+    void (*send_xchar)(struct tty_struct *tty, char ch);
+    int (*tiocmget)(struct tty_struct *tty);
+    int (*tiocmset)(struct tty_struct *tty,
+            unsigned int set, unsigned int clear);
+    int (*resize)(struct tty_struct *tty, struct winsize *ws);
+    int (*set_termiox)(struct tty_struct *tty, struct termiox *tnew);
+    int (*get_icount)(struct tty_struct *tty,
+                struct serial_icounter_struct *icount);
+    int  (*get_serial)(struct tty_struct *tty, struct serial_struct *p);
+    int  (*set_serial)(struct tty_struct *tty, struct serial_struct *p);
+    void (*show_fdinfo)(struct tty_struct *tty, struct seq_file *m);
 #ifdef CONFIG_CONSOLE_POLL
-	int (*poll_init)(str
+    int (*poll_init)(str
     
     uct tty_driver *driver, int line, char *options);
-	int (*poll_get_char)(struct tty_driver *driver, int line);
-	void (*poll_put_char)(struct tty_driver *driver, int line, char ch);
+    int (*poll_get_char)(struct tty_driver *driver, int line);
+    void (*poll_put_char)(struct tty_driver *driver, int line, char ch);
 #endif
-	int (*proc_show)(struct seq_file *, void *);
+    int (*proc_show)(struct seq_file *, void *);
 } __randomize_layout;
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: "Introduction of Kernel Exploitations: userfaultfd"
+title: "Introduction of Kernel Pwn: userfaultfd"
 date: 2022-05-20 18:52:21
 tags: 
 layout: default
@@ -12,9 +12,9 @@ This post would not go too deep into the kernel because I am too weak to do that
 
 # 0x01 userfaultfd
 
-It's a common trick used in kernel race condition exploitation. In general, it allows us to pause a thread so that it could be easier to trigger race condition.
+It's a common trick used in kernel race condition exploitation. In general, it allows us to pause a thread so that it could be easier to trigger race conditions.
 
-More specifically, we use `userfaultfd` to create a handler for a specific page. In exploitation cases, the `copy_from_user` may trigger handler so that we have the ability to pause a thread.
+More specifically, we use `userfaultfd` to create a handler for a specific page. In exploitation cases, the `copy_from_user` may trigger a handler so that we can pause a thread.
 
 I use the module from CTF-Wiki: 
 ```c
@@ -81,13 +81,13 @@ void* userfaultfd_leak_handler(void* arg)
 // RegisterUserfault(example,userfaultfd_leak_handler);
 ```
 
-Due to lack understanding of this this exploitation, I only write down the gist of exp and you can get more detailed passage on this [link][2]
+I don't know the trick well so I only write down the gist of exp and you can get a more detailed passage on this [link][2]
 
 # 0x02 Analysis
 
 [attachment][3]
 
-The vulnerability is about the sycronization. Although there are some syncronization mechanisms, there is only `read_lock` in `add` and `edit` so that the size could be rewrite after free. 
+The vulnerability is about synchronization. Although there are some synchronization mechanisms, there is only `read_lock` in `add` and `edit` so that the size could be rewritten for free. 
 
 1. Assume there are two steps in `add`(A:getsize & B:allocate) and two steps in `edit`(A:getsize & B:reallocate).
 2. There are 6 different conditions could happen if these steps happent in different order
@@ -102,11 +102,11 @@ There is a simple UAF if the steps happen in the following order:
 
 # 0x03 Exploit
 
-I didn't pay much time to review the details in the exploit script and only reproduce it by imitating so the explaination would be very limit.
+I didn't pay much time to review the details in the exploit script and only reproduce it by imitating so the explanation would be very limit.
 
-1. The main idea is control a tty fd and modify the ops table.
+1. The main idea is to control a tty fd and modify the ops table.
 2. We can use `work_for_cpu_fn` to run arbitrary function with our parameter
-3. There is a little limit about `write`. The element would be changed before trigger `work_forcpu_fn`
+3. There is a little limit about `write`. The element would be changed before triggering `work_forcpu_fn`
 4. In chaitin's script, they hijack ioctl and use `ioctl(233,233)` to correctly trigger `work_forcpu_fn` without modifying our parameters.
 
 

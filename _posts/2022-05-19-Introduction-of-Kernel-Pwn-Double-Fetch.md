@@ -1,5 +1,5 @@
 ---
-title: "Introduction of Kernel Exploitations: Double Fetch"
+title: "Introduction of Kernel Pwn: Double Fetch"
 date: 2022-05-19 17:52:21
 tags: 
 layout: default
@@ -14,11 +14,11 @@ This post would not go too deep into the kernel because I am too weak to do that
 
 ![Double Fetch from CTF-Wiki](/Figures/Kernel/double-fetch.png)
 
-Double fetch is a kind of race condition. Most situation the kernel would get the data from user space by `copy_from_user`. But while dealing with complex data structure, the kernel read the data from user space by a pointer. So there is a race condition:
+Double fetch is a kind of race condition. In most situations, the kernel would get the data from user space by `copy_from_user`. But while dealing with complex data structures, the kernel read the data from userspace by a pointer. So there is a race condition:
 ```c
 kernel  : get the data and perform some check
-users   : change the data
-kernel  : perfrom options to the data
+user   : change the data
+kernel  : perform options to the data
 ```
 
 # 0x02 Double Fetch Attack
@@ -54,13 +54,13 @@ __int64 __fastcall domain(__int64 a1, int a2, node *a3)
   }
 }
 ```
-The function could leak the address of the flag. And We are asked to give a struct which includes a pointer and a inter which represent its length. Before comparing the given string and the true flag, the program checks if the given address is in current task's memspace, which means we can't provide the address of real flag to bypass the comparation. However, we can use `double fetch` bypass the check and comparation because there is no syncronization to avoid race condition.
+The function could leak the address of the flag. And We are asked to give a struct that includes a pointer and an inter which represent its length. Before comparing the given string and the true flag, the program checks if the given address is in the current task's mem space, which means we can't provide the address of the real flag to bypass the comparison. However, we can use `double fetch` to bypass the check and comparison because there is no synchronization to avoid race conditions.
 
 The basic idea is 
 - Brute force the length of the real flag
-- Creat a thread to send valid payload
-- The main thread keep modify the ptr to point to the real flag
-- Stop when retruning 0
+- Create a thread to send a valid payload
+- The main thread keeps modifying the ptr to point to the real flag
+- Stop when returning 0
 
 ```c
 #include <string.h>
@@ -133,7 +133,7 @@ int main()
 }
 ```
 # 0x03 SileChannel Attack
-Also, because the device would compare the string byte by byte so that we can place our payload at the end of page to burte force the password byte by byte. 
+Also, the device would compare the string byte by byte so that we can place our payload at the end of the page to brute force the password byte by byte. 
 
 ```c
 #include <string.h>
@@ -176,7 +176,7 @@ int main()
 ```
 # 0x04 Summary
 
-These two tricks could be used on kernel string comparation challenges.
+These two tricks could be used on kernel string comparison challenges.
 
 [1]: https://github.com/ctf-wiki/ctf-challenges/tree/master/pwn/kernel
 [2]: https://github.com/n132/attachment/tree/main/0CTF_2018/babykernel

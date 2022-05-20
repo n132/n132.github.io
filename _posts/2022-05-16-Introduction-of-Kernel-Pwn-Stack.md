@@ -1,5 +1,5 @@
 ---
-title: "Introduction of Kernel Exploitations: Stack Overflow"
+title: "Introduction of Kernel Pwn: Stack Overflow"
 date: 2022-05-16 19:09:21
 tags: 
 layout: default
