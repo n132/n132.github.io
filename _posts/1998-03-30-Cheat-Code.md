@@ -1154,28 +1154,17 @@ CDQ     双字扩展. (把EAX中的字的符号扩展到EDX中去)
 ## armpwn
 ### qemu
 `apt-get install qemu`
+
 ### lib
 `sudo apt-get install -y gcc-arm-linux-gnueabi`
+
 ### run
 `qemu-arm -g 1234 -L /usr/arm-linux-gnueabi ./pwn`
+
 ### debug
 `gdb-multiarch pwn`
 *remote*
 `target remote:1234`
-## sed
-p 输出
-i 插入
-a 追加
-d 删除
-c 替换(行)
-s 替换(指定)
--n 取消默认输出
--e 多个子命令
--i 结果作用于文件
-\re\ re定位
-查看特定区域`sed "1,3p" ./tmp`
-插入&输出`sed -n -e '2 i DEADBEEF' -e 'p' ./test`
-追加&输出`sed -n -e '2 a BADBOY' -e p ./test`
 
 ## patch & diff
 产生补丁文件:
@@ -1183,13 +1172,6 @@ s 替换(指定)
 应用补丁文件:
 `patch -p0 < patch`
 这里的p0表示当前目录.如p1表示上一级.
-
-# address sanitizer
-[保护机制][8]
-`gcc -fsanitize=address` 开启
-
-# Ghidra
-[intstallation][9]
 
 # MIPS or MIPSEL
 compile
@@ -1199,9 +1181,48 @@ sudo apt-get install libc6-mipsel-cross libc6-dev-mipsel-cross
 sudo apt-get install binutils-mipsel-linux-gnu gcc-mipsel-linux-gnu
 sudo apt-get install g++-mipsel-linux-gnu
 ```
-# Seccomp
-```
-sudo apt install seccomp libseccomp-dev -y
+
+# IEEE754
+```python
+from decimal import *
+def _bin_idx(sig,i):
+    if(sig&(1<<i)!=0):
+        return 1
+    else:
+        return 0
+def n132_pow(a,b):
+    if b == 0:
+        return Decimal(1)
+    aa = Decimal(a)
+    bb = Decimal(b)
+    if(bb<0):
+        aa = Decimal(1) / Decimal(a)
+        bb = -bb
+    res = aa
+    for x in range(bb-1):
+        res*=aa
+    return res
+def _sum_significand(sig):
+    res = Decimal(0)
+    for x in range(1,53):
+        res+=n132_pow(2,-x)*Decimal(_bin_idx(sig,52-x))
+    return res
+
+def u2d(addr=0x555555770000,log=0):
+    sign = addr>>63
+    exponent = (addr&(0x7fffffffffffffff))>>52
+    significand= ((addr&0x000fffffffffffff))
+    value = n132_pow(-1,sign) * n132_pow(2,exponent-1022) * _sum_significand(significand)
+    if(log):
+        print("Sign: "+hex(sign))
+        print("Exponent: "+hex(exponent))
+        print("Significand: "+hex(significand))
+        print("Double (IEEE 754): ")
+        print(value)
+    return value
+getcontext().prec = 50
+if __name__ == "__main__":
+    u2d()
 ```
 
 [1]: https://blog.csdn.net/chdhust/article/details/8495921
@@ -1211,5 +1232,3 @@ sudo apt install seccomp libseccomp-dev -y
 [5]: http://syscalls.kernelgrok.com/
 [6]: https://github.com/geohot/qira/pull/203
 [7]: https://zhuanlan.zhihu.com/p/31918676
-[8]: https://www.jianshu.com/p/3a2df9b7c353
-[9]: https://www.cyberpunk.rs/ghidra-software-reverse-engineering-framework
