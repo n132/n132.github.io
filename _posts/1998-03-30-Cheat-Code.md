@@ -10,6 +10,11 @@ Updating
 
 ## Start
 
+## apt update with old-released
+
+```s
+replace ubuntu/security with old-released
+```
 
 ## pwntools EOF
 ```python
