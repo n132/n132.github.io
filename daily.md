@@ -6,6 +6,9 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 # AD2022-05-27
+	* DEFCON QUAL
+
+# AD2022-05-27
 	* PWNABLE 500+500+200
 
 # AD2022-05-20
