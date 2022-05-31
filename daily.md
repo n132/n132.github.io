@@ -5,7 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2022-05-27
+# AD2022-05-30
+	* Back to normal study life
+  
+# AD2022-05-29
 	* DEFCON QUAL
 
 # AD2022-05-27
