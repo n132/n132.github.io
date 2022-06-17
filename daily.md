@@ -6,6 +6,9 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 # AD2022-06-16
+	* Last day for preparing TOEFL Test
+
+# AD2022-06-16
 	* Have been working on Language Test for Two weeks
 
 # AD2022-05-30
