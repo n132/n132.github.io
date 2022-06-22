@@ -52,7 +52,7 @@ python -c "import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOC
 
 ## pwntools can't attach
 
-`pip install -U pwntools==4.2.0b0`
+`pip install -U pwntools==4.8.0b0`
 
 ## Git SSL verify 
 
