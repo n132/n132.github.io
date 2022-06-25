@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-06-28
+	* babyallocator finished
+
 # AD2022-06-16
 	* Last day for preparing TOEFL Test
 
