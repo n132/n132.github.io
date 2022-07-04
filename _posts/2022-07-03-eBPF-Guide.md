@@ -14,16 +14,19 @@ First, it could be used to require the folks run complex instruction rather than
 
 The second type of challenge would focus on a specific syscall. The challenge author wants to introduce a specific syscall to the people and (s)he would forbid (part of) basic syscalls such as execve, open, ... And the filter would be like a blacklist. From this type of challenges, I learned tremendous interesting syscalls and I'll just introduce some of them in this passage.
 
-The third type of challenge would focus more on the eBPF/Seccomp itself. It would give a wrong configured filter so it's more like a sandbox escaping challenge rather than a pwn challenge. There are kinds of basic escaping skills 
+The third type of challenge would focus more on the eBPF/Seccomp itself. It would give a wrong configured filter so it's more like a sandbox escaping challenge rather than a pwn challenge. We would go through kinds of basic escaping skills. 
 
-* The First challenge is the most typical one
+
+The fourth type is different from traditional CTF pwn challenge, it would implement another layer, for example a monitor, to mimic the real seccomp in the kernel. And we are seposed to write a binary to escape from the sandbox(the monitor). It's hard to see this type of challenge because it require tremendous work to build a sandbox. The most typical one is s2 in googlectf 2022. This challenge is also the original reasons why I wrote this passage. I know little abotu seccom before gctf 2022 and I spent two days on challenge. Although I didn't solve it, I learned a lot and it worth a write up.
+
+This passage would focus on seccomp itself and would simply talk about the bypass solution for every type. Also, I provided one challenge for every type:
 
 | Type | Challenges|
 |--|--|
-|0x1| [pwnable.tw-orw][0], [0CTF-NaiveHeap][4] |
-|0x2| [sbnote][3] |
-|0x3| orw|
-|0x1| orw|
+|0x1| [orw][0], [NaiveHeap][4] |
+|0x2| [sbnote][3], [sycall kit][5] |
+|0x3| [steak][6], [babypf][7]|
+|0x4| This passage |
 
 # 0x01 Seccomp
 If you run `man 2 seccomp`, you would get the man page of the wrapper of syscall seccomp and it's one of the baisc interfaces to the user space.
@@ -245,3 +248,6 @@ It's known that we can't use `SYS_seccomp` to change applied ebpf rules.
 [2]: https://github.com/google/sandboxed-api
 [3]: https://n132.github.io/2022/03/24/sbnote.html
 [4]: https://n132.github.io/2021/10/01/NaiveHeap.html
+[5]: https://ctftime.org/writeup/18792
+[6]: https://n132.github.io/2018/11/25/NUCA-Steak.html
+[7]: https://github.com/yvrctf/2015/tree/master/babyplaypenfence
