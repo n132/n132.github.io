@@ -188,7 +188,7 @@ In main function, the program would read binary from users and run the program w
 
 ## Background Knowledge
 
-It's known that we can't use `SYS_seccomp` to change applied ebpf rules. and 
+It's known that we can't use `SYS_seccomp` to change applied ebpf rules. 
 
 
 [1]: https://github.com/david942j/seccomp-tools
