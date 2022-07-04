@@ -10,6 +10,15 @@ Updating
 
 ## Start
 
+## Compile ASM Code with GCC
+
+- Write asm code and compile it to obj file
+- Compile the c code to obj file
+- link them together
+- Use `-no-pie` `--static` to keep everything simple
+
+[sample code][8]
+
 ## get-pip
 ```
 wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
@@ -1243,3 +1252,4 @@ if __name__ == "__main__":
 [5]: http://syscalls.kernelgrok.com/
 [6]: https://github.com/geohot/qira/pull/203
 [7]: https://zhuanlan.zhihu.com/p/31918676
+[8]: ../code/CompileAsmwithGcc/
