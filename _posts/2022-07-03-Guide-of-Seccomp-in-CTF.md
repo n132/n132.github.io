@@ -1,5 +1,5 @@
 ---
-title: "Guide-of-CTF-Seccomp"
+title: "Guide-of-Seccomp-in-CTF"
 date: 2022-07-03 18:52:21
 tags: 
 layout: default
@@ -232,7 +232,7 @@ int main(void){
 
 We have learned the basic usage of seccomp and there still are some specical features left, I decide to left it until we meet related challenges. For my experience of CTF pwning, as I said in prologue, I think there are mainly four types of seccomp challenges and we would quickly go through these tyeps to reach today's main topic (s2).
 
-## Type 1
+## ORW
 
 The main purpose of this type of challenges is asking for more advanced controling of the binary rather than exploiting with one_gadget. And this type of challenge would include a whiltelist of syscalls.  There are several tricks that we can use to bypass seccomp and achive more advanced control of the binary:
 
@@ -240,7 +240,7 @@ The main purpose of this type of challenges is asking for more advanced controli
 - ROP to ORW
 - Use seccontext to exploit and run our ROPCHAIN/Shellcode to ORW 
 
-## Type 2
+## Substitutes
 
 The main purpose of this type of introduce some syscalls to people and this type of challenge would include a blacklist of syscalls. 
 
@@ -290,9 +290,9 @@ INFI_LOOP:
 	hlt
 ```
 
-## Type 3
+## Improper Filters
 
-In this type of challenges, inproper filters are applied to the program so we could escape from the sandbox. To two triks bypass inproper filters.
+In this type of challenges, Improper filters are applied to the program so we could escape from the sandbox. To two triks bypass Improper filters.
 
 * Retf to X86 from X64
 * x32 ABI
@@ -328,54 +328,11 @@ A = 0x40000000 + sys_read
 syscall(A,x,x,x);
 ```
 
-## Type 4
+## S2
+
+This type of challenge is special and I'll intro it in this [writeup][].
 
 
-# 0x03 challenge S2
-
-## Intro
-It's a challenge based on [sandboxed-api@google][2], which is a c/c++ library. With this library, we can create our sandbox policy and apply to a executor(a program). While running, the sandbox would monitor the syscalls of sandboxee(the running progress in sandbox). 
-
-The following code is the source code of the challenge and in this challenge, our goal is writing a program and use it read a file in the sandbox with limited syscalls.
-
-
-```c++
-...
-int main() {
-    ...
-  int fd = ReadBinary();
-  std::string path = absl::StrCat("/proc/", getpid(), "/fd/", fd);
-  auto policy = sandbox2::PolicyBuilder()
-    .AllowStaticStartup()
-    .AllowFork()
-    .AllowSyscalls({
-      __NR_seccomp,
-      __NR_ioctl,
-    })
-    .AllowExit()
-    .AddFile(sapi::file_util::fileops::MakeAbsolute("flag", sapi::file_util::fileops::GetCWD()))
-    .AddDirectory("/dev")
-    .AddDirectory("/proc")
-    .AllowUnrestrictedNetworking()
-    .BuildOrDie();
-  std::vector<std::string> args = {"sol"};
-  auto executor = std::make_unique<sandbox2::Executor>(path, args);
-  sandbox2::Sandbox2 sandbox(std::move(executor), std::move(policy));
-  sandbox2::Result result = sandbox.Run();
-  if (result.final_status() != sandbox2::Result::OK) {
-    warnx("Sandbox2 failed: %s", result.ToString().c_str());
-  }
-}
-```
-
-In main function, the program would read binary from users and run the program with the sandbox policy.  As you can see, it's quite simple. We don't even have some basic syscalls, such as open, read, and write. However, we have some extra syscalls to help us escape from the sandbox, including fork, clone, seccomp, ioctl. It's actually a great hint of the challenge but I didn't notice that. 
-
-## Background Knowledge
-
-It's known that we can't use `SYS_seccomp` to change applied bpf rules. 
-
-
-# Tricks
 
 
 [0]: https://pwnable.tw/challenge/#2
@@ -387,3 +344,4 @@ It's known that we can't use `SYS_seccomp` to change applied bpf rules.
 [6]: https://n132.github.io/2018/11/25/NUCA-Steak.html
 [7]: https://github.com/yvrctf/2015/tree/master/babyplaypenfence
 [8]: https://man7.org/linux/man-pages/man2/prctl.2.html
+[9]: s2
