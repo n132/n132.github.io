@@ -1,5 +1,5 @@
 ---
-title: "CTF-Seccomp-Guide"
+title: "Guide-of-CTF-Seccomp"
 date: 2022-07-03 18:52:21
 tags: 
 layout: default
@@ -30,13 +30,16 @@ This passage would focus on seccomp itself and would simply talk about the bypas
 
 # 0x01 Seccomp
 
+
+This section would have a short intro to seccomp by showing you how to build a seccomp sandbox. 
+
 `https://man7.org/linux/man-pages/man2/seccomp.2.html`
 
 If you run `man 2 seccomp`, you would get the man page of the wrapper of syscall seccomp and it's one of the baisc interfaces to the user space.
 
 I hated verbose man page, but I found that's exact the most percise info that I should start with. It would include introduction for different arguments and recent new features that you can hardly find in old summary passages. In addition, there are plenty of samples which could be used to create some test cases. A main reason, for what I can't solve S2, is I didn't read the man page. If I read it, it's not hard to connect ioctl and seccomp.
 
-okay, let's back to the seccomp,
+okay, let's come back to the seccomp,
 
 `int seccomp(unsigned int operation, unsigned int flags, void *args);`
 
@@ -63,6 +66,17 @@ The most significant one is `SECCOMP_SET_MODE_FILTER`, we can use it to apply ou
 #include <linux/filter.h>
 
 using namespace std;
+
+// struct sock_filter {	/* Filter block */
+// 	__u16	code;   /* Actual filter code */
+// 	__u8	jt;	/* Jump true */
+// 	__u8	jf;	/* Jump false */
+// 	__u32	k;      /* Generic multiuse field */
+// };
+// struct sock_fprog {	/* Required for SO_ATTACH_FILTER. */
+// 	unsigned short		len;	/* Number of filter blocks */
+// 	struct sock_filter *filter;
+// };
 
 int main(){
     struct sock_filter filter[] = {
@@ -111,72 +125,79 @@ As you can see, I wrote a filter and applied it. It's actually a vulenrabily san
  0007: 0x06 0x00 0x00 0x80000000  return KILL_PROCESS
 ```
 
-With seccomp-tools, we 
+With seccomp-tools, we could see the bpf code clearly. Berkeley Packet Filter(in seccomp) is a technology used to analysis the syscalls. It's like a kind of small program and our syscall number is its inputs. As a result, the small bpf program would tell us if this syscall is allowed to be executed. 
 
+According to the above code, bpf would take our syscall number and judge if it's one of (open, read and write). If it's one of them, the process is killed by `SIGSYS`.
 
+Also, we can only use prctl to create a seccomp sandbox.
 
-
-
-# 0x02 Seccomp in CTF
-
- 
-# Examples
-I'll write the examples in more basic ways to learn more details about seccomp. 
-## 
-```c++
-#include <seccomp.h>
+```c
 #include <unistd.h>
-#include <syscall.h>
-#include <iostream>
-using namespace std;
-
-int main(){
-    // STRICT MODE 
-    syscall(__NR_seccomp,SECCOMP_SET_MODE_STRICT,0,0);
-    syscall(__NR_write,1,"Read, write, and exit are avaliable\n",37);
-    char buf[0x10]={};
-    syscall(__NR_read,0,buf,0xf);
-    syscall(__NR_write,1,"But fork is forbidden\n",23);
-    fork();
-}
-```
-## linux/seccomp
-```python
-//gcc -g simple_syscall_seccomp.c -o simple_syscall_seccomp -lseccomp
-#include <unistd.h>
-#include <seccomp.h>
+#include <sys/prctl.h>
+#include <linux/filter.h>
 #include <linux/seccomp.h>
-
+#include <syscall.h>
 int main(void){
-	scmp_filter_ctx ctx;
-	ctx = seccomp_init(SCMP_ACT_KILL);
-	seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(execve), 0);
-	seccomp_load(ctx);
-
-	char * filename = "/bin/sh";
-	char * argv[] = {"/bin/sh",NULL};
-	char * envp[] = {NULL};
-	write(1,"Shell Test\n",24);
-	syscall(59,filename,argv,envp);//execve
+	struct sock_filter filter[] = {
+        {0x20,0x00,0x00,0x00000000},
+        {0x15,0x00,0x01,0x00000002},
+        {0x06,0x00,0x00,0x7fff0000},
+        {0x15,0x00,0x01,0x00000000},
+        {0x06,0x00,0x00,0x7fff0000},
+        {0x15,0x00,0x01,0x00000001},
+        {0x06,0x00,0x00,0x7fff0000},
+        {0x06,0x00,0x00,0x80000000},
+	};
+    struct sock_fprog prog = {
+        .len = sizeof(filter) / sizeof(filter[0]),
+        .filter = filter,
+    };
+    syscall(__NR_prctl,PR_SET_NO_NEW_PRIVS,1,0,0,0);
+    // Apply the filter.
+	syscall(__NR_prctl,PR_SET_SECCOMP,SECCOMP_MODE_FILTER,&prog);
+    // Fork is forbidden 
+    fork();
 	return 0;
 }
 ```
 
-## prctl
+Above code is actually almost same as the previous program, as I got the filter from the dumped data of `seccomp-tools`. The only difference is that we use `__NR_prctl` rather than `__NR_seccomp` to create the sandbox.
 
-Struction of filter:
+These two program are quite simple and straitforward but as I said, the above code is vulnerabile don't use it in your program <3. Now we know the what's seccomp and how to use seccomp to create syscall filter. 
+
+## More high_level samples
+
+The following code create a seccomp sandbox which only allows SYS_write. It use several functions in seccomp library, including "seccomp_init", "seccomp_rule_add", "seccomp_load". 
 ```c
-struct sock_filter {	/* Filter block */
-	__u16	code;   /* Actual filter code */
-	__u8	jt;	/* Jump true */
-	__u8	jf;	/* Jump false */
-	__u32	k;      /* Generic multiuse field */
-};
-struct sock_fprog {	/* Required for SO_ATTACH_FILTER. */
-	unsigned short		len;	/* Number of filter blocks */
-	struct sock_filter *filter;
-};
+//gcc -no-pie --static simple_syscall_seccomp.c -o simple_syscall_seccomp -lseccomp
+#include <unistd.h>
+#include <seccomp.h>
+#include <linux/seccomp.h>
+#include <syscall.h>
+int main(void){
+	scmp_filter_ctx ctx;
+	ctx = seccomp_init(SCMP_ACT_KILL);
+	seccomp_rule_add(ctx, SCMP_ACT_ALLOW, __NR_write, 0);
+	seccomp_load(ctx);
+	syscall(1,1,"n132\n",5);
+	return 0;
+}
 ```
+By running strace we could get the following result and find it's actually similar to our simple program in previous section.
+
+> Tip: seccmp lib would use malloc and free while prctl doesn't
+
+```s
+...
+seccomp(SECCOMP_GET_ACTION_AVAIL, 0, [SECCOMP_RET_LOG]) = 0
+seccomp(SECCOMP_GET_ACTION_AVAIL, 0, [SECCOMP_RET_KILL_PROCESS]) = 0
+seccomp(SECCOMP_GET_NOTIF_SIZES, 0, 0x7ffecbd0fc92) = 0
+prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)  = 0
+seccomp(SECCOMP_SET_MODE_FILTER, 0, {len=8, filter=0xf92840}) = 0
+...
+```
+
+In addition, people would also use prctl to create a seccomp sandbox. However, it's also the same as creating a sandbox with syscall prctl which we talked in previous section.
 
 ```c
 //gcc ./main -o main
@@ -185,7 +206,6 @@ struct sock_fprog {	/* Required for SO_ATTACH_FILTER. */
 #include <linux/filter.h>
 #include <linux/seccomp.h>
 int main(void){
-	
 	prctl(PR_SET_NO_NEW_PRIVS,1,0,0,0);
 	struct sock_filter sfi[] = {
 		{0x20,0x00,0x00,0x00000004},
@@ -202,69 +222,116 @@ int main(void){
 		{0x06,0x00,0x00,0x00000000}
 	};
 	struct sock_fprog sfp = {12,sfi};
-
 	prctl(PR_SET_SECCOMP,SECCOMP_MODE_FILTER,&sfp);
-	
-	char * filename = "/bin/sh";
-	char * argv[] = {"/bin/sh",NULL};
-	char * envp[] = {NULL};
-	write(1,"i will give you a shell\n",24);
-	write(1,"1234567812345678",0x10);
-	syscall(0x4000003b,filename,argv,envp);//execve
+	//...
 	return 0;
 }
 ```
 
-# Typical filters
-> Tip: seccmp uses malloc/free while prctl doesn't
+# 0x02 Seccomp in CTF
 
-## orw + mprotect
-```c
-	//orw + exit_group + mprotect
-	prctl(PR_SET_NO_NEW_PRIVS,1,0,0,0);
-	struct sock_filter sfi[] = {
-	{0x20,0x00,0x00,0x00000004},
-	{0x15,0x00,0x0a,0xc000003e},
-	{0x20,0x00,0x00,0x00000000},
-	{0x35,0x00,0x01,0x40000000},
-	{0x15,0x00,0x07,0xffffffff},
-	{0x15,0x05,0x00,0x00000000},
-	{0x15,0x04,0x00,0x00000001},
-	{0x15,0x03,0x00,0x00000002},
-	{0x15,0x02,0x00,0x00000003},
-	{0x15,0x01,0x00,0x0000000a},
-	{0x15,0x00,0x01,0x000000e7},
-	{0x06,0x00,0x00,0x7fff0000},
-	{0x06,0x00,0x00,0x00000000}
-	};
-	struct sock_fprog sfp = {13,sfi};
-	prctl(PR_SET_SECCOMP,SECCOMP_MODE_FILTER,&sfp);
-```
+We have learned the basic usage of seccomp and there still are some specical features left, I decide to left it until we meet related challenges. For my experience of CTF pwning, as I said in prologue, I think there are mainly four types of seccomp challenges and we would quickly go through these tyeps to reach today's main topic (s2).
 
-## orw
+## Type 1
+
+The main purpose of this type of challenges is asking for more advanced controling of the binary rather than exploiting with one_gadget. And this type of challenge would include a whiltelist of syscalls.  There are several tricks that we can use to bypass seccomp and achive more advanced control of the binary:
+
+- Shellcode to ORW
+- ROP to ORW
+- Use seccontext to exploit and run our ROPCHAIN/Shellcode to ORW 
+
+## Type 2
+
+The main purpose of this type of introduce some syscalls to people and this type of challenge would include a blacklist of syscalls. 
+
+
+I list some known syscalls:
+
+| syscall | usage |
+|--| --|
+| openat, execveat | Could be used to replace open/execve |
+| (p)read(v), (p)write(v) | Could be used to replace read/write |
+| process_vm_readv / process_vm_writev | Modify other process' mem, which may lead vul in another process |
+| prlimit64 | Limit the resource of a process, which may lead vul in another process | 
+
+Code:
 ```c
-//gcc -g simple_syscall_seccomp.c -o simple_syscall_seccomp -lseccomp
-#include <unistd.h>
+#include <stdio.h>
 #include <seccomp.h>
-#include <linux/seccomp.h>
-int main(void){
-	scmp_filter_ctx ctx;
-	ctx = seccomp_init(SCMP_ACT_KILL);
-	seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(open), 0);
-	seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(read), 0);
-	seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(write), 0);
-	seccomp_load(ctx);
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/uio.h>
 
-	char * filename = "/bin/sh";
-	char * argv[] = {"/bin/sh",NULL};
-	char * envp[] = {NULL};
-	write(1,"i will give you a shell\n",24);
-	syscall(59,filename,argv,envp);//execve
-	return 0;
+int main(int argc, char *argv[])
+{
+    char buf0[0x10]={};
+    char buf1[0x10]={};
+    struct iovec iov[2];
+    iov[0].iov_base = buf0;
+    iov[0].iov_len = 0x10;
+    iov[1].iov_base = buf1;
+    iov[1].iov_len = 0x10;
+    int f=  openat(0,"/mnt/c/Users/n132/Desktop/sd/flag",0);
+    readv(f, iov, 2);
+    writev(1,iov,2);
 }
 ```
 
-# challenge S2
+By the way, if there is no write we could use side-channel attack to leak the flag:
+
+```asm
+// read(0,buf,0x100);
+	lea rax,[buf]
+	xor rbx,rbx
+	mov rbx, byte ptr[buf]
+	cmp rbx, 0x30
+INFI_LOOP:
+	je INFI_LOOP
+	hlt
+```
+
+## Type 3
+
+In this type of challenges, inproper filters are applied to the program so we could escape from the sandbox. To two triks bypass inproper filters.
+
+* Retf to X86 from X64
+* x32 ABI
+
+
+```s
+ line  CODE  JT   JF      K
+=================================
+ 0000: 0x20 0x00 0x00 0x00000004  A = arch
+ 0001: 0x15 0x00 0x11 0xc000003e  if (A != ARCH_X86_64) goto 0019
+```
+
+If the filter doesn't check the arch as the above rules, we could jump to x86 mode with `retf` and call x86 syscall to bypass the filter:
+
+```s
+	; p64(retf)+p32(0x23)+p32(addr)
+    mov eax,offset .orw
+    mov rbx,0x2300000000
+    xor rax,rbx
+    push rax
+    retf 
+```
+
+If the filter doesn't check if the syscall larger than 0x40000000, we could use x32 ABI to bypass the filter
+```s
+ line  CODE  JT   JF      K
+=================================
+...
+ 0002: 0x20 0x00 0x00 0x00000000  A = sys_number
+ 0003: 0x35 0x0f 0x00 0x40000000  if (A >= 0x40000000) goto 0019
+-----
+A = 0x40000000 + sys_read 
+syscall(A,x,x,x);
+```
+
+## Type 4
+
+
+# 0x03 challenge S2
 
 ## Intro
 It's a challenge based on [sandboxed-api@google][2], which is a c/c++ library. With this library, we can create our sandbox policy and apply to a executor(a program). While running, the sandbox would monitor the syscalls of sandboxee(the running progress in sandbox). 
@@ -306,6 +373,10 @@ In main function, the program would read binary from users and run the program w
 ## Background Knowledge
 
 It's known that we can't use `SYS_seccomp` to change applied bpf rules. 
+
+
+# Tricks
+
 
 [0]: https://pwnable.tw/challenge/#2
 [1]: https://github.com/david942j/seccomp-tools
