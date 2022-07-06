@@ -6,6 +6,7 @@ layout: default
 ---
 
 # 0x00 Prologue
+
 Last weekend, I met a sandbox challenge, s2, on gctf-2022. However, I can't solve it because I don't know the stories about the seccomp. I would go through BPF in this passage.
 
 If you are a pwner, you probably know seccomp. It's common used in pwn challenge for meny purposes.
@@ -15,7 +16,6 @@ First, it could be used to require the folks run complex instruction rather than
 The second type of challenge would focus on a specific syscall. The challenge author wants to introduce a specific syscall to the people and (s)he would forbid (part of) basic syscalls such as execve, open, ... And the filter would be like a blacklist. From this type of challenges, I learned tremendous interesting syscalls and I'll just introduce some of them in this passage.
 
 The third type of challenge would focus more on the BPF/Seccomp itself. It would give a wrong configured filter so it's more like a sandbox escaping challenge rather than a pwn challenge. We would go through kinds of basic escaping skills. 
-
 
 The fourth type is different from traditional CTF pwn challenge, it would implement another layer, for example a monitor, to mimic the real seccomp in the kernel. And we are seposed to write a binary to escape from the sandbox(the monitor). It's hard to see this type of challenge because it require tremendous work to build a sandbox. The most typical one is s2 in googlectf 2022. This challenge is also the original reasons why I wrote this passage. I know little abotu seccom before gctf 2022 and I spent two days on challenge. Although I didn't solve it, I learned a lot and it worth a write up.
 
