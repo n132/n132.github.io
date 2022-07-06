@@ -26,7 +26,7 @@ This passage would focus on seccomp itself and would simply talk about the bypas
 |0x1| [orw][0], [NaiveHeap][4] |
 |0x2| [sbnote][3], [sycall kit][5] |
 |0x3| [steak][6], [babypf][7]|
-|0x4| This passage |
+|0x4| [S2][9] |
 
 # 0x01 Seccomp
 
@@ -108,7 +108,7 @@ int main(){
     fork();
 }
 ```
-`no_new_privs` is crucial, you can find more detailed description in [the manual page of prctl][8].  I'll talk about this later in this passage. todo: more details
+`no_new_privs` is crucial, you can find more detailed description in [the manual page of prctl][8].
 
 As you can see, I wrote a filter and applied it. It's actually a vulenrabily sandbox. Anyways, let's use [seccomp-tools][1] dump the filter. 
 
@@ -330,7 +330,7 @@ syscall(A,x,x,x);
 
 ## S2
 
-This type of challenge is special and I'll intro it in this [writeup][].
+This type of challenge is special and I'll intro it in this [writeup][9].
 
 
 
@@ -344,4 +344,4 @@ This type of challenge is special and I'll intro it in this [writeup][].
 [6]: https://n132.github.io/2018/11/25/NUCA-Steak.html
 [7]: https://github.com/yvrctf/2015/tree/master/babyplaypenfence
 [8]: https://man7.org/linux/man-pages/man2/prctl.2.html
-[9]: s2
+[9]: https://n132.github.io/2022/07/04/S2.html
