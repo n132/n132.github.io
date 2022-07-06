@@ -9,17 +9,18 @@ layout: default
 
 Last weekend, I met a sandbox challenge, s2, on gctf-2022. However, I can't solve it because I don't know the stories about the seccomp. I would go through BPF in this passage.
 
-If you are a pwner, you probably know seccomp. It's common used in pwn challenge for meny purposes.
+If you are a pwner, you probably know seccomp. It's commonly used in pwn challenge for meny purposes.
 
-First, it could be used to require the folks run complex instruction rather than hitting one_gadget. For this purpose, the BPF would allow some basic syscalls, such as read, write and open. Most time, it would be a allowed-syscall-list. This type of challenge doesn't require people to have additional knowleged about seccomp and it focuses on the challenge itself. 
+First, it could be used to require the folks to run complex instructions rather than hitting one_gadget. For this purpose, the BPF would allow some basic syscalls, such as read, write and open. Most time, it would be an allowed-syscall-list. This type of challenge doesn't require people to have additional knowledge about seccomp and it focuses on the challenge itself. 
 
-The second type of challenge would focus on a specific syscall. The challenge author wants to introduce a specific syscall to the people and (s)he would forbid (part of) basic syscalls such as execve, open, ... And the filter would be like a blacklist. From this type of challenges, I learned tremendous interesting syscalls and I'll just introduce some of them in this passage.
+The second type of challenge would focus on a specific syscall. The challenge author wants to introduce a specific syscall to the people and (s)he would forbid (part of) basic syscalls such as execve, open, ... And the filter would be like a blacklist. From this type of challenge, I learned tremendous interesting syscalls and I'll just introduce some of them in this passage.
 
 The third type of challenge would focus more on the BPF/Seccomp itself. It would give a wrong configured filter so it's more like a sandbox escaping challenge rather than a pwn challenge. We would go through kinds of basic escaping skills. 
 
-The fourth type is different from traditional CTF pwn challenge, it would implement another layer, for example a monitor, to mimic the real seccomp in the kernel. And we are seposed to write a binary to escape from the sandbox(the monitor). It's hard to see this type of challenge because it require tremendous work to build a sandbox. The most typical one is s2 in googlectf 2022. This challenge is also the original reasons why I wrote this passage. I know little abotu seccom before gctf 2022 and I spent two days on challenge. Although I didn't solve it, I learned a lot and it worth a write up.
+The fourth type is different from the traditional CTF pwn challenge, it would implement another layer, for example, a monitor, to mimic the real seccomp in the kernel. And we are seposed to write a binary to escape from the sandbox(the monitor). It's hard to see this type of challenge because it requires tremendous work to build a sandbox. The most typical one is s2 in googlectf 2022. This challenge is also the original reason why I wrote this passage. I know little about seccomp before writing this passage. 
 
 This passage would focus on seccomp itself and would simply talk about the bypass solution for every type. Also, I provided one challenge for every type:
+
 
 | Type | Challenges|
 |--|--|
@@ -30,14 +31,13 @@ This passage would focus on seccomp itself and would simply talk about the bypas
 
 # 0x01 Seccomp
 
-
 This section would have a short intro to seccomp by showing you how to build a seccomp sandbox. 
 
 `https://man7.org/linux/man-pages/man2/seccomp.2.html`
 
 If you run `man 2 seccomp`, you would get the man page of the wrapper of syscall seccomp and it's one of the baisc interfaces to the user space.
 
-I hated verbose man page, but I found that's exact the most percise info that I should start with. It would include introduction for different arguments and recent new features that you can hardly find in old summary passages. In addition, there are plenty of samples which could be used to create some test cases. A main reason, for what I can't solve S2, is I didn't read the man page. If I read it, it's not hard to connect ioctl and seccomp.
+I hated the verbose man page, but I found that's exactly the most precise info that I should start with. It would include an introduction for different arguments and recent new features that you can hardly find in old summary passages. In addition, there are plenty of samples that could be used to create some test cases. The main reason, why I can't solve S2, is I didn't read the man page. If I read it, it's not hard to connect ioctl and seccomp.
 
 okay, let's come back to the seccomp,
 
@@ -108,9 +108,9 @@ int main(){
     fork();
 }
 ```
-`no_new_privs` is crucial, you can find more detailed description in [the manual page of prctl][8].
+`no_new_privs` is crucial, you can find a more detailed description in [the manual page of prctl][8].
 
-As you can see, I wrote a filter and applied it. It's actually a vulenrabily sandbox. Anyways, let's use [seccomp-tools][1] dump the filter. 
+As you see, I wrote a filter and applied it. It's actually a vulnerability sandbox. Anyways, let's use [seccomp-tools][1] to dump the filter. 
 
 ```s
  line  CODE  JT   JF      K
@@ -125,7 +125,7 @@ As you can see, I wrote a filter and applied it. It's actually a vulenrabily san
  0007: 0x06 0x00 0x00 0x80000000  return KILL_PROCESS
 ```
 
-With seccomp-tools, we could see the bpf code clearly. Berkeley Packet Filter(in seccomp) is a technology used to analysis the syscalls. It's like a kind of small program and our syscall number is its inputs. As a result, the small bpf program would tell us if this syscall is allowed to be executed. 
+With seccomp-tools, we could see the bpf code clearly. Berkeley Packet Filter(in seccomp) is a technology used to analyze the syscalls. It's like a kind of small program and our syscall number is its input. As a result, the small bpf program would tell us if this syscall is allowed to be executed. 
 
 According to the above code, bpf would take our syscall number and judge if it's one of (open, read and write). If it's one of them, the process is killed by `SIGSYS`.
 
@@ -161,11 +161,11 @@ int main(void){
 }
 ```
 
-Above code is actually almost same as the previous program, as I got the filter from the dumped data of `seccomp-tools`. The only difference is that we use `__NR_prctl` rather than `__NR_seccomp` to create the sandbox.
+The above code is almost the same as the previous program, as I got the filter from the dumped data of `seccomp-tools`. The only difference is that we use `__NR_prctl` rather than `__NR_seccomp` to create the sandbox.
 
-These two program are quite simple and straitforward but as I said, the above code is vulnerabile don't use it in your program <3. Now we know the what's seccomp and how to use seccomp to create syscall filter. 
+These two programs are quite straightforward but as I said, the above code is vulnerable don't use it in your program <3. Now we know what's seccomp and how to use seccomp to create a syscall filter. 
 
-## More high_level samples
+## Other Samples
 
 The following code create a seccomp sandbox which only allows SYS_write. It use several functions in seccomp library, including "seccomp_init", "seccomp_rule_add", "seccomp_load". 
 ```c
@@ -183,7 +183,7 @@ int main(void){
 	return 0;
 }
 ```
-By running strace we could get the following result and find it's actually similar to our simple program in previous section.
+By running strace we could get the following result and find it's actually similar to our simple program in the previous section.
 
 > Tip: seccmp lib would use malloc and free while prctl doesn't
 
@@ -197,7 +197,7 @@ seccomp(SECCOMP_SET_MODE_FILTER, 0, {len=8, filter=0xf92840}) = 0
 ...
 ```
 
-In addition, people would also use prctl to create a seccomp sandbox. However, it's also the same as creating a sandbox with syscall prctl which we talked in previous section.
+In addition, people would also use prctl to create a seccomp sandbox. However, it's also the same as creating a sandbox with syscall prctl which we talked about in the previous section.
 
 ```c
 //gcc ./main -o main
@@ -230,15 +230,16 @@ int main(void){
 
 # 0x02 Seccomp in CTF
 
-We have learned the basic usage of seccomp and there still are some specical features left, I decide to left it until we meet related challenges. For my experience of CTF pwning, as I said in prologue, I think there are mainly four types of seccomp challenges and we would quickly go through these tyeps to reach today's main topic (s2).
+We have learned the basic usage of seccomp and there still are some specific features left, I decided to left it until we meet related challenges. For my experience of CTF pwning, as I said in the prologue, I think there are mainly four types of seccomp challenges and we would quickly go through these types to reach today's main topic (s2).
 
 ## ORW
 
-The main purpose of this type of challenges is asking for more advanced controling of the binary rather than exploiting with one_gadget. And this type of challenge would include a whiltelist of syscalls.  There are several tricks that we can use to bypass seccomp and achive more advanced control of the binary:
+The main purpose of this type of challenge is to ask for more advanced controlling of the binary rather than exploiting with one_gadget. And this type of challenge would include a whitelist of syscalls.  There are several tricks that we can use to bypass seccomp and achieve more advanced control of the binary:
 
 - Shellcode to ORW
 - ROP to ORW
-- Use seccontext to exploit and run our ROPCHAIN/Shellcode to ORW 
+- Use setcontext to exploit and run our ROPCHAIN/Shellcode to ORW 
+
 
 ## Substitutes
 
@@ -292,7 +293,7 @@ INFI_LOOP:
 
 ## Improper Filters
 
-In this type of challenges, Improper filters are applied to the program so we could escape from the sandbox. To two triks bypass Improper filters.
+In this type of challenge, Improper filters are applied to the program so we could escape from the sandbox. Two tricks bypass improper filters.
 
 * Retf to X86 from X64
 * x32 ABI
@@ -316,7 +317,7 @@ If the filter doesn't check the arch as the above rules, we could jump to x86 mo
     retf 
 ```
 
-If the filter doesn't check if the syscall larger than 0x40000000, we could use x32 ABI to bypass the filter
+If the filter doesn't check if the syscall is larger than 0x40000000, we could use x32 ABI to bypass the filter
 ```s
  line  CODE  JT   JF      K
 =================================
@@ -330,7 +331,7 @@ syscall(A,x,x,x);
 
 ## S2
 
-This type of challenge is special and I'll intro it in this [writeup][9].
+This type of challenge is special and I'll introduce it in this [writeup][9].
 
 
 
