@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-07-13
+	* Restart F*** Languag Exam Training
+	* Restart Research Schedule
+
 # AD2022-06-28
 	* babyallocator finished
 
