@@ -26,7 +26,7 @@ This passage would focus on seccomp itself and would simply talk about the bypas
 |--|--|
 |0x1| [orw][0], [NaiveHeap][4] |
 |0x2| [sbnote][3], [sycall kit][5] |
-|0x3| [steak][6], [babypf][7]|
+|0x3| [Diary][10], [babypf][7], [steak][6] |
 |0x4| [S2][9] |
 
 # 0x01 Seccomp
@@ -346,3 +346,4 @@ This type of challenge is special and I'll introduce it in this [writeup][9].
 [7]: https://github.com/yvrctf/2015/tree/master/babyplaypenfence
 [8]: https://man7.org/linux/man-pages/man2/prctl.2.html
 [9]: https://n132.github.io/2022/07/04/S2.html
+[10]: https://uaf.io/exploitation/2016/09/06/TokyoWesterns-MMA-Diary.html
