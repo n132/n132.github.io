@@ -5,15 +5,18 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-07-23
+	* DiceHope Conference
+
 # AD2022-07-13
-	* Restart F*** Languag Exam Training
+	* Restart F*** Language Exam Training
 	* Restart Research Schedule
 
 # AD2022-06-28
 	* babyallocator finished
 
 # AD2022-06-16
-	* Last day for preparing TOEFL Test
+	* TOEFL Test
 
 # AD2022-06-16
 	* Have been working on Language Test for Two weeks
