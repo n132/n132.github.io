@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-08-02
+	* pwnable
+
 # AD2022-07-23
 	* DiceHope Conference
 
