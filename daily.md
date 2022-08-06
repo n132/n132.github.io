@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-08-05
+	* 4 meetings
+
 # AD2022-08-02
 	* pwnable
 
