@@ -9,7 +9,10 @@ Updating
 <!--more-->
 
 ## Start
-
+## old-release
+```sh
+sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+```
 ## Compile ASM Code with GCC
 
 - Write asm code and compile it to obj file
