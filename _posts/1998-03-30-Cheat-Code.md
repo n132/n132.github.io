@@ -15,6 +15,17 @@ Updating
 sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 ```
 
+## seccomp & multi-process
+
+balsn CTF: Asian Parents
+```s
+https://bugs.chromium.org/p/project-zero/issues/detail?id=2276
+```
+
+## get-pip
+
+`wget https://bootstrap.pypa.io/pip/2.7/get-pip.py`
+
 ## Compile ASM Code with GCC
 
 - Write asm code and compile it to obj file
