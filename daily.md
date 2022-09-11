@@ -5,6 +5,10 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-09-10
+	* Moderate
+
+
 # AD2022-09-05
 	* balsn ctf
 
