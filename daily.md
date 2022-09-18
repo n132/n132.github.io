@@ -6,6 +6,9 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 
+# AD2022-09-18
+	* 0CTF
+
 # AD2022-09-10
 	* Moderate
 
