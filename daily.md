@@ -5,6 +5,17 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-09-22
+
+```python
+I played 0CTF/TCTF this weekend and solved two easy challenges(ezvm&babyheap) but I spend more than 20 hours on the other two challenges(qqbot&babysnitch) and failed to solve them. Also, I clearly see that I need to spend more time learning new skills(browser, sandbox) and new languages(rust, go). 
+
+I spent almost all my weekends and leisure time on CTF games. 
+However, CTF is just a part of my life and I feel so tired after CTF weekends cuz I am too excited to have enough sleep during the game.
+And I may don't have enough energy to continue the other parts of my life. So I decided to focus on my life and stop playing CTF until May 2023(at least).  I would focus on my courses, prepare for my applications, continue the researches, and enjoy the fantastic world! 
+
+I'll come back and see yall then! 
+```
 
 # AD2022-09-18
 	* 0CTF
