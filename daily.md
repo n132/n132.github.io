@@ -5,8 +5,29 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-10-29
+	* Solve the cube in 60s (average)
 
+# AD2022-10-28
+	* Solve the cube in 90s
 
+# AD2022-10-27
+	* Paper Reading: Arbiter
+
+# AD2022-10-25
+	* Research project coding..
+
+# AD2022-10-22
+	* Solve the cube in 120s
+
+# AD2022-10-20
+	* Solve the cube in 150s
+
+# AD2022-10-02
+	* Enjoy the weekend without CTFs
+
+# AD2022-09-30
+	* Learn to solve cubes
 
 # AD2022-09-22
 
@@ -28,6 +49,21 @@ I'll come back and see yall then!
 
 # AD2022-09-05
 	* balsn ctf
+
+# AD2022-08-20
+	* Too lazy to work
+
+# AD2022-08-19
+	* Recovered
+
+# AD2022-08-17
+	* Too sick to work
+
+# AD2022-08-16
+	* Got Covid19
+
+# AD2022-08-15
+	* Enjoy Las Vegas!
 
 # AD2022-08-14
 	* D3F C0N
