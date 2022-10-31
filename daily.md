@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-10-31
+	* Write a report for Arbiter
+
 # AD2022-10-29
 	* Solve the cube in 60s (average)
 
