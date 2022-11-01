@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-11-01
+	* Research day
+
 # AD2022-10-31
 	* Write a report for Arbiter
 
