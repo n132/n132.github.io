@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-11-18
+	* FINISH After-CSAW TASKS
+
 # AD2022-11-13
 	* School Homework
 
