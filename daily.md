@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-11-24
+	* Cube Training
+
 # AD2022-11-23
 	* OSS Reproducer
 
