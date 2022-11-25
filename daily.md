@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-11-25
+	* Network Security Homework
+
 # AD2022-11-24
 	* Cube Training
 
