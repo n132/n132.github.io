@@ -5,8 +5,11 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
-# AD2022-11-27
+# AD2022-11-28
 	* Pentesting Lab9
+
+# AD2022-11-27
+	* Pentesting Lab8
 
 # AD2022-11-26
 	* Pentesting Project4
