@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-11-30
+	* OSS Reproducer
+
 # AD2022-11-29
 	* OSS Reproducer
 
