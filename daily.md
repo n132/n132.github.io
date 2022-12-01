@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2022-12-21
+	* PHD Application Due
+
 # AD2022-11-30
 	* OSS Reproducer
 
