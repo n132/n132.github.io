@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2023-01-14
+	* Pwn.college Blue Belt 
+  
 # AD2022-12-03
 	* Relax with Labmembers
 
