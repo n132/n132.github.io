@@ -5,8 +5,107 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2023-02-25
+	* Homeworkday
+
+# AD2023-02-22
+	* Practice Driving at Red Hook
+
+# AD2023-02-21
+	* Practice Driving at Long Beach
+
+# AD2023-02-20
+	* Practice Driving at Long Beach 
+
+# AD2023-02-19
+	* pbCTF
+
+# AD2023-02-18
+	* CTF Weekends come back
+
+# AD2023-02-17
+	* Have a nice day at Long island with friends
+
+# AD2023-02-16
+	* Algorithm Homework 
+
+# AD2023-02-12
+	* Stay at the Lab
+
+# AD2023-02-11
+        * OSS Reasearch
+
+# AD2023-02-10
+        * Algorithm HashMap
+
+# AD2023-02-09
+	* Algorithm Homework 
+
+# AD2023-02-07
+        * NYU Recruit
+
+# AD2023-02-05
+        * NYU Recruit
+
+# AD2023-02-04
+        * NYU Recruit
+
+# AD2023-02-03
+	* NYU Recruit
+
+# AD2023-02-02
+        * Algorithm Homework
+
+# AD2023-01-21
+	* Write the Discord Robot
+
+# AD2023-01-20
+	* New Semester
+
+# AD2023-01-20
+	* Should do some work
+
+# AD2023-01-19
+	* Should do some work
+
+# AD2023-01-18
+	* A Chill Day
+
+# AD2023-01-17
+	* Play games!
+
+# AD2023-01-16
+	* Pwn.college summary
+
+# AD2023-01-15
+	* Recruit challenge for NYU
+
+# AD2023-01-15
+        * Pwn.college summary
+
 # AD2023-01-14
 	* Pwn.college Blue Belt 
+
+# AD2023-01-13
+        * Pwn.college
+
+# AD2023-01-12
+        * Pwn.college
+
+# AD2023-01-11
+        * Pwn.college
+
+# AD2023-01-10
+        * Pwn.college
+
+# AD2023-01-09
+        * Pwn.college
+
+# AD2023-01-08
+        * Pwn.college
+
+# AD2023-01-07
+	* Pwn.college 
   
 # AD2022-12-03
 	* Relax with Labmembers
