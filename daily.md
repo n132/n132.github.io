@@ -5,6 +5,9 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+# AD2023-03-09
+	* Review the algo for midterm
+
 # AD2023-02-25
 	* Homeworkday
 
