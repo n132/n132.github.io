@@ -5,8 +5,36 @@ permalink: /Looooooog/
 ---
 Daily
 <!--more-->
+
+# AD2023-03-19
+	* pwnable.tw digital reversing
+
+# AD2023-03-18
+	* pwnable.tw digital reversing
+
+# AD2023-03-15
+	* pwnable.tw digital reversing
+
+# AD2023-03-14
+	* pwnable.tw seccomp solved
+
+# AD2023-03-09
+	* ebpf source code reading
+
+# AD2023-03-08
+	* pwnable.tw seccomp 
+
 # AD2023-03-09
 	* Review the algo for midterm
+
+# AD2023-03-04
+	* hxp CTF day2
+
+# AD2023-03-03
+	* hxp CTF
+
+# AD2023-03-02
+	* Osiris Work
 
 # AD2023-03-02
 	* Research Work
