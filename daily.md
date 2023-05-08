@@ -6,6 +6,21 @@ permalink: /Looooooog/
 Daily
 <!--more-->
 
+# AD2023-05-13
+	* Finalize TA Work for OFFSEC
+
+# AD2023-05-10
+	* Work for Algo Final 
+
+# AD2023-05-08
+	* Review Algo
+
+# AD2023-05-01
+	* Research
+
+# AD2023-04-30
+	* Research
+
 # AD2023-03-19
 	* pwnable.tw digital reversing
 
