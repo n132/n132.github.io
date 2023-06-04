@@ -12,7 +12,7 @@ r3kapig, 1st
 
 There is a new feature for sqlite that allows loading external libcs.
 
-For challenge Notabug1, we can just load a external lib to execute arbitrary command.
+For this challenge, we can create a new lib so we can just load a external lib to execute arbitrary command.
 
 
 exp.c:
