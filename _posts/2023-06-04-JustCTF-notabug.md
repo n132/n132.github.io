@@ -94,9 +94,9 @@ The above script works for the local one but not the remote one. My teammate fou
 
 We can also load libc.so.6 to execute arbitrary function but the parameters are fixed.
 
-1.  I use puts to leak the PIE
-2. Guess heap (1/0x2000) and build a fake structure on heap by function gets
-3. system /bin/sh
+- Use puts to leak the PIE
+- Guess the heap (1/0x2000) and build a fake structure on heap by function gets
+- system /bin/sh
 
 
 ```py
@@ -145,3 +145,9 @@ if b'n132' in data:
 else:
     p.close()
 ```
+
+# Epilogue
+
+- Learned something about sqlite, pwning a complex binary.
+- Practice some skills learned from bash-revenge
+- Practice Beapoverflow
