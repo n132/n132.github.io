@@ -8,6 +8,10 @@ layout: default
 
 r3kapig, 1st
 
+noabug  Solvers: crazyman and n132
+
+noabug2 Solvers: n132, KIM and debugger
+
 # noabug
 
 There is a new feature for sqlite that allows loading external libcs.
