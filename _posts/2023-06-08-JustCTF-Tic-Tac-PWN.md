@@ -79,7 +79,7 @@ I learned some interesting functions: `tmpfile`, `splice`, and `on_exit`.
 All parameters of them are less than 4 bytes, we can use them when the registers are limited.
 
 
-# refference
+# reference
 tmpfile: https://man7.org/linux/man-pages/man3/tmpfile.3.html
 splice: https://man7.org/linux/man-pages/man2/splice.2.html
 on_exit: https://man7.org/linux/man-pages/man3/on_exit.3.html
