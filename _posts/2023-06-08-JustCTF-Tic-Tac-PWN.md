@@ -4,17 +4,17 @@ date: 2023-05-31 20:56:00
 tags: 
 layout: default
 ---
-# Prologue
+# 0x00 Prologue
 I didn't solve this challenge, this is an after game reproducing write-up.
 
 The solution is from my teammates @in1t.
 
-# Challenge
+# 0x01 Challenge
 - We are allowed to execute arbitrary libc functions (not starting with `_`)
 - All parameters only have 4 bytes
 - There is a check function to check if we have allocated memory less than 0x100000000. 
 
-# on_exit
+# 0x02 on_exit
 
 Can we register more than one function by using `on_exit`?
 I wrote a demo and got the answer: 
@@ -35,7 +35,7 @@ on_exit(func2);
 The result of the above code is `2\n1\n` which means we can register multiple functions and the execution order is "FILO".
 
 
-# Solution
+# 0x03 Solution
 
 Ideas:
 - Even if we `exit` because of the function exit, we can still use `on_exit` to register a function before `_exit`
@@ -48,7 +48,7 @@ Solution:
 - call `on_exit` to register a function before `_exit`
 - call `mmap` to map the tmpfile to memory
 
-# Expoit
+# 0x04 Expoit
 ```py
 from pwn import *
 context.log_level='debug'
@@ -73,14 +73,17 @@ ru("RPC\n")
 p.interactive()
 ```
 
-# Epilogue
+# 0x05 Epilogue
 
 I learned some interesting functions: `tmpfile`, `splice`, and `on_exit`.
 All parameters of them are less than 4 bytes, we can use them when the registers are limited.
 
 
-# reference
+# 0x06 Reference
 tmpfile: https://man7.org/linux/man-pages/man3/tmpfile.3.html
+
 splice: https://man7.org/linux/man-pages/man2/splice.2.html
+
 on_exit: https://man7.org/linux/man-pages/man3/on_exit.3.html
+
 mmap: https://man7.org/linux/man-pages/man2/mmap.2.html
