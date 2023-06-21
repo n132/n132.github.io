@@ -9,7 +9,7 @@ permalink: /cheatsheet/
 echo "from pwn import *" > exp.py
 echo "context.log_level='debug'" >> exp.py
 echo "context.arch='amd64'" >> exp.py
-echo "#context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']" >> exp.py
+echo "context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']" >> exp.py
 echo "p=process('./pwn')" >> exp.py
 echo "ru 		= lambda a: 	p.readuntil(a)">> exp.py
 echo "r 		= lambda n:		p.read(n)">> exp.py
@@ -20,7 +20,20 @@ echo "s 		= lambda a: 	p.send(a)">> exp.py
 echo "gdb.attach(p)">> exp.py
 echo "p.interactive()">> exp.py
 ```
+# Tmux Split
+```sh
+# 2*2
+tmux split-window -d \; split-window -h \; split-window -t 2 -h
+# 4*2
+tmux split-window -d \; split-window -h \; split-window -t 2 -h \; split-window -t 0 -d \; split-window -t 2 -d \; split-window -t 4 -d \; split-window -t 6 -d
+# 4*4
+tmux split-window -d \; split-window -h \; split-window -t 2 -h \; split-window -t 0 -d \; split-window -t 2 -d \; split-window -t 4 -d \; split-window -t 6 -d \; split-window -t 0 -h \; split-window -t 2 -h \; split-window -t 4 -h \; split-window -t 6 -h \; split-window -t 8 -h \; split-window -t 10 -h \; split-window -t 12 -h \; split-window -t 14 -h \;
+```
 
+# Bash Script for Brute Force
+```sh
+for i in `seq 1 8192`; do python3 ./exp.py; done
+```
 # House of Orange
 ```python
 fio=0#fake io_file addr
