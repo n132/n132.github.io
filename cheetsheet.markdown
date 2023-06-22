@@ -30,10 +30,20 @@ tmux split-window -d \; split-window -h \; split-window -t 2 -h \; split-window 
 tmux split-window -d \; split-window -h \; split-window -t 2 -h \; split-window -t 0 -d \; split-window -t 2 -d \; split-window -t 4 -d \; split-window -t 6 -d \; split-window -t 0 -h \; split-window -t 2 -h \; split-window -t 4 -h \; split-window -t 6 -h \; split-window -t 8 -h \; split-window -t 10 -h \; split-window -t 12 -h \; split-window -t 14 -h \;
 ```
 
+
 # Bash Script for Brute Force
 ```sh
 for i in `seq 1 8192`; do python3 ./exp.py; done
 ```
+
+# Docker Prune
+```sh
+# Clean Builder Cache
+docker builder prune
+# Clean All 
+docker system prune -a --volumes
+```
+
 # House of Orange
 ```python
 fio=0#fake io_file addr
