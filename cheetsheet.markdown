@@ -36,6 +36,22 @@ tmux split-window -d \; split-window -h \; split-window -t 2 -h \; split-window 
 for i in `seq 1 8192`; do python3 ./exp.py; done
 ```
 
+# Libfuzzer Sample
+Makefile:
+```Makefile
+fuzzer: giftcardreader.c fuzzer.c
+	clang -g -fsanitize=address,fuzzer -w main.c fuzzer.c -o fuzzer
+```
+fuzzer.c
+```c
+#include "main.c"
+
+int LLVMFuzzerTestOneInput(char *Data, size_t Size) {
+  TestWrraper(Data, Size);
+  return 0;
+}
+```
+
 # Docker Prune
 ```sh
 # Clean Builder Cache
