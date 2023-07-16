@@ -38,8 +38,8 @@ for i in `seq 1 8192`; do python3 ./exp.py; done
 
 # Libfuzzer Sample
 Makefile:
-```Makefile
-fuzzer: giftcardreader.c fuzzer.c
+```
+fuzzer: main.c fuzzer.c
 	clang -g -fsanitize=address,fuzzer -w main.c fuzzer.c -o fuzzer
 ```
 fuzzer.c
