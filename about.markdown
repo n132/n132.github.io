@@ -6,12 +6,10 @@ permalink: /about/
 
 ```python
 from pwn import *
-
 def n132():
-    print("Team Member @ r3kapig & Osiris")
-    print("Cybersecurity Master Student @ NYU")
-    print("Enjoy binarry and hacking stuff.")
+    info("Member of r3kapig")
+    info("Ph.D. Student at ASU")
+    info("Alumnus at NYU and ZJSU")
 def connect():
     p=remote("y0un9n132@gmail.com")
-
 ```
