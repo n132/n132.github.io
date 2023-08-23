@@ -4,6 +4,17 @@ title: Kernel
 permalink: /kernel/
 ---
 Kernel Cheatsheet
+# x.sh
+```bash
+#!/bin/sh
+gcc ./fs/exp.c -masm=intel -o ./fs/exp  --static -w &&\
+echo "[+] Compile - Done" &&\
+cd ./fs &&\
+find . | cpio -o --format=newc > ../rootfs.cpio &&\
+cd .. &&\
+echo "[+] Filesystem - Done" &&\
+echo "[...] run.sh" #
+```
 # userfaultfd
 ```c
 void RegisterUserfault(void *fault_page,void *handler)
