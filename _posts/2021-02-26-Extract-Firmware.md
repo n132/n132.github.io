@@ -70,6 +70,12 @@ cd firmware-mod-kit
 ./unsquashfs_all.sh ../R4500_V1.0.0.4_1.0.3/_R4500_V1.0.0.4_1.0.3.chk.extracted/14A30A.squashfs
 ```
 
+# Repack
+
+- Regenerate the header for the modified filesystem. For example, we can use `mkimage` to generate `i-boot` header: `mkimage -A MIPS -O linux -T firmware -C none -a 0 -e 0 -n jz_fw -d ./packed ./output`
+- Make sure there is no signature for the firmware before repacking the modified filesystem.
+
+
 # Ref
 
 [Reverse engineering my router's firmware with binwalk](https://embeddedbits.org/reverse-engineering-router-firmware-with-binwalk/)
