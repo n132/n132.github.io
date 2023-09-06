@@ -4,17 +4,31 @@ title: Kernel
 permalink: /kernel/
 ---
 Kernel Cheatsheet
-# x.sh
+# Depress Filesystem
+```bash
+#!/binsh
+mkdir fs
+cd fs
+cpio -idmv < ../rootfs.cpio
+touch exp.c 
+cd ..
+code .
+```
+
+# Prepare Run Script: x.sh
 ```bash
 #!/bin/sh
-gcc ./fs/exp.c -masm=intel -o ./fs/exp  --static -w &&\
+gcc ./fs/exp.c -masm=intel -o ./fs/exp  -lpthread --static -w &&\
 echo "[+] Compile - Done" &&\
 cd ./fs &&\
 find . | cpio -o --format=newc > ../rootfs.cpio &&\
 cd .. &&\
 echo "[+] Filesystem - Done" &&\
-echo "[...] run.sh" #
+echo "[...] run.sh"
 ```
+
+# Include Head files
+
 # userfaultfd
 ```c
 void RegisterUserfault(void *fault_page,void *handler)
@@ -131,20 +145,6 @@ void Panic(char *s)
     puts(s);
     exit(1);
 }
-/*
---------------------------
-Back to the User Space <!>
-Instruction:
-swapgs; iretq
---------------------------
-Stack : 
-...
-rpi
-user_cs
-user_rflags
-user_sp
-user_ss
-*/
 ```
 
 # Run
