@@ -27,7 +27,7 @@ cd ./fs &&\
 find . | cpio -o --format=newc > ../rootfs.cpio &&\
 cd .. &&\
 echo "[+] Filesystem - Done" &&\
-echo "[...] run.sh"
+echo "[...] run.sh" &&\
 ./run.sh
 ```
 
