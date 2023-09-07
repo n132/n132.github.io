@@ -1,7 +1,7 @@
 ---
-layout: page
-title: Looooooog
-permalink: /Looooooog/
+# layout: page
+# title: Looooooog
+# permalink: /Looooooog/
 ---
 Daily
 <!--more-->
