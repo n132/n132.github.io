@@ -841,7 +841,7 @@ I'll come back and see yall then!
 	wp还没出...
 
 # AD2019-01-11
-	* 发现自己菜成狗...从做过的题开始恢复
+	* 发现自己菜成狗...从做过的题开始恢复
 	复现了一波easyiest（bctf）
 
 # AD2019-01-09
