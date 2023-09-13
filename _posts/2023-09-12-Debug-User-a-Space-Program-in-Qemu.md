@@ -9,7 +9,7 @@ layout: default
 
 **Solution:** `gdbserver` + `qemu hostfwd`
 
-**Guide:** https://github.com/n132/n132Tools/blob/main/Kernel/QemuUserspaceDebugging.md
+**Guide:** [QemuUserspaceDebugging.md](https://github.com/n132/n132Tools/blob/main/Kernel/QemuUserspaceDebugging.md)
 
 ## 0x01 Problem
 
