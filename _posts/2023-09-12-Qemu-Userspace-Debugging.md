@@ -1,5 +1,5 @@
 ---
-title: "Debug User a Space Program in Qemu"
+title: "Qemu Userspace Debugging"
 date: 2023-09-12 21:58:12
 tags: 
 layout: default
