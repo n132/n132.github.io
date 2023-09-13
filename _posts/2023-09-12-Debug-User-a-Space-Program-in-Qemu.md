@@ -31,7 +31,7 @@ I used `gdbserver` on the `qemu` virtual machine and employed `net user,hostfwd=
 
 This setup allows me to debug within the Docker container or perform another layer of data transfer between Docker containers. The first solution is straightforward as we can change the base image to another more feature-rich operating system to ensure we can install the tools we need. The second solution is also quite simple; we just add one more parameter before starting the Docker container.
 
-![Debugging](../Figures/QemuDebug/Debugging.png)
+![Debugging](/Figures/QemuDebug/Debugging.png)
 
 ## 0x03 Details
 
