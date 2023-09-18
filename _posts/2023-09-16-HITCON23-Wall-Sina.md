@@ -224,7 +224,7 @@ If we have permission to perform `chroot` options, we can do the following to es
 mkdir n132
 cd n132
 chroot n132
-cd ../../../.../../../../../flag
+cat ../../../.../../../../../flag
 ```
 
 # 0x07 Fianl Exploit
@@ -238,7 +238,7 @@ touch n132/data
 ./exp
 ``` 
 
-The source code of the `exp.c:
+The source code of the exp.c:
 
 
 ```c
