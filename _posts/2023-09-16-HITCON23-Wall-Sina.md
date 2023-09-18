@@ -17,6 +17,9 @@ I didn't solve the challenge in the game; this is an after-game write-up.
 
 # 0x02 Challenge
 
+[Attachment](https://github.com/n132/CTF-Write-Up/tree/main/2023-HITCON/wall-sina)
+
+
 Enabled full mitigations (default ones), the challenge is quite simple. There are only two functions in the main function.
 
 ```c
