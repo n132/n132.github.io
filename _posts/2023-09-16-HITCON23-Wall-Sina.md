@@ -166,9 +166,8 @@ However, for this challenge, the hint says we'd better use C language to exploit
 Here are some source codes to building two pipes between the child and the parent processes. You can also use these programs to test the buffer issue of `printf`.
 
 
-> main.c
 ```c
-
+//main.c
 #include <stdio.h>
 #include <sys/mman.h>
 
@@ -198,8 +197,9 @@ int main(){
 ```
 
 
-> target.c
+
 ```c
+//target.c
 #include<stdio.h>
 int main(){
     char buf[0x10];
