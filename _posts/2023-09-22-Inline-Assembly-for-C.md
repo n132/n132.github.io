@@ -1,12 +1,12 @@
 ---
 title: "Inline Assembly for C"
-date: 2023-09-2 20:56:12
+date: 2023-09-22 20:56:12
 tags: 
 layout: default
 ---
 # TL;DR
 
-Use the C language function `asm`` to write shellcode. 
+Use the C language function `asm` to write shellcode. 
 
 This article is a part of my cheat sheet.
 
