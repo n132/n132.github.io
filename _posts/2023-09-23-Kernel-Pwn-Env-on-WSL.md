@@ -1,6 +1,6 @@
 ---
 title: "Why is it so slow to debug kernel pwn challenges on WSL?"
-date: 2023-09-22 20:56:12
+date: 2023-09-23 20:56:12
 tags: 
 layout: default
 ---
