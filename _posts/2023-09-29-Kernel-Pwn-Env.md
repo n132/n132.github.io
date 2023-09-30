@@ -140,6 +140,20 @@ qemu-system-x86_64 \
 
 
 After getting the shell, you can run `/sbin/insmod ko_n132.ko && dmesg` to check the size of `struct msg_msg`.
+
+
+# 0x04 pahole
+
+I got a tool to get all the structures' size while reading other's article: `https://manpages.ubuntu.com/manpages/impish/man1/pahole.1.html`.
+
+You can install and use it by 
+```bash
+apt install pahole
+pahole < bzImage > SS
+```
+
+By default, it's shows x64 version of result and you can also set `--header elf32_hdr` to get the result of x32 version.
+
 # 0x03 Epilogue
 
 This is a cheat sheet for kernel module compilation.
