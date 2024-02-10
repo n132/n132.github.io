@@ -20,6 +20,14 @@ echo "s 		= lambda a: 	p.send(a)">> exp.py
 echo "gdb.attach(p)">> exp.py
 echo "p.interactive()">> exp.py
 ```
+
+# Kernel Template
+
+```
+https://raw.githubusercontent.com/n132/libx/main/main.c
+```
+
+
 # Tmux Split
 ```sh
 # 2*2
