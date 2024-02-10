@@ -10,6 +10,13 @@ Updating
 
 ## Start
 
+## gdb load debug source code
+
+```
+directory <path>
+```
+
+
 ## old-release
 ```sh
 sed -i -r 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
