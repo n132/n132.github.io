@@ -5,6 +5,21 @@ permalink: /kernel/
 ---
 Kernel Cheatsheet
 
+
+# extract-vmlinux
+
+- [extract-vmlinux][5] is a tool that extract vmlinux from bzImage.
+- Usgae: `extract-vmlinux ./bzImage > vmlinux.raw`
+
+# vmlinux-to-elf
+
+
+- A [tool][6] to recover symbols from `kallsyms`
+- Installation: `pip3 install --upgrade git+https://github.com/marin-m/vmlinux-to-elf`
+- Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
+
+
+
 # Depress Filesystem
 
 ```bash
@@ -115,3 +130,6 @@ chmod +x ./init
 cd /home/n132/Desktop/kernel
 cp -r ./busybox-1.32.1/_install .
 ```
+
+[5]: https://github.com/torvalds/linux/blob/master/scripts/extract-vmlinux
+[6]: https://github.com/marin-m/vmlinux-to-elf
