@@ -6,6 +6,12 @@ permalink: /kernel/
 Kernel Cheatsheet
 
 
+# vmlinux
+
+- Using `gdb vmlinux` to debug the kernel makes life easier
+- If you compile the kernel with keeping debug symbols, you'll find vmlinux at the root of source directory
+
+
 # extract-vmlinux
 
 - [extract-vmlinux][5] is a tool that extract vmlinux from bzImage.
