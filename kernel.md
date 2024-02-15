@@ -25,6 +25,26 @@ Kernel Cheatsheet
 - Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
 
 
+# Compile Kernel
+If there is an error for 
+`make[3]: *** No rule to make target 'debian/canonical-certs.pem', needed by 'certs/x509_certificate_list'.  Stop.`
+
+```
+#
+# Certificates for signature checking
+#
+CONFIG_MODULE_SIG_KEY="certs/signing_key.pem"
+CONFIG_SYSTEM_TRUSTED_KEYRING=y
+CONFIG_SYSTEM_TRUSTED_KEYS=""
+CONFIG_SYSTEM_EXTRA_CERTIFICATE=y
+CONFIG_SYSTEM_EXTRA_CERTIFICATE_SIZE=4096
+CONFIG_SECONDARY_TRUSTED_KEYRING=y
+CONFIG_SYSTEM_BLACKLIST_KEYRING=y
+CONFIG_SYSTEM_BLACKLIST_HASH_LIST=""
+CONFIG_SYSTEM_REVOCATION_LIST=y
+CONFIG_SYSTEM_REVOCATION_KEYS=""
+# end of Certificates for signature checking
+```
 
 # Depress Filesystem
 
