@@ -212,18 +212,12 @@ int main()
 }
 ```
 
-# 0x05 Articles
 
-The articles that helped me.
-
-- [Introduction of Heap Fengshui][3]
-- [Freelist Hijacking][1]
-
-# 0x06 Related Functions
+# 0x05 Related Functions
 
 - [msg_msg][2]
 
-# 0x07 Epilogue
+# 0x06 Epilogue
 
 This method is simple since it only attacks the current slab page and it's very strong. We can get AAW from UAF if we can leak enough information. Moreover, we don't need to perform corse slab skills. Also, [modprobe_path][4] is a very helpful skill, it converts AAW to code execution. 
 
