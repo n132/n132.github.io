@@ -1,5 +1,5 @@
 ---
-title: "Learn KHeap Freelist Hijacking from a CTF challenge: IPS(VULNCON 2021)"
+title: "Learn Kernel Heap Freelist Hijacking from a CTF challenge: IPS(VULNCON 2021)"
 date: 2024-02-28 19:08:29
 tags: 
 layout: default
