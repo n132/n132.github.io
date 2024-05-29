@@ -43,19 +43,48 @@
       <div class="collapse navbar-collapse text-right" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
           {% for page in site.pages %}
-            {% if page.permalink == '/' %} {% assign about_title = page.title %} {% endif %}
+            {% if page.permalink == '/about' %} {% assign about_title = 'About' %} {% endif %}
+            {% if page.permalink == '/kernel' %} {% assign kernel_title = 'Kernel' %} {% endif %}
+            {% if page.permalink == '/cheatsheet' %} {% assign cheatsheet_title = 'Cheatsheet' %} {% endif %}
+            {% if page.permalink == '/archive' %} {% assign archive_title = 'Kernel Archive' %} {% endif %}
           {% endfor %}
 
-          <!-- About -->
-          <li class="nav-item {% if page.permalink == '/' %}active{% endif %}">
-            <a class="nav-link" href="{{ '/' | relative_url }}">
-              {{- about_title }}
-              {% if page.permalink == '/' %}
+            <!-- cheatsheet -->
+          <li class="nav-item {% if page.permalink == '/cheatsheet' %}active{% endif %}">
+            <a class="nav-link" href="{{ '/cheatsheet' | relative_url }}">
+              {{- cheatsheet_title }}
+              {% if page.permalink == '/cheatsheet' %}
                 <span class="sr-only">(current)</span>
               {% endif %}
             </a>
           </li>
-
+          <!-- kernel -->
+          <li class="nav-item {% if page.permalink == '/kernel' %}active{% endif %}">
+            <a class="nav-link" href="{{ '/kernel' | relative_url }}">
+              {{- kernel_title }}
+              {% if page.permalink == '/kernel' %}
+                <span class="sr-only">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          <!-- kernel -->
+          <li class="nav-item {% if page.permalink == '/archive' %}active{% endif %}">
+            <a class="nav-link" href="{{ '/archive' | relative_url }}">
+              {{- archive_title }}
+              {% if page.permalink == '/archive' %}
+                <span class="sr-only">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          <!-- About -->
+          <li class="nav-item {% if page.permalink == '/about' %}active{% endif %}">
+            <a class="nav-link" href="{{ '/about' | relative_url }}">
+              {{- about_title }}
+              {% if page.permalink == '/about' %}
+                <span class="sr-only">(current)</span>
+              {% endif %}
+            </a>
+          </li>
           <!-- Other pages -->
           {% assign sorted_pages = site.pages | sort: 'nav_order' %}
           {% for p in sorted_pages %}

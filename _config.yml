@@ -18,13 +18,17 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: n132
-email: y0un9n132@mailcom
-description: >- # this means to ignore newlines until "baseurl:"
-  XxX
+email: eTB1bjluMTMy@gmail.com
+description: 
+
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://github.com/n132" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  n132
 
+announcements:
+  enabled: true
+  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
+  limit: 5 # leave blank to include all the news in the `_news` folder
 # Build settingstheme: 
 
 theme: minima
@@ -35,6 +39,32 @@ excerpt_separator:  '<!--more-->'
 
 paginate: 25
 paginate_path: "/blog/about/"
+
+# -----------------------------------------------------------------------------
+# Collections
+# -----------------------------------------------------------------------------
+
+collections:
+  news:
+    defaults:
+      layout: post
+    output: true
+    permalink: /news/:path/
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+announcements:
+  enabled: true
+  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
+  limit: 5 # leave blank to include all the news in the `_news` folder
+include: ["_pages"]
+
+# latest_posts:
+#   enabled: true
+#   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
+#   limit: 3 # leave blank to include all the blog posts
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -54,3 +84,5 @@ paginate_path: "/blog/about/"
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+# Dimensions
+max_width: 930px

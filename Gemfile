@@ -35,3 +35,11 @@ gem "jekyll-paginate", "~> 1.1.0"
 gem "webrick", "~> 1.8"
 
 gem "liquid", "~> 4.0"
+
+
+
+gem "css_parser", "~> 1.17"
+
+gem "httparty", "~> 0.22.0"
+
+gem "feedjira", "~> 3.2"
