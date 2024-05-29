@@ -43,3 +43,7 @@ gem "css_parser", "~> 1.17"
 gem "httparty", "~> 0.22.0"
 
 gem "feedjira", "~> 3.2"
+
+gem "jekyll-toc", "~> 0.19.0"
+
+gem "jekyll-scholar", "~> 7.1"
