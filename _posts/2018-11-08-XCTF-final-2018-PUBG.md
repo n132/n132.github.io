@@ -1,6 +1,5 @@
 ---
-title: 'XCTF-final-2018:PU
-G'
+title: 'XCTF-final-2018:PUBG'
 date: 2018-11-08 11:42:26
 tags:
 ---
