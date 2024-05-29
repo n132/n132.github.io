@@ -34,7 +34,7 @@ plugins:
 excerpt_separator:  '<!--more-->'
 
 paginate: 25
-paginate_path: "/blog/page:num/"
+paginate_path: "/blog/about/"
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
