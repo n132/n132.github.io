@@ -1,6 +1,6 @@
 ---
 layout: page
-# title: Kernel Archive
+title: Kernel Archive
 permalink: /archive
 ---
 # Challenge List

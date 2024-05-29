@@ -1,6 +1,6 @@
 ---
 layout: page
-# title: cheatsheet
+title: cheatsheet
 permalink: /cheatsheet
 ---
 

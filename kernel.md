@@ -1,8 +1,11 @@
 ---
 layout: page
-# title: Kernel
+title: Kernel
 permalink: /kernel
 ---
+Kernel Cheatsheet
+
+
 # vmlinux
 
 - Using `gdb vmlinux` to debug the kernel makes life easier
