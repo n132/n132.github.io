@@ -1,5 +1,5 @@
 ---
-title: "Wall of Perdition-I: Desgin Msgmsg Arbitrary Read based on UAF"
+title: "Wall of Perdition: Msgmsg Link and Leak"
 date: 2024-05-27 17:37:00
 tags: 
 layout: default
@@ -7,7 +7,6 @@ layout: default
 
 # 0x00 Introduction
 To practice kernel exploitation, I plan to solve old CTF challenges and learn different skills from others. Basically, I'll try to solve it by myself and then learn others' solutions. This is the first challenge for this serial, hope it's not the last one. 
-
 
 
 # 0x01 Challenge
@@ -83,7 +82,7 @@ For this challenge, there is no `read` freature. And the `UAF-Write` can't parti
 Nevertheless, I found the challenge allows arbitrary write for freed objects, which means we are able to create 8 zero bytes! 
 Utilizing the linked-list pointers in `struct msg_msg`. I got a way to leak current some heap pointers:
 
-![msg_msg Link and Leak](/Figures/WallofPerdition/msg_msgLink.png)
+![msg_msg Link and Leak](/Figures/WallofPerdition/msg_msgLink.png| width=100)
 
 ## Msgmsg Link and Leak Steps
 - 1. Assume the size of our target objects are 0x40
@@ -98,13 +97,13 @@ Utilizing the linked-list pointers in `struct msg_msg`. I got a way to leak curr
 - 10. To avoid crash while leaking, we UAF free the slot we created in step 7 then refill it with objects start with 8 zero bytes (e.g., msg_msgseg)
 - 11. So we can do msg_peek on the msg_msg struct created in step 3 we can leak the meta data of the `msg_msg` struct we created in step 3
 
-![Step 1-3](/Figures/WallofPerdition/msg_msgLink_step_1-3.png)
+![Step 1-3](/Figures/WallofPerdition/msg_msgLink_step_1-3.png| width=100)
 
-![Step 4](/Figures/WallofPerdition/msg_msgLink_step_4.png)
+![Step 4](/Figures/WallofPerdition/msg_msgLink_step_4.png| width=100)
 
-![Step 5-9](/Figures/WallofPerdition/msg_msgLink_step_5-9.png)
+![Step 5-9](/Figures/WallofPerdition/msg_msgLink_step_5-9.png| width=100)
 
-![Step 10-11](/Figures/WallofPerdition/msg_msgLink_step_10-11.png)
+![Step 10-11](/Figures/WallofPerdition/msg_msgLink_step_10-11.png| width=100)
 
 ## Arbitrary Address Read
 
