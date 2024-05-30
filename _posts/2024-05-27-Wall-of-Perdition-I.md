@@ -471,7 +471,7 @@ TODO:
 
 
 
-[1]: https://github.com/sajjadium/ctf-archives/tree/81c37b3b38776d059e18bf3c173537331d1b31d6/ctfs/corCTF/2021/pwn/Wall_of_Perdition
+[1]: https://github.com/Crusaders-of-Rust/corCTF-2021-public-challenge-archive/tree/main/pwn/wall-of-perdition
 [2]: https://syst3mfailure.io/wall-of-perdition/
 [3]: https://dl.acm.org/doi/abs/10.1145/3576915.3623220
 [4]: https://github.com/sefcom/RetSpill/blob/main/igni/chain_builder.py#L97
