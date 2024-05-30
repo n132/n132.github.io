@@ -85,17 +85,17 @@ Utilizing the linked-list pointers in `struct msg_msg`. I have a way to leak cur
 ![msg_msg Link and Leak](/Figures/WallofPerdition/msg_msgLink.png)
 
 ## Msgmsg Link and Leak Steps
-- 1. Assume the size of our target objects is 0x40
-- 2. UAF the target object to create a 0x40 UAF slot 
-- 3. Create a `0xfd0+0x38` `msg_msg` object to make sure its `msg_msgseg` refills the freed target object in the previous step 
-- 4. UAF-Free the target object again to create a 0x40 UAF slot at the same place as the second step
-- 5. Refill with `msg_msg` struct(in a new `msg_msg` queue)
-- 6. The `msg_msg` struct we created in the previous step is a fake `msg_msgseq` of the `msg_msg` struct we created in step 3
-- 7. Prepare another UAF slot by attacking the challenge vulnerability again
-- 8. Append a new `msg_msg` struct to the `msg queue` we created in step 5. 
-- 9. The `msg_msg` struct in step 8 will refill the slot we created in step 7
-- 10. To avoid crashing while leaking, we UAF free the slot we created in step 7 then refill it with objects starting with 8 zero bytes (e.g., msg_msgseg)
-- 11. So we can do msg_peek on the msg_msg struct created in step 3 we can leak the metadata of the `msg_msg` struct we created in step 3
+- 1 - Assume the size of our target objects is 0x40
+- 2 - UAF the target object to create a 0x40 UAF slot 
+- 3 - Create a `0xfd0+0x38` `msg_msg` object to make sure its `msg_msgseg` refills the freed target object in the previous step 
+- 4 - UAF-Free the target object again to create a 0x40 UAF slot at the same place as the second step
+- 5 - Refill with `msg_msg` struct(in a new `msg_msg` queue)
+- 6 - The `msg_msg` struct we created in the previous step is a fake `msg_msgseq` of the `msg_msg` struct we created in step 3
+- 7 - Prepare another UAF slot by attacking the challenge vulnerability again
+- 8 - Append a new `msg_msg` struct to the `msg queue` we created in step 5. 
+- 9 - The `msg_msg` struct in step 8 will refill the slot we created in step 7
+- 10 - To avoid crashing while leaking, we UAF free the slot we created in step 7 then refill it with objects starting with 8 zero bytes (e.g., msg_msgseg)
+- 11 - So we can do msg_peek on the msg_msg struct created in step 3 we can leak the metadata of the `msg_msg` struct we created in step 3
 
 ![Step 1-3](/Figures/WallofPerdition/msg_msgLink_step_1-3.png)
 
