@@ -1,5 +1,5 @@
 ---
-title: "Wall of Perdition: Msgmsg Link and Leak"
+title: "Learn UAF-Free-Leak, Retspill, and FG-KASLR bypassing from a CTF challenge: Wall of Perdition (corCTF 2021)"
 date: 2024-05-27 17:37:00
 tags: 
 layout: default
