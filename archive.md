@@ -9,3 +9,4 @@ permalink: /archive
 - [2021 VULNCON IPS (FreeList Hijacking)](../2024/02/28/IPS-Freelist.html)
 - [2021 VULNCON IPS (Cross-Page Overwriting and Page Level Heap Fengshui)](../2024/02/29/IPS-Cross-Slab-Attack.html)
 - [2021 CorCTF Wall of Perdition (UAF2Leak, RetSpill, and FG-KASLR bypassing)](../2024/05/27/Wall-of-Perdition.html)
+- [2024 DownUnderCTF Faulty Kernel (Page Struct, pipe_buffer, Cross Cache, passwd)](../2024/07/18/Faulty-Kernel.html)
