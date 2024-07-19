@@ -1,5 +1,5 @@
 ---
-title: "Page Struct UAF: (DownUnderCTF 2024)"
+title: "OOB on a Page Struct Array: Faulty Kernel (DownUnderCTF 2024)"
 date: 2024-07-18 19:00:00
 tags: 
 layout: default
