@@ -37,10 +37,18 @@ However, it's not as simple as ideal case since noise. They come from two reason
 - Enviroment: Fengshui / Noisy background
 
 
-
-
-
 # 0x05 Exploitation
+
+
+# Questions
+
+## unprivileged namespaces
+
+## Why do we need to free half of the allocated pages then free another half?
+
+
+## What if we don't use unprivileged namespaces?
+
 
 
 # Epilogue
