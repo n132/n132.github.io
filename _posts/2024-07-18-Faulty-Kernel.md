@@ -120,7 +120,7 @@ Luckily, closing the pipes will not clean the metadata on the `pipe_buffer` stru
 - Reset the password of the root
 - Login as root
 
-This solution is simpler and doesn't require control flow hijacking.
+When password login of root is enabled, this solution is simpler and doesn't require control flow hijacking.
 
 # 0x05 Exploit Script
 
