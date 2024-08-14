@@ -36,10 +36,43 @@ However, it's not as simple as ideal case since noise. They come from two reason
 - The cred allocation is not atomic
 - Enviroment: Fengshui / Noisy background
 
-
 # 0x05 Exploitation
 
+For not noisy case, it's easy to create one target page next to the vulnerable page. By the following code
 
+```python
+for x in range(0x200):
+    alloc_page()
+for x in range(0x200):
+    if x%2==0:
+        free_page(x)
+spray_obj1()
+for x in range(0x200):
+  if x%2==1:
+    free_page(x)
+spray_obj2()
+```
+
+However, when it's noisy, it's hard to hit. There are two main ways to make it easier to happen: 
+- Spray More
+- Make it less noisy
+
+Since the limit of allocation for both creds and vulnerable objects. We can do little to spray more. We only have a window of about 0x40 pages. In the original write up, the author figured out a way to make it less noisy. 
+
+```
+#define CLONE_FLAG CLONE_FILES | CLONE_FS | CLONE_VM | CLONE_SIGHAND
+```
+
+Using the `CLONE_FLAG` above, we are able to make allocation less noisy:
+```s
+task_struct
+kmalloc-64
+vmap_area
+vmap_area
+cred_jar
+signal_cache
+pid
+```
 # Questions
 
 ## unprivileged namespaces
