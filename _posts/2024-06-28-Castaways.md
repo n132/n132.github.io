@@ -1,5 +1,5 @@
 ---
-title: "Heap Overflow to cross Caches: Cache of Castaways (corCTF 2022)"
+title: "Limit Heap Overflow to Root with Cred/Pipe_buffer: Cache of Castaways (corCTF 2022)"
 date: 2024-06-28 13:33:00
 tags: 
 layout: default
