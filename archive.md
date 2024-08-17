@@ -22,4 +22,3 @@ I solved these kernel challenges but I didn't write write-ups.
 
 - [pwn.college - Kylebotfs](https://pwn.college/quarterly-quiz/kylebotfs/)
 - [pwn.college - Kernel Exploitation](https://pwn.college/software-exploitation/kernel-exploitation/)
-

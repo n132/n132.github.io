@@ -162,9 +162,9 @@ Then, considering the limit of `clone` that the more we `clone` the slower the m
 
 At the end, a little math is needed to get `NR_CNT_PAGES`. If you set it too small, the noise may influence more to your attacking. If you set it too large the following case may happen:
 
-- Assuming we have 8 pages `[0...8]`
-- Free the first half so we get the free-list: `[8,4,2,0]`
-- Spray some `object1` to get some pages in free-list, and assuming we got 8 and 4 so we still have free-list: `[2,0]`
+- Assuming we have 8 pages `[0...7]`
+- Free the first half so we get the free-list: `[6,4,2,0]`
+- Spray some `object1` to get some pages in free-list, and assuming we got 6 and 4 so we still have free-list: `[2,0]`
 - Free the second half so we get the free-list: `[7,5,3,1,2,0]`
 - Spray some `object2` to get pages in free-list
 - The limit spray of `object2` results in that we only get page 7 and 5 from freelist which are not next to the `object1` pages
