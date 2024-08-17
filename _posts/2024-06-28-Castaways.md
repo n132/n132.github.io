@@ -44,7 +44,7 @@ But how to get senario is not easy if we don't know the settubf up better Fengsh
 # 0x05 Exploitation
 
 
-## Page Holes Fengshui
+## 5.1 Page Holes Fengshui
 
 If there is no noisy, it's easy to create one target page next to the vulnerable page. By the following code
 
@@ -65,7 +65,7 @@ However, when it's noisy, it may not hit. There are two main ways to make it eas
 - Spray More
 - Make it less noisy
 
-## Make it less noisy
+## 5.2 Make it less noisy
 
 Since the limit of allocation for both creds and vulnerable objects. We can do little to spray more. We only have a window of about 0x40 pages. In the original write up, the author figured out a way to make it less noisy. 
 
@@ -84,7 +84,7 @@ signal_cache
 pid
 ```
 
-## Details
+## 5.3 Details
 
 After I reproduced the official solution with the value it provides, I got a root shell. But I was still confused about "how do the author get these numbers?" and tried to modify the number in the script finding these numbers could be computed percisly or I can't get a root shell.
 
@@ -162,7 +162,7 @@ Then, considering the limit of `clone` that the more we `clone` the slower the m
 
 At the end, a little math is needed to get `NR_CNT_PAGES`. If you set it too small, the noise may influence more to your attacking. If you set it too large the following case may happen:
 
-- Assuming we have 10 pages `[0...8]`
+- Assuming we have 8 pages `[0...8]`
 - Free the first half so we get the free-list: `[8,4,2,0]`
 - Spray some `object1` to get some pages in free-list, and assuming we still have free-list: `[2,0]`
 - Free the second half so we get the free-list: `[7,5,3,1,2,0]`
