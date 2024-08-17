@@ -1,5 +1,5 @@
 ---
-title: "Limit Heap Overflow to Root with Cred/Pipe_buffer: Cache of Castaways (corCTF 2022)"
+title: "Limit Heap Overflow to Root with Cred (Limit Spray Fengshui Crafting) /Pipe_buffer (Pipe Buffer AAR/AAW): Cache of Castaways (corCTF 2022)"
 date: 2024-06-28 13:33:00
 tags: 
 layout: default
@@ -164,7 +164,7 @@ At the end, a little math is needed to get `NR_CNT_PAGES`. If you set it too sma
 
 - Assuming we have 8 pages `[0...8]`
 - Free the first half so we get the free-list: `[8,4,2,0]`
-- Spray some `object1` to get some pages in free-list, and assuming we still have free-list: `[2,0]`
+- Spray some `object1` to get some pages in free-list, and assuming we got 8 and 4 so we still have free-list: `[2,0]`
 - Free the second half so we get the free-list: `[7,5,3,1,2,0]`
 - Spray some `object2` to get pages in free-list
 - The limit spray of `object2` results in that we only get page 7 and 5 from freelist which are not next to the `object1` pages
