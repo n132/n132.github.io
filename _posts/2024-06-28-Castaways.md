@@ -12,7 +12,7 @@ To practice kernel exploitation, I plan to solve old CTF challenges and learn di
 
 - Heap Overflow
 - Spray Creds
-- Fengshui
+- Limit Spray Fengshui Crafting
 - `Pipe_buffer` AAR/AAW
 
 
