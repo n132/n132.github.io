@@ -14,6 +14,7 @@ permalink: /archive
 - [2022 corCTF Cache of Castaways (Limit Heap Overflow, Limit Spray Fengshui Crafting, Cred Sprat)](../2024/06/28/Castaways.html)
 - [2022 corCTF Cache of Castaways (pipe_buffer AAR/AAW)](../2024/06/28/Castaways.html)
 
+- [2022 corCTF Cache of Castaways (pipe_buffer AAR/AAW)](../2024/06/28/Castaways.html)
 
 
 # Challenges without Write-Up
@@ -22,3 +23,15 @@ I solved these kernel challenges but I didn't write write-ups.
 
 - [pwn.college - Kylebotfs](https://pwn.college/quarterly-quiz/kylebotfs/)
 - [pwn.college - Kernel Exploitation](https://pwn.college/software-exploitation/kernel-exploitation/)
+
+
+# Not Recommended
+
+These challenges are too old/simple. Don't waste your time on these outdated challenges.
+
+- [2021 asisCTF minimemo (Heap Overflow / Link Related Attack)][1]
+
+
+
+
+[1]: https://github.com/n132/n132.github.io/blob/master/code/minimemo/README.md
