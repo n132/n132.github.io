@@ -87,4 +87,4 @@ include: ["_pages"]
 #   - vendor/gems/
 #   - vendor/ruby/
 # Dimensions
-max_width: 930px
+max_width: 1600px
