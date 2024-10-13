@@ -16,7 +16,7 @@ permalink: /archive
 - [2022 CVE-2022-4543](https://github.com/n132/libx/blob/main/kaslr.c): Reliable Entry Bleed
 - [2023 corCTF - Sysruption](../2024/09/28/sysruption.html): sysret, iret, tcp_prot, and micro-arch.
 - [2023 HITCON - Wall-Rose](../2024/09/29/rose.html): pipe_buffer AAR/AAW
-
+- [2022 corCTF - CorJail](../2024/10/13/corjail.html): pipe_buffer AAR/AAW, docker escaping
 
 # Challenges without Write-Up
 
