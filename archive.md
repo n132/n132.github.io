@@ -33,14 +33,13 @@ I solved these kernel challenges but I dont open the write-ups:
 I reproduced these kernel CVEs but I dont open the write-ups:
 
 - [KCTF - cve-2023-4623](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4623_lts_cos/)
-
+- [KCTF - cve-2023-31436](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-31436_mitigation/)
 
 # Not Recommended
 
 These challenges are too old/simple. Don't waste your time:
 
 - [2021 asisCTF minimemo (Heap Overflow / Link Related Attack)][1]
-
 
 
 
