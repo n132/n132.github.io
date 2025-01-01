@@ -3,7 +3,15 @@ layout: page
 title: Kernel
 permalink: /kernel
 ---
-Kernel Cheatsheet
+Intro-level Kernel Cheatsheet
+
+# Local Enviroment for Testing
+
+Kzone: https://github.com/n132/KZone.git
+
+# Exploitation Library
+
+Libx: `https://github.com/n132/libx.git`
 
 
 # vmlinux
@@ -25,28 +33,7 @@ Kernel Cheatsheet
 - Usage: `vmlinux-to-elf ./vmlinux.raw vmlinux`
 
 
-# Compile Kernel
-If there is an error for 
-`make[3]: *** No rule to make target 'debian/canonical-certs.pem', needed by 'certs/x509_certificate_list'.  Stop.`
-
-```
-#
-# Certificates for signature checking
-#
-CONFIG_MODULE_SIG_KEY="certs/signing_key.pem"
-CONFIG_SYSTEM_TRUSTED_KEYRING=y
-CONFIG_SYSTEM_TRUSTED_KEYS=""
-CONFIG_SYSTEM_EXTRA_CERTIFICATE=y
-CONFIG_SYSTEM_EXTRA_CERTIFICATE_SIZE=4096
-CONFIG_SECONDARY_TRUSTED_KEYRING=y
-CONFIG_SYSTEM_BLACKLIST_KEYRING=y
-CONFIG_SYSTEM_BLACKLIST_HASH_LIST=""
-CONFIG_SYSTEM_REVOCATION_LIST=y
-CONFIG_SYSTEM_REVOCATION_KEYS=""
-# end of Certificates for signature checking
-```
-
-# Depress Filesystem
+# CPIO Filesystem 
 
 ```bash
 #!/binsh
@@ -58,7 +45,7 @@ cd ..
 code .
 ```
 
-# Prepare Run Script: x.sh
+# Run Script Wrapper
 
 ```bash
 #!/bin/sh
@@ -74,32 +61,6 @@ echo "[...] run.sh" &&\
 
 > Tip: Remove `exec` in the script to make IO easier
 
-# Template
-```
-#include "libx.h"
-int main(){
-    puts("n132>>");
-}
-```
-# libx
-
-`https://github.com/n132/libx/tree/main`
-
-
-# ret2usr
-```
-size_t user_cs, user_ss, user_rflags, user_sp;
-void save_status()
-{
-    __asm__("mov user_cs, cs;"
-            "mov user_ss, ss;"
-            "mov user_sp, rsp;"
-            "pushf;"
-            "pop user_rflags;"
-            );
-    puts("[*]status has been saved.");
-}
-```
 # Run
 ```
 #!/bin/sh
@@ -114,7 +75,7 @@ qemu-system-x86_64 \
 
 ```
 
-# init
+# fs-init
 ```
 #!/bin/sh
 echo "N132 - INIT SCRIPT"
@@ -130,32 +91,8 @@ setsid /bin/cttyhack setuidgid 0 /bin/sh
 poweroff -f
 ```
 
-# Compile-the-Testcase
-```s
-obj-m += <name>.o
 
-KDIR =/home/n132/Desktop/kernel/linux-5.4.98/
 
-all:
-    $(MAKE) -C $(KDIR) M=$(PWD) modules
-
-clean:
-    rm -rf *.o *.ko *.mod.* *.symvers *.order
-```
-
-# Filesystem
-```s
-wget https://busybox.net/downloads/busybox-1.32.1.tar.bz2
-cd busybox-1.32.1
-make -j8 bzImage
-make install
-cd _install
-mkdir -p  proc sys dev etc/init.d
-vim init
-chmod +x ./init
-cd /home/n132/Desktop/kernel
-cp -r ./busybox-1.32.1/_install .
-```
 
 [5]: https://github.com/torvalds/linux/blob/master/scripts/extract-vmlinux
 [6]: https://github.com/marin-m/vmlinux-to-elf
