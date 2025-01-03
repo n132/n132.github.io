@@ -35,7 +35,7 @@ I solved these kernel challenges but have not published write-ups:
 
 - [pwn.college - Kylebotfs](https://pwn.college/quarterly-quiz/kylebotfs/): Intro of Kernel Heap
 - [pwn.college - Kernel Exploitation](https://pwn.college/software-exploitation/kernel-exploitation/): Intro of FBS 
-- [2024 idekCTF- Dead Pwners Socity](https://github.com/idekctf/idekctf-2024/tree/main/pwn/dead-pwners-society): Race Condition, CFI, AAF, Fengshui, Fuse
+- [2024 idekCTF- Dead Pwners Socity](https://github.com/idekctf/idekctf-2024/tree/main/pwn/dead-pwners-society): Race Condition, CFI, AAF, Fengshui, FUSE
 
 
 # Obsolete
