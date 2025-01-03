@@ -6,6 +6,8 @@ permalink: /archive
 
 # Challenge List
 
+Feel free to practice by following the order (or any order).
+
 - [2021 VULNCON - IPS](../2024/02/09/IPS.html): Heap Address Leaking cross kmem-cache
 - [2021 VULNCON - IPS](../2024/02/28/IPS-Freelist.html): FreeList Hijacking
 - [2021 VULNCON - IPS](../2024/02/29/IPS-Cross-Slab-Attack.html): Cross-Page Overwriting, Simple Page Level Heap Fengshui
@@ -21,22 +23,23 @@ permalink: /archive
 
 # Challenges without Write-Up
 
-I solved these kernel challenges but I dont open the write-ups:
+I solved these kernel challenges but have not published write-ups:
 
 - [pwn.college - Kylebotfs](https://pwn.college/quarterly-quiz/kylebotfs/): Intro of Kernel Heap
 - [pwn.college - Kernel Exploitation](https://pwn.college/software-exploitation/kernel-exploitation/): Intro of FBS 
-- [2024 idekCTF- Dead Pwners Socity](https://github.com/idekctf/idekctf-2024/tree/main/pwn/dead-pwners-society): Race Condition, CFI, AAF, Fengshui
+- [2024 idekCTF- Dead Pwners Socity](https://github.com/idekctf/idekctf-2024/tree/main/pwn/dead-pwners-society): Race Condition, CFI, AAF, Fengshui, Fuse
 
 # Reproduced CVEs:
 
-I reproduced these kernel CVEs but I dont open the write-ups:
+I reproduced these kernel CVEs but have not published write-ups:
 
 - [KCTF - cve-2023-4623](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4623_lts_cos/)
 - [KCTF - cve-2023-31436](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-31436_mitigation/)
 
 # Obsolete
 
-These challenges are too old/simple. Don't waste your time:
+These challenges/skills are old/simple/obsolete. Practice if you like:
+
 - [2021 QWB - notebook](../2022/05/20/Introduction-of-Kernel-Pwn-userfaultfd.html): Race Condition, `userfaultfd`
 - [2021 asisCTF minimemo (Heap Overflow / Link Related Attack)][1]
 
