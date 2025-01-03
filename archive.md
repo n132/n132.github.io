@@ -4,7 +4,7 @@ title: Kernel Archive
 permalink: /archive
 ---
 
-# Challenge List
+# Challenge List for Practicing
 
 Feel free to practice by following the order (or any order).
 
@@ -21,6 +21,14 @@ Feel free to practice by following the order (or any order).
 - [2023 HITCON - Wall-Rose](../2024/09/29/rose.html): `pipe_buffer` AAR/AAW
 - [2022 corCTF - CorJail](../2024/10/12/CorJail.html): `pipe_buffer` AAR/AAW, Docker Escaping
 
+# Reproduced CVEs:
+
+I reproduced these kernel CVEs but have not published write-ups:
+
+- [KCTF - cve-2023-4623](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4623_lts_cos/)
+- [KCTF - cve-2023-31436](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-31436_mitigation/)
+
+
 # Challenges without Write-Up
 
 I solved these kernel challenges but have not published write-ups:
@@ -29,12 +37,6 @@ I solved these kernel challenges but have not published write-ups:
 - [pwn.college - Kernel Exploitation](https://pwn.college/software-exploitation/kernel-exploitation/): Intro of FBS 
 - [2024 idekCTF- Dead Pwners Socity](https://github.com/idekctf/idekctf-2024/tree/main/pwn/dead-pwners-society): Race Condition, CFI, AAF, Fengshui, Fuse
 
-# Reproduced CVEs:
-
-I reproduced these kernel CVEs but have not published write-ups:
-
-- [KCTF - cve-2023-4623](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4623_lts_cos/)
-- [KCTF - cve-2023-31436](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-31436_mitigation/)
 
 # Obsolete
 
