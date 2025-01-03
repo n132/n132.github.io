@@ -6,7 +6,6 @@ permalink: /archive
 
 # Challenge List
 
-- [2021 QWB - notebook](../2022/05/20/Introduction-of-Kernel-Pwn-userfaultfd.html): Race Condition, `userfaultfd`
 - [2021 VULNCON - IPS](../2024/02/09/IPS.html): Heap Address Leaking cross kmem-cache
 - [2021 VULNCON - IPS](../2024/02/28/IPS-Freelist.html): FreeList Hijacking
 - [2021 VULNCON - IPS](../2024/02/29/IPS-Cross-Slab-Attack.html): Cross-Page Overwriting, Simple Page Level Heap Fengshui
@@ -35,10 +34,10 @@ I reproduced these kernel CVEs but I dont open the write-ups:
 - [KCTF - cve-2023-4623](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4623_lts_cos/)
 - [KCTF - cve-2023-31436](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-31436_mitigation/)
 
-# Not Recommended
+# Obsolete
 
 These challenges are too old/simple. Don't waste your time:
-
+- [2021 QWB - notebook](../2022/05/20/Introduction-of-Kernel-Pwn-userfaultfd.html): Race Condition, `userfaultfd`
 - [2021 asisCTF minimemo (Heap Overflow / Link Related Attack)][1]
 
 
