@@ -27,6 +27,7 @@ I reproduced these kernel CVEs but have not published write-ups:
 
 - [KCTF - cve-2023-4623](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4623_lts_cos/)
 - [KCTF - cve-2023-31436](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-31436_mitigation/)
+- [KCTF - cve-2023-3611](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-3611_lts_mitigation)
 
 
 # Challenges without Write-Up
