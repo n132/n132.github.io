@@ -16,18 +16,17 @@ Feel free to practice by following the order (or any order).
 - [2024 CrewCTF - kUlele](../2024/08/14/kUlele.html): Cross Cache from Page allocation to Slub
 - [2022 corCTF - Cache of Castaways](../2024/06/28/Castaways.html): Limit Heap Overflow, Limit Spray Fengshui Crafting, Cred Spray
 - [2022 corCTF - Cache of Castaways](../2024/06/28/Castaways.html): `pipe_buffer` AAR/AAW
-- [2022 CVE-2022-4543](https://github.com/n132/libx/blob/main/kaslr.c): Reliable Entry Bleeding
 - [2023 corCTF - Sysruption](../2024/09/28/sysruption.html): `sysret`, `iret`, `tcp_prot`, and `micro-arch`.
+  - (Prerequisite)[cve-2022-4543](https://www.willsroot.io/2022/12/entrybleed.html): Entry Bleed
 - [2023 HITCON - Wall-Rose](../2024/09/29/rose.html): `pipe_buffer` AAR/AAW
 - [2022 corCTF - CorJail](../2024/10/12/CorJail.html): `pipe_buffer` AAR/AAW, Docker Escaping
 
 # Reproduced CVEs:
 
 I reproduced these kernel CVEs but have not published write-ups:
-
 - [KCTF - cve-2023-4623](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4623_lts_cos/)
 - [KCTF - cve-2023-31436](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-31436_mitigation/)
-- [KCTF - cve-2023-3611](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-3611_lts_mitigation)
+- [KCTF - cve-2023-3611](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-3611_lts_mitigation/)
 
 
 # Challenges without Write-Up
