@@ -3,12 +3,10 @@ title: 'Hitcon:baby_tcache'
 date: 2018-11-15 15:31:17
 tags: pwn IO_FILE
 ---
-Hitcon Baby Tcache 
-<!--more-->
-# Start
-收获挺大的一题,IO_FILE 真好用....angelboy,david942j真的厉害。。。
+# Start
+收获挺大的一题,IO_FILE 真好用....angelboy,david942j真的厉害。。。
 # Analysis
-[附件][1]
+[附件][1]
 程序逻辑很简答:
 ```python
 void __fastcall __noreturn main(__int64 a1, char **a2, char **a3)
@@ -39,7 +37,7 @@ void __fastcall __noreturn main(__int64 a1, char **a2, char **a3)
 
 只有两个功能增加和删除
 删除没啥问题
-主要的漏洞点在增加:
+主要的漏洞点在增加:
 ```arm
 ptr[size] = 0;
 ```
@@ -59,39 +57,39 @@ checksec:
 ```
 
 使用的是libc-2.27(应该是。。。可能是2.26刚刚上去hitcon发现不能下载了)
-# 利用思路
+# 利用思路
 本题主要问题有两个
-1.tcache机制下利用one_null_byte_off
+1.tcache机制下利用one_null_byte_off
 2.泄露libc(一开始我是认为没有泄露的...被wp震惊了...)
 
 # one_null_byte_off
-核心思想是
+核心思想是
 ```python
 A|B|C ----->A|freed B|C----->A|B1,B2,blank|C
 ```
 主要思路：
 
-* 三个块ABC 
-* free掉B块在C的pre_size位留下大小
-* free掉A(进fast或者tcache反正不要和B合并),malloc(A)做一个one_null_byte_off改小B
+* 三个块ABC 
+* free掉B块在C的pre_size位留下大小
+* free掉A(进fast或者tcache反正不要和B合并),malloc(A)做一个one_null_byte_off改小B
 * malloc(B1)
 * malloc(B2)(B1+B2<B)
-* free(B1) free(C)这样C就会有个unlink的动作overlap了B2这里注意B1不能进fast或者tcache
+* free(B1) free(C)这样C就会有个unlink的动作overlap了B2这里注意B1不能进fast或者tcache
 
-free(B)进unsortedbin:
+free(B)进unsortedbin:
 B大于tcache的最大值
 
 最后free(B1)防止进Tcache和fast绕过:
 * tcache可以用塞7个free掉的chunk进一个bin来过掉
 * fast只要>0x80就可以了
 
-做了one_null_byte_off之后就可以愉快地利用tcache来任意地址写了...
+做了one_null_byte_off之后就可以愉快地利用tcache来任意地址写了...
 
 # use IO_FILE
 长知识了...跟着走了一遍源码...
 
-全题唯一输出函数puts...
-首先:
+全题唯一输出函数puts...
+首先:
 ```c
 int
 _IO_puts (const char *str)
@@ -108,7 +106,7 @@ _IO_puts (const char *str)
   return result;
 }
 ```
-这里主要实现功能的函数是_IO_sputn()
+这里主要实现功能的函数是_IO_sputn()
 ```c
 #define _IO_sputn(__fp, __s, __n) _IO_XSPUTN (__fp, __s, __n)
 ```
@@ -213,13 +211,13 @@ IO_FILE flags
 * _IO_USER_BUF表示 User owns buffer
 * _IO_NO_READS 不允许读
 * _IO_NO_WRITES 不允许写
-* _IO_DELETE_DONT_CLOSE 在删除时候不call close
+* _IO_DELETE_DONT_CLOSE 在删除时候不call close
 * _IO_LINKED 是否在IO_list_all中
 * _IO_TIED_PUT_GET 输入输出指针是否...读不懂了...
 * _IO_LINE_BUF(行缓冲?....我猜的...日后知道再改)
 * _IO_CURRENTLY_PUTTING(当前输出？字面意思...我也是猜的..)
 
-然后我们再来看_IO_new_file_xsputn关键部分
+然后我们再来看_IO_new_file_xsputn关键部分
 P1:
 ```arm
 if ((f->_flags & _IO_LINE_BUF) && (f->_flags & _IO_CURRENTLY_PUTTING))
@@ -257,9 +255,9 @@ P2:
     }
 }
 ```
-首先是conut直接大于0情况比较to_do和count然后把s memcpy 到f->_IO_write_ptr
+首先是conut直接大于0情况比较to_do和count然后把s memcpy 到f->_IO_write_ptr
 
-接下来是最重要的输出环节
+接下来是最重要的输出环节
 ```arm
  if (to_do + must_flush > 0)
     {
@@ -319,31 +317,31 @@ new_do_write (FILE *fp, const char *data, size_t to_do)
 }
 ```
 
-先是确定fp->_offset
-然后call了 最终的输出_IO_SYSWRITE
+先是确定fp->_offset
+然后call了 最终的输出_IO_SYSWRITE
 
-整个puts的过程简单如上所示现在回到我们题目上来.
-我们可以通过控制partial write 做tcache attack 控制IO_FILE更改IO_FILE做输出
+整个puts的过程简单如上所示现在回到我们题目上来.
+我们可以通过控制partial write 做tcache attack 控制IO_FILE更改IO_FILE做输出
 思路如下:
 * 我们需要控制和输出相关的那三个域_IO_write_base,_IO_write_ptr,_IO_write_end
 * 但是我们没有任何leak所以不知道任何地址,比较保险的办法是partial write _IO_write_base
-* 所以我们可以选择改小_IO_write_base--->\x00
+* 所以我们可以选择改小_IO_write_base--->\x00
 * 之后我们只要正确设置_flags就可以leak
-* 那么如何设置_flags由前面_flags各个域的意义我们可以选择一些要用的域例如
+* 那么如何设置_flags由前面_flags各个域的意义我们可以选择一些要用的域例如
 ```python
 _flags=_IO_MAGIC+_IO_CURRENTLY_PUTTING+_IO_IS_APPENDING+（_IO_LINKED）
 
-# _IO_MAGIC:magic num
-# _IO_LINKED:在IO_list_all内... 测试好像可有可无但是尊重事实加上去吧...
-# _IO_CURRENTLY_PUTTING:当前输出 经测试没有的话不会leak
-# _IO_IS_APPENDING:在new_do_write内走比较简单的那个分支...正确处理的话走另一个也可以
-_flags=0xfbad1800 or 0xfbad1880 或者再加一些其他不影响leak的_flags
+1) _IO_MAGIC:magic num
+2) _IO_LINKED:在IO_list_all内... 测试好像可有可无但是尊重事实加上去吧...
+3) _IO_CURRENTLY_PUTTING:当前输出 经测试没有的话不会leak
+4) IO_IS_APPENDING:在new_do_write内走比较简单的那个分支...正确处理的话走另一个也可以
+_flags=0xfbad1800 or 0xfbad1880 或者再加一些其他不影响leak的_flags
 发现最低字节`&2==1`的话之后还是会输出换行符,所以最好设置成 _flags=0x1802（AD-2019-12-07）
 ```
 
-终于搞定这两件事情...那么总的思路就是
-* 通过one_null_byte_off控制IO_file造成leak
-* 做tcache atk改写__malloc_hook
+终于搞定这两件事情...那么总的思路就是
+* 通过one_null_byte_off控制IO_file造成leak
+* 做tcache atk改写__malloc_hook
 
 # EXP
 ```python
