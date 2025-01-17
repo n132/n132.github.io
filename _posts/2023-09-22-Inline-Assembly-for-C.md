@@ -2,7 +2,7 @@
 title: "Inline Assembly for C"
 date: 2023-09-22 20:56:12
 tags: 
-layout: default
+layout: post
 ---
 # TL;DR
 

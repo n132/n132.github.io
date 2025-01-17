@@ -2,7 +2,7 @@
 title: Hook_magic
 date: 2018-09-13 21:52:37
 tags: pwn basic
-layout: default
+layout: post
 ---
 how hook works
 <!--more-->

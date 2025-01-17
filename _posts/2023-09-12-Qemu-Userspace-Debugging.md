@@ -2,7 +2,7 @@
 title: "Qemu Userspace Debugging"
 date: 2023-09-12 21:58:12
 tags: 
-layout: default
+layout: post
 ---
 
 # 0x00 TLDR

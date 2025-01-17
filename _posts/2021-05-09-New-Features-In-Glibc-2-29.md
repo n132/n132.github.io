@@ -2,7 +2,7 @@
 title: New_Features_In_Glibc-2.29
 date: 2021-05-09 11:39:42
 tags:
-layout: default
+layout: post
 ---
 New Features In Glibc-2.29
 <!--more-->

@@ -2,7 +2,7 @@
 title: "A New Format String Skill and Write-Up for HITCON 23: Wall Sina"
 date: 2023-09-17 21:34:12
 tags: 
-layout: default
+layout: post
 ---
 
 # 0x00 TL;DR

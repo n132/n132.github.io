@@ -2,7 +2,7 @@
 title: "Kernel: Compute Slab Order from Object Size"
 date: 2024-02-15 22:34:39
 tags: 
-layout: default
+layout: post
 ---
 
 # Prologue

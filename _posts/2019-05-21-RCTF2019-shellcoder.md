@@ -2,7 +2,7 @@
 title: RCTF2019_shellcoder
 date: 2019-05-21 19:42:59
 tags: shellcode
-layout: default
+layout: post
 ---
 syscall : getdents & sys_openat
 <!--more-->

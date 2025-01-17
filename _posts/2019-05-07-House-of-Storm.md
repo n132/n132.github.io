@@ -3,7 +3,7 @@
 title: House_of_Storm
 date: 2019-05-07 22:14:30
 tags: House_Of_Storm
-layout: default
+layout: post
 ---
 Seize it, control it, and exploit it. Welcome to the House of Storm.
 <!--more-->

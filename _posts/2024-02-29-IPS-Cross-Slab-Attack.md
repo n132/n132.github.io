@@ -2,7 +2,7 @@
 title: "Learn Kernel Heap Cross Page Overwrite and Page Level Fengshui from a CTF challenge: IPS(VULNCON 2021)"
 date: 2024-02-29 20:42:29
 tags: 
-layout: default
+layout: post
 ---
 
 # 0xFF tl;dr

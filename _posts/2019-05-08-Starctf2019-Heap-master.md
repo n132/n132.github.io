@@ -2,7 +2,7 @@
 title: Starctf2019_Heap_master
 date: 2019-05-10 10:51:54
 tags:
-layout: default
+layout: post
 ---
 非常精彩的一题,对题目了解越深入发现自己越菜.
 <!--more-->

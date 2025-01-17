@@ -2,7 +2,7 @@
 title: 'IO_FILE:pwn_Stdout'
 date: 2018-12-02 21:26:07
 tags: pwn IO_file
-layout: default
+layout: post
 ---
 TCL TCL
 <!--more-->

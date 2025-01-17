@@ -2,7 +2,7 @@
 title: "[JustCTF-2023] Tic Tac PWN!"
 date: 2023-05-31 20:56:00
 tags: 
-layout: default
+layout: post
 ---
 # 0x00 Prologue
 I didn't solve this challenge, this is an after game reproducing write-up.

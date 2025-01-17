@@ -2,7 +2,7 @@
 title: 'x86_stack_migration:Hack'
 date: 2018-11-16 19:25:08
 tags:
-layout: default
+layout: post
 ---
 基础太差...
 tcl

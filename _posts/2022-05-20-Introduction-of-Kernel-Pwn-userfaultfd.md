@@ -2,7 +2,7 @@
 title: "Introduction of Kernel Pwn: userfaultfd"
 date: 2022-05-20 18:52:21
 tags: 
-layout: default
+layout: post
 ---
 
 # 0x00 Prologue

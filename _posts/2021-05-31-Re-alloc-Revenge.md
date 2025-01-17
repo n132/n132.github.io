@@ -2,7 +2,7 @@
 title: Re-alloc-Revenge
 date: 2021-05-30 23:49:43
 tags:
-layout: default
+layout: post
 ---
 Re-alloc Revenge in pwnable.tw
 <!--more-->

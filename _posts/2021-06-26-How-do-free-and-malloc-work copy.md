@@ -2,7 +2,7 @@
 title: How do free&malloc work
 date: 2021-06-26 14:53:19
 tags: 
-layout: default
+layout: post
 ---
 How do free&malloc work
 <!--more-->

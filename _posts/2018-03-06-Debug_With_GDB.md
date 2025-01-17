@@ -1,7 +1,7 @@
 ---
 title: Debug With GDB
 date: 2018-03-06 16:00:30
-layout: default
+layout: post
 ---
 Debug With GDB
 <!--more-->

@@ -2,7 +2,7 @@
 title: "A simple and hard challenge for micro-arch, kernel exploitation, and syscall: Sysruption (corCTF 2023)"
 date: 2024-09-28 19:13:31
 tags: 
-layout: default
+layout: post
 ---
 # 0x00. Prologue
 

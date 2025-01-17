@@ -2,7 +2,7 @@
 title: Address Sanitize Intro
 date: 2021-12-31 10:22:19
 tags: Fuzz
-layout: default
+layout: post
 ---
 Address Sanitize
 <!--more-->

@@ -2,7 +2,7 @@
 title: 'XCTF-final-2018:PUBG'
 date: 2018-11-08 11:42:26
 tags:
-layout: default
+layout: post
 ---
 Interesting game
 <!--more-->

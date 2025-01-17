@@ -2,7 +2,7 @@
 title: "Introduction of Kernel Pwn: UAF"
 date: 2022-05-18 17:52:21
 tags: 
-layout: default
+layout: post
 ---
 
 # 0x00 Prologue

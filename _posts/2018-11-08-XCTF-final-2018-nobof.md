@@ -2,7 +2,7 @@
 title: XCTF-final-2018-nobof
 date: 2018-11-08 18:53:34
 tags:
-layout: default
+layout: post
 ---
 挺简单的...不过当时我16打14打不通...花了一个多小时装了个ubuntu14的
 <!--more-->

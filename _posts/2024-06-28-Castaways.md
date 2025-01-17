@@ -2,7 +2,7 @@
 title: "Limit Heap Overflow to Root with Cred (OOB Fengshui Crafting) /Pipe_buffer (Pipe Buffer AAR/AAW): Cache of Castaways (corCTF 2022)"
 date: 2024-06-28 13:33:00
 tags: 
-layout: default
+layout: post
 ---
 
 # 0x00 Introduction

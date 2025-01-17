@@ -2,7 +2,7 @@
 title: Ret2dlresolve
 date: 2021-06-18 14:49:43
 tags:
-layout: default
+layout: post
 ----
 Ret2dlresolve
 <!--more-->

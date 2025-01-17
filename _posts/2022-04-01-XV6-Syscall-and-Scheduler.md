@@ -2,7 +2,7 @@
 title: "XV6: Syscall and Scheduler"
 date: 2022-04-01 12:09:21
 tags: 
-layout: default
+layout: post
 ---
 
 # 0x00 Syscall

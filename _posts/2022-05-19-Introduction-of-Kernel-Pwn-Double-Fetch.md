@@ -2,7 +2,7 @@
 title: "Introduction of Kernel Pwn: Double Fetch"
 date: 2022-05-19 17:52:21
 tags: 
-layout: default
+layout: post
 ---
 
 # 0x00 Prologue

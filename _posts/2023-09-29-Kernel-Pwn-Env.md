@@ -2,7 +2,7 @@
 title: "Kernel Pwn: How to compile Kernel Module?"
 date: 2023-09-29 18:58:21
 tags: 
-layout: default
+layout: post
 ---
 # TL;DR
 

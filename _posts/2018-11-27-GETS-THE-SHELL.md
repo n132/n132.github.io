@@ -2,7 +2,7 @@
 title: GETS_THE_SHELL
 date: 2018-11-27 12:33:58
 tags: rop pwn
-layout: default
+layout: post
 ---
 开局一gets shell全靠码
 <!--more-->

@@ -2,7 +2,7 @@
 title: 0CTF/TCTF 2021 NaiveHeap
 date: 2021-10-01 10:22:19
 tags: 
-layout: default
+layout: post
 ---
 0CTF-NaiveHeap
 <!--more-->

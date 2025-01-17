@@ -2,7 +2,7 @@
 title: "[JustCTF-2023] notabug"
 date: 2023-05-31 20:56:00
 tags: 
-layout: default
+layout: post
 ---
 # Prologue
 

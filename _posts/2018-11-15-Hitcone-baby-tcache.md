@@ -2,7 +2,7 @@
 title: 'Hitcon:baby_tcache'
 date: 2018-11-15 15:31:17
 tags: pwn IO_FILE
-layout: default
+layout: post
 ---
 # Start
 收获挺大的一题,IO_FILE 真好用....angelboy,david942j真的厉害。。。
