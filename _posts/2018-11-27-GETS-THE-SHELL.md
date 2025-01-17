@@ -32,8 +32,8 @@ gcc main.c  -fno-stack-protector -o  gets
 '简单'的栈溢出
 
 # Analysis
-漏洞很简单，利用大思路是:
-主要思想是去gets_got上取gets的地址加上与system的offset之后
+漏洞很简单，利用大思路是:
+主要思想是去gets_got上取gets的地址加上与system的offset之后
 push入栈后leave到附近call system
 
 
@@ -55,7 +55,7 @@ lea     rbp, __do_global_dtors_aux_fini_array_entry
 push    rbx
 ```
 在函数开始的时候把一些寄存器内值入栈
-我们可以利用这两个特点入栈保存我们的值
+我们可以利用这两个特点入栈保存我们的值
 
 
 这个函数还可以作为x64的通用gadget
@@ -79,15 +79,15 @@ call    qword ptr [r12+rbx*8]
 ```
 
 # migration
-之前感觉不到栈转移的强大...这次做题感觉超级好用
+之前感觉不到栈转移的强大...这次做题感觉超级好用
 简单的套路
 ```python
 pop rbp+ aim-8  + leave 
 ```
 或者预设rbp在某处rop结尾先放好leave
 
-# add_ebx_esi
-这个gadgets很奇妙，产生于
+# add_ebx_esi
+这个gadgets很奇妙，产生于
 ```
 .text:00000000004004F3                 mov     cs:__bss_start, 1
 .text:00000000004004FA
@@ -102,9 +102,9 @@ pop rbp+ aim-8  + leave
 * 利用在got后面预置的leave和预置的rbp返回
 * 将gets的地址放到rbp上
 * 利用add_ebx_esi得到system的低4位
-* 利用csu_init存入栈
-* 再用csu_init将计算得出的高4位入栈，位置恰好是低4位处于低4位组成system
-* pop edi 设置/bin/sh 
+* 利用csu_init存入栈
+* 再用csu_init将计算得出的高4位入栈，位置恰好是低4位处于低4位组成system
+* pop edi 设置/bin/sh 
 * leave 到system
 
 # EXP

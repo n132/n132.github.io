@@ -442,7 +442,7 @@ bk_nextsize=aim_address-0x20-0x18-5
 
 * 去unsortedbin中寻找合适人选
 ` ► 3489               victim == av->last_remainder &&`
-但是因为发现和`last_remainder`要将`unsortedchunk`放入`smallbin`or`largebin`
+但是因为发现和`last_remainder`要将`unsortedchunk`放入`smallbin`or`largebin`
 * 对将放入的chunk进行些检查
 ```arm
    3473           if (__builtin_expect (victim->size <= 2 * SIZE_SZ, 0)

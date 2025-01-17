@@ -114,9 +114,9 @@ fastbin                                 a                |            b
 +-------+                    +-----------------------+     +-----------------------+
 ```
 
-* 这样子我们就可以吧chunk B的开始地址链在tcache上
+* 这样子我们就可以吧chunk B的开始地址链在tcache上
 
-* 虽然目前看来没什么用但是 如果我们在一开始就设置好了chunk A的尾部也就是chunk_B的size前8字节
+* 虽然目前看来没什么用但是 如果我们在一开始就设置好了chunk A的尾部也就是chunk_B的size前8字节
 * 那么在我们将tcache上的chunk A+10 chunk B取下之后tcache 上将会留下我们设置的目标
 
 * 之后我们只要盖掉chunk B 的size位删除后再次malloc 就可以得到 我们的目标
@@ -125,19 +125,19 @@ fastbin                                 a                |            b
 
 
 # 利用思路
-* 因为除了只有两个point之外没什么特殊的限制所以只要泄露了libc我们能直接改`__free_hook` 然后getshell
+* 因为除了只有两个point之外没什么特殊的限制所以只要泄露了libc我们能直接改`__free_hook` 然后getshell
 * 所以我们主要目标是:
     * modify size
     * free 
     * show
-* 但是因为只有两个point 所以我们可以作为next_size的点比较少在free大chunk到unsorted bin时容易出错
-* 假设我们将第二个chunk的末尾作为我们伪造的大chunk的next_chunk_size那我们需要控制第一个chunk前的位置
-* 第一个chunk+10为0x60 我们控制0x50便可以控制size且free的时候next_chunk_size可以控制
+* 但是因为只有两个point 所以我们可以作为next_size的点比较少在free大chunk到unsorted bin时容易出错
+* 假设我们将第二个chunk的末尾作为我们伪造的大chunk的next_chunk_size那我们需要控制第一个chunk前的位置
+* 第一个chunk+10为0x60 我们控制0x50便可以控制size且free的时候next_chunk_size可以控制
 
-# 利用过程
+# 利用过程
 ```python
 * get heap base#u need it
-* use house of atum 
+* use house of atum 
     * add(p64(0x21)*7+p64(0x61)+p61(heap+0x250))
     * add()
     * free(0)*7
@@ -225,7 +225,7 @@ p.interactive("\033[1;31;40m n132>>> \033[0m")
 ```
 # .
 
-* 利用tcache 与fast bin 存放chunk的差异 把任意地址放进tcache
-* 一定程度上的任意地址写
+* 利用tcache 与fast bin 存放chunk的差异 把任意地址放进tcache
+* 一定程度上的任意地址写
 
 [1]:https://changochen.github.io/2018-11-26-bctf-2018.html

