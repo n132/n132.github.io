@@ -2,6 +2,7 @@
 title: Starctf2019_upxofcpp
 date: 2019-05-03 22:29:58
 tags:
+layout: default
 ---
 非常有趣构思巧妙的一题..可能我tcl都没见过所以觉得巧妙..
 <!--more-->

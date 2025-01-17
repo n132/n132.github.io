@@ -2,7 +2,7 @@
 title: How to compile a glibc
 date: 2018-04-30 21:30:19
 tags: basic
-layout: post
+layout: default
 ---
 
 装libc困难重重从早上装到了晚上

@@ -2,6 +2,7 @@
 title: EXIT_HCTF2018_the_end
 date: 2019-05-15 16:06:22
 tags: _IO_FILE
+layout: default
 ---
 发现自己的积累还是太少了趁着学校运动会的期间多学点东西,`veritas501`师傅好强...
 <!--more-->

@@ -2,6 +2,7 @@
 title: double free or corrupttion
 date: 2018-11-14 17:12:30
 tags: pwn basic
+layout: default
 ---
 DOUBLE FREE OR CORRUPTION！
 

@@ -2,6 +2,7 @@
 title: House_of_force
 date: 2019-03-03 14:40:22
 tags:
+layout: default
 ---
 House of force
 <!--more-->

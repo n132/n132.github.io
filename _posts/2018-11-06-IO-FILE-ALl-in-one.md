@@ -2,6 +2,7 @@
 title: IO_FILE ALl_in_one
 date: 2018-11-06 20:46:15
 tags:
+layout: default
 ---
 IO_FILE 总结 未完成...
 <!--more-->

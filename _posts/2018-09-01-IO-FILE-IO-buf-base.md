@@ -2,7 +2,7 @@
 title: 'IO_FILE:_IO_buf_base'
 date: 2018-09-01 22:27:39
 tags: pwn IO_FILE
-layout: post
+layout: default
 ---
 2018ciscn echo back
 

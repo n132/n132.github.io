@@ -2,6 +2,7 @@
 title: 'BCTF2018:house_of_atum'
 date: 2018-12-09 15:04:48
 tags: heap tcache
+layout: default
 ---
 BCTF 2018 house of atum  
 <!--more-->

@@ -2,7 +2,7 @@
 title: CheatCode
 date: 1998-03-30 00:20:02
 tags: updating
-layout: post
+layout: default
 ---
 Document about little trick
 Updating

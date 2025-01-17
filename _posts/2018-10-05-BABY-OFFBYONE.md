@@ -2,7 +2,7 @@
 title: BABY OFFBYONE
 date: 2018-10-05 19:34:29
 tags: heap pwn
-layout: post
+layout: default
 ---
 Offbyone 忘记了哪儿的题目...基础offbyone
 <!--more-->

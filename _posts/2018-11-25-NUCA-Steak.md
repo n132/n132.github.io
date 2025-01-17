@@ -2,6 +2,7 @@
 title: 'NUCA:Steak'
 date: 2018-11-25 21:51:56
 tags: pwn rop
+layout: default
 ---
 挺长的一题...学到了不少东西
 <!--more-->

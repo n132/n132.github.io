@@ -2,6 +2,7 @@
 title: 'auxv:origin_of_canaries'
 date: 2019-02-25 22:18:14
 tags:
+layout: default
 ---
 origin_of_canaries
 

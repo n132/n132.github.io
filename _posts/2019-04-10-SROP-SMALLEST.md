@@ -2,6 +2,7 @@
 title: SROP_SMALLEST
 date: 2019-04-10 21:32:35
 tags:
+layout: default
 ---
 最近发现自己技能点很多都没有点...平时忙了点抽点时间把技能点上...SROP
 <!--more-->

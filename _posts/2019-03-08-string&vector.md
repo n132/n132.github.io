@@ -2,6 +2,7 @@
 title: string&vector
 date: 2019-03-08 14:03:34
 tags:
+layout: default
 ---
 c++一点不会...初级学起..
 <!--more-->

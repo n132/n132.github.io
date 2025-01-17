@@ -2,6 +2,7 @@
 title: RCTF2019_syscall_interface
 date: 2019-05-29 22:56:48
 tags: shellcode
+layout: default
 ---
 复现 syscall_interface. 
 <!--more-->

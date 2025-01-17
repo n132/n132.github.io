@@ -2,7 +2,7 @@
 title: Stack-Migaration
 date: 2018-09-29 22:50:49
 tags: pwn 
-layout: post
+layout: default
 ---
 one demo
 关于 Stack Migration

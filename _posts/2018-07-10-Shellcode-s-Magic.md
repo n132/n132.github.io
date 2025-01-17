@@ -2,7 +2,7 @@
 title: Shellcode 's Magic
 date: 2018-07-10 23:14:24
 tags: basic
-layout: post
+layout: default
 ---
 shellcode 原理 & 21byte shllcode 
 <!--more-->

@@ -3,6 +3,7 @@ title: pwnable-tw Trip
 date: 2019-01-18 12:09:38
 tags: pwn updating
 layout: post
+layout: default
 ---
 pwnable.tw
 an interesting trip 
