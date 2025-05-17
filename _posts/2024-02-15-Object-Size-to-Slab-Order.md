@@ -41,7 +41,7 @@ static inline unsigned int calc_slab_order(unsigned int size,
 
 ```
 
-The final order is related to other parts of the function, too much code to read and I am too lazy to understand all of them so the best way is just reset the core number of qemu and then get a mapping from core number to order of a specific size.
+The final order is related to other parts of the function, too much code to read and I am too lazy to understand all of them. However, the only thing related is the core number, so the best way is just reset the core number of qemu and then get a mapping from core number to order of a specific size.
 
 The source code is [here][1].
 
