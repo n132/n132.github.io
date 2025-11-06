@@ -47,14 +47,14 @@ paginate_path: "/blog/about/"
 # -----------------------------------------------------------------------------
 
 collections:
-  news:
+  News:
     defaults:
       layout: post
     output: true
     permalink: /news/:path/
-  projects:
-    output: true
-    permalink: /projects/:path/
+  # CVEs:
+  #   output: true
+  #   permalink: /cve/:path/
 
 announcements:
   enabled: true
