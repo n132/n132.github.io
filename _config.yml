@@ -47,11 +47,11 @@ paginate_path: "/blog/about/"
 # -----------------------------------------------------------------------------
 
 collections:
-  News:
+  news:
     defaults:
       layout: post
     output: true
-    permalink: /news/:path/
+    permalink: /News/:path/
   # CVEs:
   #   output: true
   #   permalink: /cve/:path/
