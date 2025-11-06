@@ -26,7 +26,7 @@ Since my sophomore year, I have been actively engaged in Capture The Flag (CTF) 
 
 I am an advocate for open-source, contributing to major projects like the [Linux kernel][5] and [how2heap][6]. I share various exploitation tools and techniques I develop on my [GitHub][4], including [Libc-GOT-Hijacking][1], [Dec-Safe-Linking][2], [BeapOverflow][3], and [more][4].
 
-# CVE-List
+# CVEs
 CVE-2025-40083, CVE-2025-38477
 
 
