@@ -51,7 +51,7 @@ collections:
     defaults:
       layout: post
     output: true
-    permalink: /News/:path/
+    permalink: /news/:path/
   # CVEs:
   #   output: true
   #   permalink: /cve/:path/
