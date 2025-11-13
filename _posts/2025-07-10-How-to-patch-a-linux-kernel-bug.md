@@ -60,8 +60,6 @@ scripts/config --enable CONFIG_NET_CLS_MATCHALL
 Then we run the test
 ```sh
 apt update -y && apt install -y python3-pip vim
-cd /tc-testing
-pip3 install scapy==2.4.2 --break
-pip3 install pyroute2 --break
-python3 ./tdc.py -v -f ./qdiscs/cake.json
+pip3 install pyroute2 scapy==2.4.2 --break
+python3 /tc-testing/tdc.py -v -f /tc-testing/qdiscs/cake.json
 ```
