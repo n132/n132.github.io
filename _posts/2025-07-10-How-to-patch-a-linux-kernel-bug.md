@@ -61,6 +61,9 @@ Then we run the test
 ```sh
 apt update -y && apt install -y python3-pip vim
 pip3 install pyroute2 scapy==2.4.2 --break
-cd /tc-tests
+cd /usr/lib/x86_64-linux-gnu/
+ln -s -f libc.a liblibc.a
+cd /tc-testing
 python3 /tc-tests/tdc.py -v -f /tc-tests/qdiscs/cake.json
+python3 ./tdc.py -v -f /home/user/qdiscs.json
 ```
