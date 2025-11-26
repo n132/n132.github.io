@@ -65,5 +65,5 @@ cd /usr/lib/x86_64-linux-gnu/
 ln -s -f libc.a liblibc.a
 cd /tc-testing
 python3 /tc-tests/tdc.py -v -f /tc-tests/qdiscs/cake.json
-python3 ./tdc.py -v -f /home/user/qdiscs.json
+python3 ./tdc.py -v -f /home/user/qdiscs.json -e <ID>
 ```
