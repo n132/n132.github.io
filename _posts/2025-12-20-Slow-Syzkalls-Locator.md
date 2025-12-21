@@ -13,7 +13,11 @@ When using syzkaller there are many syzkalls; we want to avoid slow ones, so we 
 Assuming we have downloaded a corpus, we want to obtain a list of syzkalls that are slow.
 
 
-# High-level methods
+# tl;dr
+
+https://github.com/n132/slow-syzkall-locator
+
+# 🏔️ High-level methods
 
 The execution time of a syzkall can vary because of state or arguments. This post describes a practical approach. We don't consider arguments or state, but only try to find an approximate way to estimate how long a syzkall will take. (It's hard to get a precise time for a single call unless we modify lower-level components such as the kernel.)
 
@@ -23,7 +27,7 @@ The execution time of a syzkall can vary because of state or arguments. This pos
 The first method is time-consuming since setting up the environment takes about 3 seconds. Considering the corpus usually includes more than 10K syzprogs, the first method would take too long (10,000 * 4 = 80,000 seconds, which is more than 20 hours). So I chose the second method.
 
 
-# Modifications to syz-execprog
+# 🗡️ Modifications to syz-execprog
 
 It's Vibe-coded and the modified syz-execprog prints the execution time of each syz program.
 
@@ -200,14 +204,14 @@ index d243514..0b5069c 100644
 ```
 
 
-# Compile the tool
+# 🚀 Compile the tool
 
 ```sh
 make -j`nproc`
 sudo ./syz-execprog -executor=./syz-executor -procs=1 -repeat=1 /tmp/corpus
 ```
 
-# Extract the slow syzkalls
+# 🎮 Extract the slow syzkalls
 
 After obtaining the log file, we use the following script to estimate the execution time of each syzkall:
 
@@ -373,3 +377,4 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
