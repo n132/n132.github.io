@@ -67,3 +67,19 @@ cd /tc-testing
 python3 /tc-tests/tdc.py -v -f /tc-tests/qdiscs/cake.json
 python3 ./tdc.py -v -f /home/user/qdiscs.json -e <ID>
 ```
+
+# Attach Crash Info to the Commit Message
+
+1. Get the crash, e.g,
+```
+[    0.980528] BUG: kernel NULL pointer dereference, address: 0000000000000000
+[    0.981054] #PF: supervisor write access in kernel mode
+[    0.981329] #PF: error_code(0x0002) - not-present page
+[    0.981588] PGD 1029b3067 P4D 1029b3067 PUD 1029b4067 PMD 0 
+[    0.981890] Oops: Oops: 0002 [#1] SMP NOPTI
+[    0.982106] CPU: 0 UID: 0 PID: 136 Comm: exploit Not tainted 6.19.0-rc3+ #1 NONE 
+...
+```
+
+2. Compile with DEBUG CONFIG
+3. `./scripts/decode_stacktrace.sh vmlinux "$KDIR"  < /home/n132/kCTF/fx0/crash   | sed "s#${KDIR%/}/##g"`
