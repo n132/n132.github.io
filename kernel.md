@@ -91,7 +91,52 @@ setsid /bin/cttyhack setuidgid 0 /bin/sh
 poweroff -f
 ```
 
+# Submitter
 
+- disable shell echoing: `stty -echo`
+
+```py
+from pwn import *
+
+
+EXPLOIT_PATH = '/tmp/exploit'
+
+SERVER = "dicec.tf"
+PORT = 32069
+
+SHELL_PROMPT = '$ '
+
+
+def get_splitted_encoded_exploit():
+    split_every = 256
+    # Change the name to your exploit path
+    with open('./fs/exp', 'rb') as exploit_file:
+        exploit = base64.b64encode(exploit_file.read())
+    return [exploit[i:i+split_every] for i in range(0, len(exploit), split_every)]
+
+
+def upload_exploit(sh):
+    chunks_sent = 0
+    splitted_exploit = get_splitted_encoded_exploit()
+    for exploit_chunk in splitted_exploit:
+        print(f'[*] Sending a chunk ({chunks_sent}/{len(splitted_exploit)})')
+        sh.sendlineafter(
+            SHELL_PROMPT, f'echo {exploit_chunk.decode()} | base64 -d >> {EXPLOIT_PATH}')
+        chunks_sent += 1
+
+r = remote(SERVER, PORT)
+# r = process("./run.sh")
+upload_exploit(r)
+# # When finished, your exploit will be in /tmp directory. Good luck.
+r.sendline(b"cd /tmp")
+# r.sendline(b"gunzip /exploit.gz")
+r.recvuntil(b"/tmp $")
+r.sendline("ls -a")
+print(r.recvline())
+print(r.recvline())
+# print(r.recvline())
+r.interactive()
+```
 
 
 [5]: https://github.com/torvalds/linux/blob/master/scripts/extract-vmlinux
