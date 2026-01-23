@@ -30,7 +30,6 @@ I reproduced these kernel CVEs but have not published write-ups:
 - [KCTF - cve-2023-4207](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-4207_lts_cos)
 - [KCTF - cve-2023-4208](https://github.com/google/security-research/tree/master/pocs/linux/kernelctf/CVE-2023-3609_cos_mitigation)
 
-
 # Challenges without Write-Up
 
 I solved these kernel challenges but have not published write-ups:

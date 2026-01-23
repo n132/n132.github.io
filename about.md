@@ -26,14 +26,13 @@ Since my sophomore year, I have been actively engaged in Capture The Flag (CTF) 
 
 I am an advocate for open-source, contributing to major projects like the [Linux kernel][5] and [how2heap][6]. I share various exploitation tools and techniques I develop on my [GitHub][4], including [Libc-GOT-Hijacking][1], [Dec-Safe-Linking][2], [BeapOverflow][3], and [more][4].
 
-# CVE List
+# Discovered/Patched CVE List
 
 - [CVE-2025-38477](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=fbe48f06e64134dfeafa89ad23387f66ebca3527)
 - [CVE-2025-40083](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1bed56f089f09b465420bf23bb32985c305cfc28)
 - [CVE-2025-68325](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=0b6216f9b3d1c33c76f74511026e5de5385ee520)
 - [CVE-2026-22976](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=0809c4bc06c9c961222df29f2eccfd449304056f)
 - [CVE-2026-22977](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=005671c60fcf1dbdb8bddf12a62568fd5e4ec391)
-
 
 [1]: https://github.com/n132/Libc-GOT-Hijacking
 [2]: https://github.com/n132/Dec-Safe-Linking
