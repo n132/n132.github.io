@@ -37,7 +37,7 @@ I am an advocate for open-source, contributing to major projects like the [Linux
 [2]: https://github.com/n132/Dec-Safe-Linking
 [3]: https://github.com/n132/BeapOverflow
 [4]: https://github.com/n132
-[5]: https://github.com/torvalds/linux/commit/685d98211273f60e38a6d361b62d7016c545297e#diff-4dd434086fa3d909f159202a82af12e0f3409a90a28d45dededeeac8be2c6810L1033
+[5]: https://www.kernel.org/
 [6]: https://github.com/google/oss-fuzz
 [7]: https://www.zerodayinitiative.com/blog
 [8]: https://www.csaw.io/
