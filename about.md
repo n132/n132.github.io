@@ -24,7 +24,7 @@ I am Xiang Mei, a Ph.D. student at Arizona State University, working with [Dr. Y
 Since my sophomore year, I have been actively engaged in Capture The Flag (CTF) competitions. I compete as part of [Shellphish][12] and [r3kapig][13] teams under the handle n132, specializing in binary exploitation (PWN). Recently, I became the tenth person to solve all challenges on [Pwnable.tw][11], a journey that spanned seven years and built my exploitation skills. Moreover, I have been a [DEF CON CTF][10] finalist with team r3kapig since 2021. During my master's study at NYU, I served as the Lab Manager for [NYU Osiris Lab][9], organizing [CSAW-CTFs][8] in 2021 and 2022. I also participated in bug bounty programs to tackle real-world security challenges, such as the Linux kernel in Google's [kernelCTF][21] in 2025 and WYZE-V3 camera at [PWN2OWN Toronto][7] in 2023.
 
 
-I am an advocate for open-source, contributing to major projects like the [Linux kernel][5] and [how2heap][6]. I share various exploitation tools and techniques I develop on my [GitHub][4], including [Libc-GOT-Hijacking][1], [Dec-Safe-Linking][2], [BeapOverflow][3], and [more][4].
+I am an advocate for open-source, contributing to major projects like the [Linux kernel][5] and [oss-fuzz][6]. I share various exploitation tools and techniques I develop on my [GitHub][4], including [Libc-GOT-Hijacking][1], [Dec-Safe-Linking][2], [BeapOverflow][3], and [more][4].
 
 # Discovered/Patched CVE
 
@@ -38,7 +38,7 @@ I am an advocate for open-source, contributing to major projects like the [Linux
 [3]: https://github.com/n132/BeapOverflow
 [4]: https://github.com/n132
 [5]: https://github.com/torvalds/linux/commit/685d98211273f60e38a6d361b62d7016c545297e#diff-4dd434086fa3d909f159202a82af12e0f3409a90a28d45dededeeac8be2c6810L1033
-[6]: https://github.com/shellphish/how2heap
+[6]: https://github.com/google/oss-fuzz
 [7]: https://www.zerodayinitiative.com/blog
 [8]: https://www.csaw.io/
 [9]: https://osiris.cyber.nyu.edu/
