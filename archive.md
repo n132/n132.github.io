@@ -46,6 +46,12 @@ These challenges/skills are old/simple/obsolete. Practice if you like:
 - [2021 QWB - notebook](../2022/05/20/Introduction-of-Kernel-Pwn-userfaultfd.html): Race Condition, `userfaultfd`
 - [2021 asisCTF minimemo (Heap Overflow / Link Related Attack)][1]
 
+# What you need to know to patch a Linux Kernel vulnerability
+
+- [A Simple Check List][2]
+- [More details (zh)][3]
 
 
 [1]: https://github.com/n132/n132.github.io/blob/master/code/minimemo/README.md
+[2]: https://n132.github.io/2025/07/10/How-to-patch-a-linux-kernel-bug.html
+[3]: https://bestwing.me/How-to-patch-a-linux-kernel-bug-zh.html
