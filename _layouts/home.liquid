@@ -3,78 +3,7 @@ layout: default
 ---
 
 <style>
-  /* === Hide default navbar on home page === */
-  #navbar {
-    display: none !important;
-  }
-
-  /* === Home layout === */
-  .pz-home {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  /* === Top header: logo + nav above the line === */
-  .pz-header {
-    position: relative;
-    padding: 1.5rem 0 0 0;
-    margin-left: -2rem;
-    margin-right: -2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
-  .pz-header-top {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    position: relative;
-    z-index: 1;
-    padding-bottom: 0.6rem;
-  }
-
-  .pz-header-logo {
-    font-size: 5rem;
-    font-weight: 900;
-    letter-spacing: 0.02em;
-    color: transparent;
-    -webkit-text-stroke: 2px #1a1a1a;
-    line-height: 1;
-    cursor: default;
-    transition: color 0.3s, -webkit-text-stroke 0.3s;
-    user-select: none;
-  }
-
-  .pz-header:hover .pz-header-logo {
-    color: #1a1a1a;
-    -webkit-text-stroke: 0px transparent;
-  }
-
-  .pz-header-nav {
-    display: flex;
-    gap: 1.5rem;
-    padding-bottom: 0.5rem;
-  }
-
-  .pz-header-nav a {
-    font-size: 0.85rem;
-    color: #555;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
-
-  .pz-header-nav a:hover {
-    color: #1a1a1a;
-  }
-
-  .pz-header-line {
-    height: 2px;
-    background: #1a1a1a;
-  }
-
-  /* === Search bar on the right side === */
+  /* === Home-specific styles === */
   .pz-content-wrap {
     display: flex;
     gap: 2rem;
@@ -216,7 +145,7 @@ layout: default
     content: " \2192";
   }
 
-  /* === "more posts" - large bold black, centered === */
+  /* === "more posts" === */
   .pz-more-posts {
     margin: 3rem 0 1rem 0;
     text-align: center;
@@ -239,64 +168,8 @@ layout: default
     color: #555;
   }
 
-  /* === Bottom slogan: right-aligned === */
-  .pz-footer-slogan {
-    position: relative;
-    text-align: right;
-    margin: 2rem 0 1rem 0;
-    padding: 0 0 1.5rem 0;
-    user-select: none;
-    margin-left: -2rem;
-    margin-right: -2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
-  .pz-footer-line {
-    height: 2px;
-    background: #e0e0e0;
-    transition: background 0.3s;
-  }
-
-  .pz-footer-slogan:hover .pz-footer-line {
-    background: #1a1a1a;
-  }
-
-  .pz-footer-text {
-    position: relative;
-    z-index: 1;
-    padding-top: 0.6rem;
-  }
-
-  .pz-footer-text span {
-    font-size: 4rem;
-    font-weight: 900;
-    letter-spacing: 0.02em;
-    color: transparent;
-    -webkit-text-stroke: 2px #e0e0e0;
-    transition: color 0.3s, -webkit-text-stroke 0.3s;
-    cursor: default;
-  }
-
-  .pz-footer-slogan:hover .pz-footer-text span {
-    color: #1a1a1a;
-    -webkit-text-stroke: 0px transparent;
-  }
-
   /* === Responsive === */
   @media (max-width: 768px) {
-    .pz-header-top {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    .pz-header-logo {
-      font-size: 3rem;
-    }
-    .pz-header-nav {
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
     .pz-content-wrap {
       flex-direction: column-reverse;
       gap: 1rem;
@@ -316,102 +189,59 @@ layout: default
     .pz-more-posts button {
       font-size: 1.8rem;
     }
-    .pz-footer-text span {
-      font-size: 2.5rem;
-    }
   }
 </style>
 
-<div class="pz-home">
-  <!-- Top header: logo (left) + nav, with line below -->
-  <div class="pz-header">
-    <div class="pz-header-top">
-      <span class="pz-header-logo">{{ site.slogan_top | default: site.title | default: "n132" }}</span>
-      <nav class="pz-header-nav">
-        {% for p in site.pages %}
-          {% if p.permalink == '/cheatsheet' %}
-            <a href="{{ '/cheatsheet' | relative_url }}">Cheatsheet</a>
-          {% endif %}
-        {% endfor %}
-        {% for p in site.pages %}
-          {% if p.permalink == '/kernel' %}
-            <a href="{{ '/kernel' | relative_url }}">Kernel</a>
-          {% endif %}
-        {% endfor %}
-        {% for p in site.pages %}
-          {% if p.permalink == '/archive' %}
-            <a href="{{ '/archive' | relative_url }}">Kernel Archive</a>
-          {% endif %}
-        {% endfor %}
-        {% for p in site.pages %}
-          {% if p.permalink == '/about' %}
-            <a href="{{ '/about' | relative_url }}">About</a>
-          {% endif %}
-        {% endfor %}
-      </nav>
-    </div>
-    <div class="pz-header-line"></div>
-  </div>
-
-  <!-- Content area: posts + sidebar search -->
-  <div class="pz-content-wrap">
-    <div class="pz-posts-col">
-      {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
-      {% for year_group in posts_by_year %}
-        <div class="year-group" data-year="{{ year_group.name }}">
-          <div class="pz-year-heading">{{ year_group.name }}</div>
-          <ul class="pz-post-list">
-            {% for post in year_group.items %}
-              {% assign first_img = nil %}
-              {% if post.image %}
-                {% assign first_img = post.image | relative_url %}
-              {% elsif post.content contains '<img ' %}
-                {% assign img_split = post.content | split: 'src="' %}
-                {% if img_split.size > 1 %}
-                  {% assign first_img = img_split[1] | split: '"' | first %}
-                {% endif %}
+<!-- Content area: posts + sidebar search -->
+<div class="pz-content-wrap">
+  <div class="pz-posts-col">
+    {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+    {% for year_group in posts_by_year %}
+      <div class="year-group" data-year="{{ year_group.name }}">
+        <div class="pz-year-heading">{{ year_group.name }}</div>
+        <ul class="pz-post-list">
+          {% for post in year_group.items %}
+            {% assign first_img = nil %}
+            {% if post.image %}
+              {% assign first_img = post.image | relative_url %}
+            {% elsif post.content contains '<img ' %}
+              {% assign img_split = post.content | split: 'src="' %}
+              {% if img_split.size > 1 %}
+                {% assign first_img = img_split[1] | split: '"' | first %}
               {% endif %}
-              <li class="pz-post-item">
-                {% if first_img %}
-                  <a href="{{ post.url | relative_url }}" class="pz-post-thumb">
-                    <img src="{{ first_img }}" alt="" loading="lazy" />
-                  </a>
+            {% endif %}
+            <li class="pz-post-item">
+              {% if first_img %}
+                <a href="{{ post.url | relative_url }}" class="pz-post-thumb">
+                  <img src="{{ first_img }}" alt="" loading="lazy" />
+                </a>
+              {% endif %}
+              <div class="pz-post-body">
+                <h3 class="pz-post-title">
+                  <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+                </h3>
+                <div class="pz-post-date">{{ post.date | date: "%Y-%b-%d" }}</div>
+                {% if post.excerpt %}
+                  <div class="pz-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
                 {% endif %}
-                <div class="pz-post-body">
-                  <h3 class="pz-post-title">
-                    <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-                  </h3>
-                  <div class="pz-post-date">{{ post.date | date: "%Y-%b-%d" }}</div>
-                  {% if post.excerpt %}
-                    <div class="pz-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
-                  {% endif %}
-                  <a class="pz-read-more" href="{{ post.url | relative_url }}">Read more</a>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
-
-      <div class="pz-more-posts">
-        <button id="more-posts-btn">more posts</button>
+                <a class="pz-read-more" href="{{ post.url | relative_url }}">Read more</a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
-    </div>
+    {% endfor %}
 
-    <!-- Sidebar: search -->
-    <div class="pz-side-col">
-      <div class="pz-search-box">
-        <input type="text" id="post-search" placeholder="search" autocomplete="off" />
-        <div id="search-count" class="pz-search-count"></div>
-      </div>
+    <div class="pz-more-posts">
+      <button id="more-posts-btn">more posts</button>
     </div>
   </div>
 
-  <!-- Bottom slogan: right-aligned, line on top -->
-  <div class="pz-footer-slogan">
-    <div class="pz-footer-line"></div>
-    <div class="pz-footer-text">
-      <span>{{ site.slogan_bottom | default: site.title | default: "n132" }}</span>
+  <!-- Sidebar: search -->
+  <div class="pz-side-col">
+    <div class="pz-search-box">
+      <input type="text" id="post-search" placeholder="search" autocomplete="off" />
+      <div id="search-count" class="pz-search-count"></div>
     </div>
   </div>
 </div>

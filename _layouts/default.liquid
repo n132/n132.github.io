@@ -13,42 +13,320 @@
       <meta http-equiv="refresh" content="3; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
+
+    <style>
+      /* === Shared pz layout styles === */
+      .pz-wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      /* === Header === */
+      .pz-header {
+        position: relative;
+        padding: 1.5rem 0 0 0;
+      }
+
+      .pz-header-top {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+        padding-bottom: 0.6rem;
+      }
+
+      .pz-header-logo {
+        font-size: 5rem;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        color: transparent;
+        -webkit-text-stroke: 2px #1a1a1a;
+        line-height: 1;
+        cursor: default;
+        transition: color 0.3s, -webkit-text-stroke 0.3s;
+        user-select: none;
+        text-decoration: none;
+      }
+
+      .pz-header:hover .pz-header-logo {
+        color: #1a1a1a;
+        -webkit-text-stroke: 0px transparent;
+      }
+
+      .pz-header-nav {
+        display: flex;
+        gap: 1.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .pz-header-nav a {
+        font-size: 0.85rem;
+        color: #555;
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .pz-header-nav a:hover,
+      .pz-header-nav a.active {
+        color: #1a1a1a;
+      }
+
+      .pz-header-line {
+        height: 2px;
+        background: #1a1a1a;
+      }
+
+      /* === Footer === */
+      .pz-footer-slogan {
+        position: relative;
+        text-align: right;
+        margin: 3rem 0 1rem 0;
+        padding: 0 0 1.5rem 0;
+        user-select: none;
+      }
+
+      .pz-footer-line {
+        height: 2px;
+        background: #e0e0e0;
+        transition: background 0.3s;
+      }
+
+      .pz-footer-slogan:hover .pz-footer-line {
+        background: #1a1a1a;
+      }
+
+      .pz-footer-text {
+        position: relative;
+        z-index: 1;
+        padding-top: 0.6rem;
+      }
+
+      .pz-footer-text span {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        color: transparent;
+        -webkit-text-stroke: 2px #e0e0e0;
+        transition: color 0.3s, -webkit-text-stroke 0.3s;
+        cursor: default;
+      }
+
+      .pz-footer-slogan:hover .pz-footer-text span {
+        color: #1a1a1a;
+        -webkit-text-stroke: 0px transparent;
+      }
+
+      /* === Content area === */
+      .pz-content {
+        padding-top: 2rem;
+      }
+
+      .pz-content .post-header {
+        margin-bottom: 1.5rem;
+      }
+
+      .pz-content .post-title {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #1a1a1a;
+        line-height: 1.3;
+        margin: 0 0 0.3rem 0;
+      }
+
+      .pz-content .post-meta {
+        font-size: 0.85rem;
+        color: #999;
+        margin: 0;
+      }
+
+      .pz-content .post-tags {
+        font-size: 0.8rem;
+        color: #aaa;
+      }
+
+      .pz-content .post-tags a {
+        color: #555;
+        text-decoration: none;
+      }
+
+      .pz-content .post-tags a:hover {
+        color: #1a1a1a;
+      }
+
+      .pz-content .post-description {
+        font-size: 1rem;
+        color: #666;
+        margin: 0;
+      }
+
+      .pz-content .post-content {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: #333;
+      }
+
+      .pz-content .post-content h1,
+      .pz-content .post-content h2,
+      .pz-content .post-content h3,
+      .pz-content .post-content h4 {
+        color: #1a1a1a;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .pz-content .post-content a {
+        color: #1a1a1a;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .pz-content .post-content a:hover {
+        color: #555;
+      }
+
+      .pz-content .post-content pre {
+        background: #f6f6f6;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 1rem;
+        overflow-x: auto;
+      }
+
+      .pz-content .post-content code {
+        font-size: 0.9em;
+      }
+
+      .pz-content .post-content blockquote {
+        border-left: 3px solid #1a1a1a;
+        padding-left: 1rem;
+        color: #555;
+        margin: 1.5rem 0;
+      }
+
+      .pz-content .post-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      .pz-content .post-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+      }
+
+      .pz-content .post-content table th,
+      .pz-content .post-content table td {
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+      }
+
+      .pz-content .post-content table th {
+        font-weight: 700;
+        color: #1a1a1a;
+        border-bottom: 2px solid #1a1a1a;
+      }
+
+      /* === About page profile === */
+      .pz-content .profile {
+        margin-bottom: 1.5rem;
+      }
+
+      .pz-content .profile.float-right {
+        margin-left: 2rem;
+      }
+
+      .pz-content .profile.float-left {
+        margin-right: 2rem;
+      }
+
+      /* === Archive tables === */
+      .pz-content .archive table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .pz-content .archive table th {
+        font-size: 0.85rem;
+        color: #999;
+        font-weight: 400;
+        white-space: nowrap;
+        padding: 0.6rem 1rem 0.6rem 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .pz-content .archive table td {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .pz-content .archive table a {
+        color: #1a1a1a;
+        text-decoration: none;
+      }
+
+      .pz-content .archive table a:hover {
+        color: #555;
+      }
+
+      /* === Responsive === */
+      @media (max-width: 768px) {
+        .pz-header-top {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+        .pz-header-logo {
+          font-size: 3rem;
+        }
+        .pz-header-nav {
+          flex-wrap: wrap;
+          gap: 0.8rem;
+        }
+        .pz-footer-text span {
+          font-size: 2.5rem;
+        }
+      }
+    </style>
   </head>
 
   <!-- Body -->
-  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
-    <!-- Header -->
-    {% include header.liquid %}
+  <body>
+    <div class="pz-wrapper">
+      <!-- Header -->
+      {% include header.liquid %}
 
-    <!-- Content -->
-    <div class="container mt-5" role="main">
-      {% if page.toc and page.toc.sidebar %}
-        {% if page.toc.sidebar == 'right' %}
-          <div class="row">
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
+      <!-- Content -->
+      <div class="pz-content" role="main">
+        {% if page.toc and page.toc.sidebar %}
+          {% if page.toc.sidebar == 'right' %}
+            <div class="row">
+              <div class="col-sm-9">{{ content }}</div>
+              <div class="col-sm-3">
+                <nav id="toc-sidebar" class="sticky-top"></nav>
+              </div>
             </div>
-          </div>
+          {% else %}
+            <div class="row">
+              <div class="col-sm-3">
+                <nav id="toc-sidebar" class="sticky-top"></nav>
+              </div>
+              <div class="col-sm-9">{{ content }}</div>
+            </div>
+          {% endif %}
         {% else %}
-          <div class="row">
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
-            </div>
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-          </div>
+          {{ content }}
         {% endif %}
-      {% else %}
-        {{ content }}
-      {% endif %}
-    </div>
+      </div>
 
-    <!-- Footer -->
-    {% include footer.liquid %}
+      <!-- Footer -->
+      {% include footer.liquid %}
+    </div>
 
     <!-- JavaScripts -->
     {% include scripts/jquery.liquid %}

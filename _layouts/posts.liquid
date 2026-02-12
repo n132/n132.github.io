@@ -6,7 +6,6 @@ layout: default
 {% assign categories = page.categories | join: '' %}
 
 {% if page._styles %}
-  <!-- Page/Post style -->
   <style type="text/css">
     {{ page._styles }}
   </style>
@@ -18,44 +17,37 @@ layout: default
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">
-      Created in {{ page.date | date: '%B %d, %Y' }}
-      {% if page.author %}by {{ page.author }}{% endif %}
-      {% if page.last_updated %}, last updated in {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
-      {% if page.meta %}• {{ page.meta }}{% endif %}
+      {{ page.date | date: '%B %d, %Y' }}
+      {% if page.author %} &middot; {{ page.author }}{% endif %}
+      {% if page.last_updated %} &middot; updated {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
+      {% if page.meta %} &middot; {{ page.meta }}{% endif %}
     </p>
     <p class="post-tags">
       {% if url_beginning == '/blog/' %}
-        <a href="{{ year | prepend: '/blog/' | prepend: site.baseurl}}"> <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
+        <a href="{{ year | prepend: '/blog/' | prepend: site.baseurl}}">{{ year }}</a>
       {% else %}
-        <i class="fa-solid fa-calendar fa-sm"></i> {{ year }}
+        {{ year }}
       {% endif %}
       {% if tags != '' %}
-        &nbsp; &middot; &nbsp;
+        &middot;
         {% for tag in page.tags %}
           {% if url_beginning == '/blog/' %}
-            <a href="{{ tag | slugify | prepend: '/blog/tag/' | prepend: site.baseurl}}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
+            <a href="{{ tag | slugify | prepend: '/blog/tag/' | prepend: site.baseurl}}">#{{ tag }}</a>
           {% else %}
-            <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}
+            #{{ tag }}
           {% endif %}
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
+          {% unless forloop.last %}&nbsp;{% endunless %}
         {% endfor %}
       {% endif %}
-
       {% if categories != '' %}
-        &nbsp; &middot; &nbsp;
+        &middot;
         {% for category in page.categories %}
           {% if url_beginning == '/blog/' %}
-            <a href="{{ category | slugify | prepend: '/blog/category/' | prepend: site.baseurl}}">
-              <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}
-            </a>
+            <a href="{{ category | slugify | prepend: '/blog/category/' | prepend: site.baseurl}}">{{ category }}</a>
           {% else %}
-            <i class="fa-solid fa-tag fa-sm"></i> {{ category }}
+            {{ category }}
           {% endif %}
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
+          {% unless forloop.last %}&nbsp;{% endunless %}
         {% endfor %}
       {% endif %}
     </p>
