@@ -1,3 +1,5 @@
+@use "sass:string";
+
 // mixins
 // --------------------------
 
@@ -51,7 +53,7 @@
   @extend .fa-solid;
 
   &::before {
-    content: unquote('"#{ $fa-var }"');
+    content: string.unquote('"#{ $fa-var }"');
   }
 }
 @mixin fa-icon-regular($fa-var) {
@@ -59,7 +61,7 @@
   @extend .fa-regular;
 
   &::before {
-    content: unquote('"#{ $fa-var }"');
+    content: string.unquote('"#{ $fa-var }"');
   }
 }
 @mixin fa-icon-brands($fa-var) {
@@ -67,6 +69,6 @@
   @extend .fa-brands;
 
   &::before {
-    content: unquote('"#{ $fa-var }"');
+    content: string.unquote('"#{ $fa-var }"');
   }
 }

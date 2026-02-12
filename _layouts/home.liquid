@@ -123,7 +123,7 @@ layout: default
     color: #444;
     line-height: 1.6;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -200,6 +200,7 @@ layout: default
       <div class="year-group" data-year="{{ year_group.name }}">
         <div class="pz-year-heading">{{ year_group.name }}</div>
         <ul class="pz-post-list">
+          {% assign preview_images = site.static_files | where_exp: "file", "file.path contains '/assets/img/preview/'" %}
           {% for post in year_group.items %}
             {% assign first_img = nil %}
             {% if post.image %}
@@ -210,6 +211,13 @@ layout: default
                 {% assign first_img = img_split[1] | split: '"' | first %}
               {% endif %}
             {% endif %}
+            {% unless first_img %}
+              {% if preview_images.size > 0 %}
+                {% assign hash_val = post.date | date: "%s" | plus: 0 %}
+                {% assign img_index = hash_val | modulo: preview_images.size %}
+                {% assign first_img = preview_images[img_index].path | relative_url %}
+              {% endif %}
+            {% endunless %}
             <li class="pz-post-item">
               {% if first_img %}
                 <a href="{{ post.url | relative_url }}" class="pz-post-thumb">
@@ -221,8 +229,23 @@ layout: default
                   <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
                 </h3>
                 <div class="pz-post-date">{{ post.date | date: "%Y-%b-%d" }}</div>
-                {% if post.excerpt %}
-                  <div class="pz-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+                {% assign body_html = post.content | split: '<!--more-->' | last %}
+                {% assign body_marked = body_html | replace: '<h1', 'XHSX<h1' | replace: '<h2', 'XHSX<h2' | replace: '<h3', 'XHSX<h3' | replace: '<h4', 'XHSX<h4' %}
+                {% assign body_marked = body_marked | replace: '</h1>', '</h1>XHEX' | replace: '</h2>', '</h2>XHEX' | replace: '</h3>', '</h3>XHEX' | replace: '</h4>', '</h4>XHEX' %}
+                {% assign body_text = body_marked | strip_html %}
+                {% assign heading_parts = body_text | split: 'XHSX' %}
+                {% assign clean_text = '' %}
+                {% for part in heading_parts %}
+                  {% if part contains 'XHEX' %}
+                    {% assign after_heading = part | split: 'XHEX' | last %}
+                    {% assign clean_text = clean_text | append: after_heading %}
+                  {% else %}
+                    {% assign clean_text = clean_text | append: part %}
+                  {% endif %}
+                {% endfor %}
+                {% assign excerpt_text = clean_text | strip | truncatewords: 60 %}
+                {% if excerpt_text.size > 0 %}
+                  <div class="pz-post-excerpt">{{ excerpt_text }}</div>
                 {% endif %}
                 <a class="pz-read-more" href="{{ post.url | relative_url }}">Read more</a>
               </div>

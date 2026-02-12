@@ -2,6 +2,7 @@
 layout: page
 title: Kernel
 permalink: /kernel
+hide_title: true
 ---
 Intro-level Kernel Cheatsheet
 

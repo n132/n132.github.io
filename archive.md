@@ -2,6 +2,7 @@
 layout: page
 title: Kernel Archive
 permalink: /archive
+hide_title: true
 ---
 
 # Challenge List for Practicing

@@ -1,9 +1,12 @@
+@use "sass:string";
+@use "sass:math";
+
 // functions
 // --------------------------
 
 // fa-content: convenience function used to set content property
 @function fa-content($fa-var) {
-  @return unquote('"#{ $fa-var }"');
+  @return string.unquote('"#{ $fa-var }"');
 }
 
 // fa-divide: Originally obtained from the Bootstrap https://github.com/twbs/bootstrap
@@ -32,7 +35,10 @@
 // THE SOFTWARE.
 
 @function fa-divide($dividend, $divisor, $precision: 10) {
-  $sign: if($dividend > 0 and $divisor > 0, 1, -1);
+  $sign: -1;
+  @if $dividend > 0 and $divisor > 0 {
+    $sign: 1;
+  }
   $dividend: abs($dividend);
   $divisor: abs($divisor);
   $quotient: 0;

@@ -87,5 +87,9 @@ include: ["_pages"]
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+# Sass
+sass:
+  quiet_deps: true
+
 # Dimensions
 max_width: 1600px

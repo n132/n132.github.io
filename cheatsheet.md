@@ -2,6 +2,7 @@
 layout: page
 title: cheatsheet
 permalink: /cheatsheet
+hide_title: true
 ---
 
 # PwntoolsExp
