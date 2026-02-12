@@ -1,31 +1,31 @@
 <header>
   <div class="pz-header">
-    <div class="pz-header-top">
+    <nav class="pz-header-nav">
+      {% for p in site.pages %}
+        {% if p.permalink == '/cheatsheet' %}
+          <a href="{{ '/cheatsheet' | relative_url }}"{% if page.permalink == '/cheatsheet' %} class="active"{% endif %}>Cheatsheet</a>
+        {% endif %}
+      {% endfor %}
+      {% for p in site.pages %}
+        {% if p.permalink == '/kernel' %}
+          <a href="{{ '/kernel' | relative_url }}"{% if page.permalink == '/kernel' %} class="active"{% endif %}>Kernel</a>
+        {% endif %}
+      {% endfor %}
+      {% for p in site.pages %}
+        {% if p.permalink == '/archive' %}
+          <a href="{{ '/archive' | relative_url }}"{% if page.permalink == '/archive' %} class="active"{% endif %}>Kernel Archive</a>
+        {% endif %}
+      {% endfor %}
+      {% for p in site.pages %}
+        {% if p.permalink == '/about' %}
+          <a href="{{ '/about' | relative_url }}"{% if page.permalink == '/about' %} class="active"{% endif %}>About</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+    <div class="pz-header-title-row">
+      <div class="pz-header-line"></div>
       <a href="{{ '/' | relative_url }}" class="pz-header-logo">{{ site.slogan_top | default: site.title | default: "n132" }}</a>
-      <nav class="pz-header-nav">
-        {% for p in site.pages %}
-          {% if p.permalink == '/cheatsheet' %}
-            <a href="{{ '/cheatsheet' | relative_url }}"{% if page.permalink == '/cheatsheet' %} class="active"{% endif %}>Cheatsheet</a>
-          {% endif %}
-        {% endfor %}
-        {% for p in site.pages %}
-          {% if p.permalink == '/kernel' %}
-            <a href="{{ '/kernel' | relative_url }}"{% if page.permalink == '/kernel' %} class="active"{% endif %}>Kernel</a>
-          {% endif %}
-        {% endfor %}
-        {% for p in site.pages %}
-          {% if p.permalink == '/archive' %}
-            <a href="{{ '/archive' | relative_url }}"{% if page.permalink == '/archive' %} class="active"{% endif %}>Kernel Archive</a>
-          {% endif %}
-        {% endfor %}
-        {% for p in site.pages %}
-          {% if p.permalink == '/about' %}
-            <a href="{{ '/about' | relative_url }}"{% if page.permalink == '/about' %} class="active"{% endif %}>About</a>
-          {% endif %}
-        {% endfor %}
-      </nav>
     </div>
-    <div class="pz-header-line"></div>
   </div>
   {% if site.enable_progressbar %}
     <progress id="progress" value="0">

@@ -18,6 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: n132
+slogan_bottom: "I do binary exploitation"
 email: eTB1bjluMTMy@gmail.com
 description: 
 
