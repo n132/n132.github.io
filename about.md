@@ -35,6 +35,9 @@ I am an advocate for open-source, contributing to major projects like the [Linux
 <div class="cve-section" markdown="0">
 <h1>Discovered/Patched CVE</h1>
 <div class="cve-list">
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=614aefe56af8e13331e50220c936fc0689cf5675">CVE-2026-23398</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=dbdfaae9609629a9569362e3b8f33d0a20fd783c">CVE-2026-23397</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=c73bb9a2d33bf81f6eecaa0f474b6c6dbe9855bd">CVE-2026-23396</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0cc0c2e661af418bbf7074179ea5cfffc0a5c466">CVE-2026-23277</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6f1a9140ecda3baba3d945b9a6155af4268aafc4">CVE-2026-23276</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=0809c4bc06c9c961222df29f2eccfd449304056f">CVE-2026-22976</a>
