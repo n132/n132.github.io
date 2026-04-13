@@ -35,6 +35,16 @@ I am an advocate for open-source, contributing to major projects like the [Linux
 <div class="cve-section" markdown="0">
 <h1>Discovered/Patched CVE</h1>
 <div class="cve-list">
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2884bf72fb8f03409e423397319205de48adca16">CVE-2026-31419</a>
+  <a href=" https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=fa6e24963342de4370e3a3c9af41e38277b74cf3">CVE-2026-31420</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=faeea8bbf6e958bf3c00cb08263109661975987c">CVE-2026-31421</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1a280dd4bd1d616a01d6ffe0de284c907b555504">CVE-2026-31422</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=4576100b8cd03118267513cafacde164b498b322">CVE-2026-31423</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=3d5d488f11776738deab9da336038add95d342d1">CVE-2026-31424</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=a54ecccfae62c5c85259ae5ea5d9c20009519049">CVE-2026-31425</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=f6484cadbcaf26b5844b51bd7307a663dda48ef6">CVE-2026-31426</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=6a2b724460cb67caed500c508c2ae5cf012e4db4">CVE-2026-31427</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=52025ebaa29f4eb4ed8bf92ce83a68f24ab7fdf7">CVE-2026-31428</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=614aefe56af8e13331e50220c936fc0689cf5675">CVE-2026-23398</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=dbdfaae9609629a9569362e3b8f33d0a20fd783c">CVE-2026-23397</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=c73bb9a2d33bf81f6eecaa0f474b6c6dbe9855bd">CVE-2026-23396</a>
