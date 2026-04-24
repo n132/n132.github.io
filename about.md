@@ -26,14 +26,22 @@ Since my sophomore year, I have been actively engaged in Capture The Flag (CTF) 
 I am an advocate for open-source, contributing to major projects like the [Linux kernel][5] and [oss-fuzz][6]. I share various exploitation tools and techniques I develop on my [GitHub][4], including [Libc-GOT-Hijacking][1], [Dec-Safe-Linking][2], [BeapOverflow][3], and [more][4].
 
 <style>
-.cve-section h1 { margin-bottom: 1rem; }
+.cve-section { margin-top: 2rem; }
+.cve-section h2 { margin-bottom: 0.75rem; }
+.cve-group { margin-top: 1rem; }
+.cve-group-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 0.5rem; }
 .cve-list { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: 0; list-style: none; }
 .cve-list a { display: inline-block; padding: 0.35rem 0.75rem; font-size: 0.85rem; font-weight: 600; font-family: monospace; color: #1a1a1a; border: 1.5px solid #1a1a1a; border-radius: 3px; text-decoration: none; transition: background 0.2s, color 0.2s; }
 .cve-list a:hover { background: #1a1a1a; color: #fff; }
+.non-cve-toggle { display: inline-block; padding: 0.2rem 0.5rem; font-size: 0.7rem; font-weight: 600; font-family: monospace; color: #1a1a1a; background: transparent; border: 1px solid #1a1a1a; border-radius: 3px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.non-cve-toggle:hover { background: #1a1a1a; color: #fff; }
+.non-cve-list[hidden] { display: none; }
 </style>
 
 <div class="cve-section" markdown="0">
-<h1>Discovered/Patched CVE</h1>
+<h2>Community Contributions</h2>
+<div class="cve-group">
+<div class="cve-group-label">Discovered / Patched CVEs</div>
 <div class="cve-list">
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2884bf72fb8f03409e423397319205de48adca16">CVE-2026-31419</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=fa6e24963342de4370e3a3c9af41e38277b74cf3">CVE-2026-31420</a>
@@ -55,6 +63,18 @@ I am an advocate for open-source, contributing to major projects like the [Linux
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=5e28d5a3f774f118896aec17a3a20a9c5c9dfc64">CVE-2025-38477</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=dd831ac8221e691e9e918585b1003c7071df0379">CVE-2025-40083</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=9fefc78f7f02d71810776fdeb119a05a946a27cc">CVE-2025-68325</a>
+</div>
+</div>
+
+<div class="cve-group">
+<button type="button" class="non-cve-toggle" onclick="var w=document.getElementById('non-cve-wrap');var h=w.hasAttribute('hidden');if(h){w.removeAttribute('hidden');this.textContent='Hide non-CVE patches';}else{w.setAttribute('hidden','');this.textContent='Show non-CVE patches';}">Show non-CVE patches</button>
+<div id="non-cve-wrap" hidden>
+<div class="cve-group-label" style="margin-top: 1rem;">Non-CVE Patches</div>
+<div class="cve-list">
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=edacf1613f7b26423ebfa8b2892e7453c4235354">bonding: rlb_hash_show NULL deref</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=66117dbb3dbae82f86735bf727b1d59cc677afa1">udp_tunnel: udp_sock_create6 NULL deref</a>
+</div>
+</div>
 </div>
 </div>
 
