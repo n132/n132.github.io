@@ -43,26 +43,29 @@ I am an advocate for open-source, contributing to major projects like the [Linux
 <div class="cve-group">
 <div class="cve-group-label">Discovered / Patched CVEs</div>
 <div class="cve-list">
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2884bf72fb8f03409e423397319205de48adca16">CVE-2026-31419</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=fa6e24963342de4370e3a3c9af41e38277b74cf3">CVE-2026-31420</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=faeea8bbf6e958bf3c00cb08263109661975987c">CVE-2026-31421</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1a280dd4bd1d616a01d6ffe0de284c907b555504">CVE-2026-31422</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=4576100b8cd03118267513cafacde164b498b322">CVE-2026-31423</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=3d5d488f11776738deab9da336038add95d342d1">CVE-2026-31424</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=a54ecccfae62c5c85259ae5ea5d9c20009519049">CVE-2026-31425</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=f6484cadbcaf26b5844b51bd7307a663dda48ef6">CVE-2026-31426</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=6a2b724460cb67caed500c508c2ae5cf012e4db4">CVE-2026-31427</a>
+
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=9a91797e61d286805ae10a92cc48959c30800556">CVE-2026-43086</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1f3083aec8836213da441270cdb1ab612dd82cf4">CVE-2026-43085</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=52025ebaa29f4eb4ed8bf92ce83a68f24ab7fdf7">CVE-2026-31428</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=6a2b724460cb67caed500c508c2ae5cf012e4db4">CVE-2026-31427</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=f6484cadbcaf26b5844b51bd7307a663dda48ef6">CVE-2026-31426</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=a54ecccfae62c5c85259ae5ea5d9c20009519049">CVE-2026-31425</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=3d5d488f11776738deab9da336038add95d342d1">CVE-2026-31424</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=4576100b8cd03118267513cafacde164b498b322">CVE-2026-31423</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1a280dd4bd1d616a01d6ffe0de284c907b555504">CVE-2026-31422</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=faeea8bbf6e958bf3c00cb08263109661975987c">CVE-2026-31421</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=fa6e24963342de4370e3a3c9af41e38277b74cf3">CVE-2026-31420</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2884bf72fb8f03409e423397319205de48adca16">CVE-2026-31419</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=614aefe56af8e13331e50220c936fc0689cf5675">CVE-2026-23398</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=dbdfaae9609629a9569362e3b8f33d0a20fd783c">CVE-2026-23397</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=c73bb9a2d33bf81f6eecaa0f474b6c6dbe9855bd">CVE-2026-23396</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0cc0c2e661af418bbf7074179ea5cfffc0a5c466">CVE-2026-23277</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6f1a9140ecda3baba3d945b9a6155af4268aafc4">CVE-2026-23276</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=c1d73b1480235731e35c81df70b08f4714a7d095">CVE-2026-22976</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=0cc0c2e661af418bbf7074179ea5cfffc0a5c466">CVE-2026-23277</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=6f1a9140ecda3baba3d945b9a6155af4268aafc4">CVE-2026-23276</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2a71a1a8d0ed718b1c7a9ac61f07e5755c47ae20">CVE-2026-22977</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=5e28d5a3f774f118896aec17a3a20a9c5c9dfc64">CVE-2025-38477</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=dd831ac8221e691e9e918585b1003c7071df0379">CVE-2025-40083</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=c1d73b1480235731e35c81df70b08f4714a7d095">CVE-2026-22976</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=9fefc78f7f02d71810776fdeb119a05a946a27cc">CVE-2025-68325</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=dd831ac8221e691e9e918585b1003c7071df0379">CVE-2025-40083</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=5e28d5a3f774f118896aec17a3a20a9c5c9dfc64">CVE-2025-38477</a>
 </div>
 </div>
 
