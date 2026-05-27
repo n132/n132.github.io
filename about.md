@@ -44,6 +44,16 @@ I am an advocate for open-source, contributing to major projects like the [Linux
 <div class="cve-group-label">Discovered / Patched CVEs</div>
 <div class="cve-list">
 
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=aa6c6d9ee064aabfede4402fd1283424e649ca19">CVE-2026-45846</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=3d07ca5c0fae311226f737963984bd94bb159a87">CVE-2026-45845</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1e8e3f449b1e73b73a843257635b9c50f0cc0f0a">CVE-2026-45844</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=4c1367a2d7aad643a6f87c6931b13cc1a25e8ca7">CVE-2026-45843</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=e76607442d5b73e1ba6768f501ef815bb58c2c0e">CVE-2026-45842</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2195574dc6d9017d32ac346987e12659f931d932">CVE-2026-45841</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2091c6aa0df6aba47deb5c8ab232b1cb60af3519">CVE-2026-45840</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1c22483a2c4bbf747787f328392ca3e68619c4dc">CVE-2026-45839</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=5828b9e5b272ecff7cf5d345128d3de7324117f7">CVE-2026-45838</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=4fddde2a732de60bb97e3307d4eb69ac5f1d2b74">CVE-2026-45837</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=9a91797e61d286805ae10a92cc48959c30800556">CVE-2026-43086</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1f3083aec8836213da441270cdb1ab612dd82cf4">CVE-2026-43085</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=52025ebaa29f4eb4ed8bf92ce83a68f24ab7fdf7">CVE-2026-31428</a>
