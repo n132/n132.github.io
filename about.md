@@ -91,9 +91,9 @@ I am an advocate for open-source, contributing to major projects like the [Linux
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6f1a9140ecda3baba3d945b9a6155af4268aafc4">CVE-2026-23276</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=005671c60fcf1dbdb8bddf12a62568fd5e4ec391">CVE-2026-22977</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=0809c4bc06c9c961222df29f2eccfd449304056f">CVE-2026-22976</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=0b6216f9b3d1c33c76f74511026e5de5385ee520">CVE-2025-68325</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=9fefc78f7f02d71810776fdeb119a05a946a27cc">CVE-2025-68325</a>
   <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=1bed56f089f09b465420bf23bb32985c305cfc28">CVE-2025-40083</a>
-  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=fbe48f06e64134dfeafa89ad23387f66ebca3527">CVE-2025-38477</a>
+  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=5e28d5a3f774f118896aec17a3a20a9c5c9dfc64">CVE-2025-38477</a>
 </div>
 </div>
 </div>
