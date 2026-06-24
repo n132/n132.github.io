@@ -30,8 +30,8 @@ I am an advocate for open-source, contributing to major projects like the [Linux
 .cve-section h2 { margin-bottom: 0.75rem; }
 .cve-group { margin-top: 1rem; }
 .cve-group-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 0.5rem; }
-.cve-list { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: 0; list-style: none; }
-.cve-list a { display: inline-block; padding: 0.35rem 0.75rem; font-size: 0.85rem; font-weight: 600; font-family: monospace; color: #1a1a1a; border: 1.5px solid #1a1a1a; border-radius: 3px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+.cve-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; padding: 0; margin: 0; list-style: none; }
+.cve-list a { display: block; text-align: center; padding: 0.35rem 0.75rem; font-size: 0.85rem; font-weight: 600; font-family: monospace; color: #1a1a1a; border: 1.5px solid #1a1a1a; border-radius: 3px; text-decoration: none; transition: background 0.2s, color 0.2s; }
 .cve-list a:hover { background: #1a1a1a; color: #fff; }
 </style>
 
