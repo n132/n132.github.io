@@ -18,6 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: n132
+slogan_top: "Xiang Mei"
 slogan_bottom: ""
 email: n132@asu.edu
 description: 
@@ -25,11 +26,13 @@ description:
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://github.com/n132" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  n132
+linkedin_username: xiang-mei-520839168
+scholar_userid: ZGMGy90AAAAJ
 
 announcements:
   enabled: true
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  limit: 6 # leave blank to include all the news in the `_news` folder
 # Build settingstheme: 
 
 theme: minima
@@ -60,7 +63,7 @@ collections:
 announcements:
   enabled: true
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  limit: 6 # leave blank to include all the news in the `_news` folder
 include: ["_pages"]
 
 # latest_posts:

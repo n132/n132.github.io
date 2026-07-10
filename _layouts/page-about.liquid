@@ -1,0 +1,218 @@
+---
+layout: default
+---
+<div class="post about-page">
+  <article class="about-shell">
+    <div class="about-grid">
+
+      <!-- 40% — bio / intro -->
+      <section class="about-col about-col-bio">
+        <div class="about-intro">{{ content }}</div>
+      </section>
+
+      <!-- 30% — News + Projects + Links -->
+      <section class="about-col about-col-news">
+        {% if page.news and site.announcements.enabled %}
+          <h2 class="about-h2"><a href="{{ '/news/' | relative_url }}">News</a></h2>
+          {% include news.liquid limit=true %}
+        {% endif %}
+
+        <div class="about-block">
+          <h2 class="about-h2">Techniques</h2>
+          {% include projects-list.html %}
+        </div>
+
+        {% if page.social %}
+          <div class="about-block about-social">
+            <h2 class="about-h2">Links</h2>
+            <div class="contact-icons">{% include social.liquid %}</div>
+            {% if site.contact_note %}<div class="contact-note">{{ site.contact_note }}</div>{% endif %}
+          </div>
+        {% endif %}
+      </section>
+
+      <!-- 30% — Papers -->
+      <section class="about-col about-col-papers">
+        <h2 class="about-h2">Papers</h2>
+        {% include papers.html %}
+      </section>
+
+    </div>
+
+    <!-- full-width band below the 3 columns -->
+    <section class="about-full about-col-cve">
+      <h2 class="about-h2">Community Contributions</h2>
+      <div class="about-h2-sub">Discovered / Patched CVEs</div>
+      {% include cve-list.html %}
+    </section>
+  </article>
+</div>
+
+<style>
+  /* === About page: break out of the 1200px wrapper to use the full width ===
+     Article pages are capped at 1200px by .pz-wrapper (nice empty margins);
+     the about page instead escapes the wrapper via full-bleed negative
+     margins and spans a wider band, so the left/right space is used. */
+  .about-page {
+    width: 100vw;
+    max-width: 1700px;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 0 3vw;
+    box-sizing: border-box;
+  }
+  @media (min-width: 1700px) {
+    .about-page { left: 50%; margin-left: -850px; width: 1700px; }
+  }
+  .about-shell { max-width: 100%; }
+
+  /* three vertical columns: 40% bio | 30% News | 30% Papers.
+     The Bio column defines the row height; the News and Papers columns are
+     capped to that same height (fixed bottom edge) and scroll internally if
+     their content is taller. */
+  .about-grid {
+    display: grid;
+    /* fr units share the space AFTER the gaps, so the 3 columns + gaps fit
+       exactly within the container — the 3rd column's right edge lines up
+       with the divider line below. */
+    grid-template-columns: 40fr 30fr 30fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .about-col { min-width: 0; }
+
+  /* News column: News, Projects, Links spread to fill the column height
+     so the leftover vertical space is distributed between the sections
+     instead of collecting in one gap. */
+  .about-col-news {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* news date: month left-aligned, year right-aligned within the cell */
+  .news-date {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+
+  /* headings */
+  .about-h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 0.4rem;
+  }
+  .about-h2 a { color: inherit; text-decoration: none; }
+  .about-h2 a:hover { color: #555; }
+  .about-h2-sub {
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.05em; color: #888; margin-bottom: 0.6rem;
+  }
+
+  /* Projects & Papers: match the heading→content gap that the News table's
+     cell padding creates, so all three sections line up visually. */
+  .about-col-papers .about-h2,
+  .about-block .about-h2 {
+    margin-bottom: 0.9rem;
+  }
+
+  /* bio text */
+  .about-intro p {
+    margin: 0 0 0.9rem;
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  .about-intro p:last-of-type { margin-bottom: 0; }
+
+  .about-col-news .about-social { padding-top: 1.75rem; }
+  .about-social .contact-icons { font-size: 1.8rem; text-align: left; }
+  .about-social .contact-note { text-align: left; font-size: 0.8rem; }
+
+  /* projects list — each project is a box/card */
+  .project-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .project {
+    border: 1.5px solid #1a1a1a;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .project:hover { background: #f6f6f6; }
+  .project-title {
+    display: block; font-size: 0.95rem; font-weight: 700;
+    line-height: 1.3; color: #1a1a1a; text-decoration: none;
+  }
+  a.project-title:hover { color: #1a1a1a; text-decoration: underline; }
+  .project-desc { font-size: 0.8rem; color: #888; margin-top: 0.15rem; }
+
+  /* papers list */
+  .about-col-papers { overflow: hidden; }          /* hard clamp to the column */
+  .about-col-papers, .paper, .paper * {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .paper-list { max-width: 100%; }
+  .paper-title, .paper-authors, .paper-venue, .paper-abstract {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .paper-links { flex-wrap: wrap; }
+  .paper { margin-bottom: 1rem; }
+  .paper:last-child { margin-bottom: 0; }
+  .paper-title {
+    display: block; font-size: 0.95rem; font-weight: 600;
+    line-height: 1.35; color: #1a1a1a; text-decoration: none;
+  }
+  a.paper-title:hover { color: #555; text-decoration: underline; }
+  .paper-authors { font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem; }
+  .paper-authors .me { font-weight: 700; color: #1a1a1a; }
+  .paper-venue { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 0.15rem; }
+  .paper-links { margin-top: 0.35rem; display: flex; gap: 0.5rem; }
+  .paper-links a {
+    font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
+    color: #1a1a1a; border: 1.5px solid #1a1a1a; border-radius: 3px;
+    padding: 0.1rem 0.5rem; text-decoration: none; transition: background 0.2s, color 0.2s;
+  }
+  .paper-links a:hover { background: #1a1a1a; color: #fff; }
+  .paper-abstract {
+    font-size: 0.85rem; line-height: 1.6; color: #444;
+    margin: 0.6rem 0 0;
+    /* clamp to a fixed number of lines with an ellipsis — no scrollbar */
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* full-width band below the three columns, with a divider line above it */
+  .about-full {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 2px solid #1a1a1a;
+  }
+
+  /* CVE grid — full width, as many columns as fit */
+  .cve-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.4rem;
+  }
+  .cve-list a {
+    display: block; text-align: center; padding: 0.3rem 0.4rem;
+    font-size: 0.78rem; font-weight: 600; font-family: monospace;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    color: #1a1a1a; border: 1.5px solid #1a1a1a; border-radius: 3px;
+    text-decoration: none; transition: background 0.2s, color 0.2s;
+  }
+  .cve-list a:hover { background: #1a1a1a; color: #fff; }
+
+  /* stack on narrow screens */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

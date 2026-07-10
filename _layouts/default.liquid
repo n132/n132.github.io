@@ -14,10 +14,10 @@
     {% endif %}
     {% include head.liquid %}
 
-    <!-- Orbitron: futuristic display font for the n132 header logo -->
+    <!-- Cinzel: engraved inscriptional serif (certificate style) for the header logo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&display=swap" rel="stylesheet">
 
     <style>
       /* === Shared pz layout styles === */
@@ -40,22 +40,35 @@
         gap: 2rem;
         position: relative;
         z-index: 2;
-        margin-bottom: -5rem;
+        margin-bottom: -4rem;
+        /* pin the nav's right edge to the viewport (with a small gap),
+           mirroring the logo's left pin, so it sits further right */
+        margin-right: calc(50% - 50vw + 2.5rem);
       }
 
       .pz-header-nav a {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
         font-weight: 600;
-        color: #555;
+        color: #1a1a1a;
         text-decoration: none;
-        letter-spacing: 0.03em;
+        letter-spacing: 0.05em;
         white-space: nowrap;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: "Cinzel", "Times New Roman", serif;
       }
 
       .pz-header-nav a:hover,
       .pz-header-nav a.active {
         color: #1a1a1a;
+      }
+
+      /* hidden nav links: blend into the background until hovered */
+      .pz-header-nav a.hidden-nav {
+        color: #fff;                 /* == page background → invisible */
+        transition: color 0.2s ease;
+      }
+      .pz-header-nav a.hidden-nav:hover,
+      .pz-header-nav a.hidden-nav.active {
+        color: #1a1a1a;              /* reveal on hover / when active */
       }
 
       .pz-header-title-row {
@@ -83,9 +96,9 @@
            stays in the top-left corner regardless of zoom or the centered
            wrapper's max-width; only the logo moves, the line is untouched */
         margin-left: calc(50% - 50vw + 2.5rem);
-        font-family: "Orbitron", -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 7rem;
-        font-weight: 900;
+        font-family: "Cinzel", "Times New Roman", serif;
+        font-size: 5.5rem;
+        font-weight: 800;
         letter-spacing: 0.02em;
         color: transparent;
         -webkit-text-stroke: 2px #1a1a1a;

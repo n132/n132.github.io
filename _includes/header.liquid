@@ -3,12 +3,12 @@
     <nav class="pz-header-nav">
       {% for p in site.pages %}
         {% if p.permalink == '/cheatsheet' %}
-          <a href="{{ '/cheatsheet' | relative_url }}"{% if page.permalink == '/cheatsheet' %} class="active"{% endif %}>Cheatsheet</a>
+          <a href="{{ '/cheatsheet' | relative_url }}" class="hidden-nav{% if page.permalink == '/cheatsheet' %} active{% endif %}">Cheatsheet</a>
         {% endif %}
       {% endfor %}
       {% for p in site.pages %}
         {% if p.permalink == '/kernel' %}
-          <a href="{{ '/kernel' | relative_url }}"{% if page.permalink == '/kernel' %} class="active"{% endif %}>Kernel</a>
+          <a href="{{ '/kernel' | relative_url }}" class="hidden-nav{% if page.permalink == '/kernel' %} active{% endif %}">Kernel</a>
         {% endif %}
       {% endfor %}
       {% for p in site.pages %}

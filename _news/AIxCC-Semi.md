@@ -1,10 +1,10 @@
 ---
 layout: post
-date: 2024-08-12
+date: 2025-08-12
 inline: true
 related_posts: false
 ---
 
-[Shellphish][1] Qualified for the AIxCC Final Event with $2 Million Cash Award. A pleasure to work with this amazing team.
+[Shellphish][1] got 5th in AIxCC Final Event
 
 [1]: https://support.shellphish.net/
