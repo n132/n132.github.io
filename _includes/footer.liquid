@@ -1,7 +1,12 @@
 <div class="pz-footer-slogan">
   <div class="pz-footer-title-row">
     <div class="pz-footer-line"></div>
-    <span class="pz-footer-logo">{{ site.slogan_bottom | default: site.title | default: "n132" }}</span>
+    <span class="pz-footer-achievements">
+      <a class="pz-achievement" href="https://www.zerodayinitiative.com/blog" title="Pwn2Own"><img src="{{ '/assets/img/achievements/pwn2own.svg' | relative_url }}" alt="Pwn2Own"></a>
+      <a class="pz-achievement" href="https://google.github.io/security-research/kernelctf/rules.html" title="kernelCTF"><img src="{{ '/assets/img/achievements/kernelctf.gif' | relative_url }}" alt="kernelCTF"></a>
+      <a class="pz-achievement" href="https://typhooncon.com/typhoon-pwn/" title="TyphoonPWN"><img src="{{ '/assets/img/achievements/typhoonpwn.png' | relative_url }}" alt="TyphoonPWN"></a>
+      <a class="pz-achievement" href="https://defcon.org/" title="DEF CON CTF Finalist (29–34)"><img src="{{ '/assets/img/achievements/defcon.jpg' | relative_url }}" alt="DEF CON CTF"></a>
+    </span>
   </div>
   <div class="pz-footer-note">UI inspired by <a href="https://googleprojectzero.blogspot.com/" target="_blank" rel="noopener">Google Project Zero</a></div>
 </div>

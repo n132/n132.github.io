@@ -18,8 +18,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: n132
-slogan_bottom: "I do binary exploitation"
-email: eTB1bjluMTMy@gmail.com
+slogan_bottom: ""
+email: n132@asu.edu
 description: 
 
 baseurl: "" # the subpath of your site, e.g. /blog

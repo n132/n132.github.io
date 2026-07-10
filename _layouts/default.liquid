@@ -138,6 +138,35 @@
         -webkit-text-stroke: 2px #e0e0e0;
       }
 
+      .pz-footer-achievements {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0.6rem;
+        padding-left: 1rem;
+        background: var(--global-bg-color);
+      }
+
+      .pz-achievement {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease;
+      }
+
+      .pz-achievement img {
+        height: 2.6rem;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .pz-achievement:hover {
+        transform: translateY(-3px);
+      }
+
       .pz-footer-note {
         text-align: right;
         font-size: 0.75rem;
