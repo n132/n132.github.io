@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Our paper, ARVO, got accepted in Euro S&P 2026.
+Our paper, ARVO, got accepted in Euro S&P 2026 (Distinguished Paper Award).
