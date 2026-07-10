@@ -14,6 +14,11 @@
     {% endif %}
     {% include head.liquid %}
 
+    <!-- Russo One: display font for the n132 header logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
     <style>
       /* === Shared pz layout styles === */
       .pz-wrapper {
@@ -74,6 +79,11 @@
       .pz-header-logo {
         position: relative;
         z-index: 1;
+        /* pin to the viewport's left edge (with a small gap) so the logo
+           stays in the top-left corner regardless of zoom or the centered
+           wrapper's max-width; only the logo moves, the line is untouched */
+        margin-left: calc(50% - 50vw + 1rem);
+        font-family: "Russo One", -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 7rem;
         font-weight: 900;
         letter-spacing: 0.02em;
@@ -86,9 +96,12 @@
         text-decoration: none;
       }
 
-      .pz-header:hover .pz-header-logo {
+      /* fill in the outlined logo only when hovering the text itself
+         (not the whole header); also cancel the theme's a:hover underline */
+      .pz-header-logo:hover {
         color: #1a1a1a;
         -webkit-text-stroke: 0px transparent;
+        text-decoration: none;
       }
 
       /* === Footer === */
