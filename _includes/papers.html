@@ -2,6 +2,8 @@
   Papers list. To add an entry, copy a <div class="paper"> block:
     - .paper-title  : the paper title (wrap in <a href> if it has a link)
     - .paper-venue  : venue + year (e.g. "USENIX Security 2024")
+    - .paper-bibtex : hidden <script type="text/plain"> holding the BibTeX entry;
+                      the sibling <button class="cite-btn"> copies it to the clipboard.
   Newest first.
 -->
 <div class="paper-list">
@@ -13,8 +15,55 @@
     <div class="paper-links">
       <a href="{{ '/assets/pdf/arvo.pdf' | relative_url }}" target="_blank" rel="noopener">PDF</a>
       <a href="https://github.com/n132/ARVO" target="_blank" rel="noopener">Code</a>
+      <button type="button" class="cite-btn">Cite</button>
+      <script type="text/plain" class="paper-bibtex">@INPROCEEDINGS{11624217,
+  author={Mei, Xiang and Castillo, Jordi Del and Singh Singaria, Pulkit and Xi, Haoran and Benchikh, Abdelouahab and Bao, Tiffany and Wang, Ruoyu and Shoshitaishvili, Yan and Doupé, Adam and Pearce, Hammond and Dolan-Gavitt, Brendan},
+  booktitle={2026 IEEE 11th European Symposium on Security and Privacy (EuroS&P)},
+  title={ARVO: Atlas of Reproducible Vulnerabilities for Open-Source Software},
+  year={2026},
+  volume={},
+  number={},
+  pages={860-873},
+  keywords={Fuzzing;Security;Computer bugs;Printing;Software;Manuals;Codes;Accuracy;Labeling;Open source software;vulnerability dataset;reproducibility;open-source software},
+  doi={10.1109/EuroSP68448.2026.00060}}</script>
     </div>
     <p class="paper-abstract">Achieving reproducibility, quantity, and diversity in vulnerability datasets has long been viewed as an inherent three-way trade-off, where improving one dimension often comes at the cost of the others. In practice, reproducibility has been the dimension most often neglected. This has limited what can be automatically extracted from historical bug datasets, and has reduced their utility for downstream security research. In this work, we propose a method to produce a new security dataset which ensures reproducibility for diverse vulnerabilities at scale by identifying the key obstacles to large-scale bug reproduction and addressing them with general solutions. Using this method, we introduce full reproducibility to the largest open source software vulnerability dataset (OSS-Fuzz) and construct the ARVO dataset (an Atlas of Reproducible Vulnerabilities in Open-source software). ARVO is a large-scale dataset consisting of over 6,100 real-world vulnerabilities across 311 projects. Focusing on reproducibility, ARVO differs from existing datasets by providing each vulnerability in a form that can be consistently rebuilt, triggered, and analyzed across versions. Reproducibility also enables automatic identification of the corresponding patch for each vulnerability and supports direct interaction with vulnerabilities after code changes, capabilities that existing large-scale datasets do not provide. In our evaluation, ARVO successfully reproduces 81% of vulnerabilities and achieves 89.4% accuracy on the located patches. We also discuss ARVO’s influence on both upstream practices and downstream security research.</p>
   </div>
 
 </div>
+
+<script>
+  (function () {
+    function copy(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      // fallback for non-secure contexts (e.g. plain-http local preview)
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } finally { document.body.removeChild(ta); }
+      return Promise.resolve();
+    }
+
+    document.querySelectorAll('.paper .cite-btn').forEach(function (btn) {
+      var holder = btn.parentNode.querySelector('.paper-bibtex');
+      if (!holder) return;
+      btn.addEventListener('click', function () {
+        copy(holder.textContent.trim()).then(function () {
+          if (btn.dataset.timer) clearTimeout(Number(btn.dataset.timer));
+          btn.classList.add('copied');
+          btn.textContent = 'Copied';
+          btn.dataset.timer = String(setTimeout(function () {
+            btn.classList.remove('copied');
+            btn.textContent = 'Cite';
+          }, 1500));
+        });
+      });
+    });
+  })();
+</script>

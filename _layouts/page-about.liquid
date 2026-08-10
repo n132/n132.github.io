@@ -173,12 +173,18 @@ layout: default
   .paper-authors .me { font-weight: 700; color: #1a1a1a; }
   .paper-venue { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 0.15rem; }
   .paper-links { margin-top: 0.35rem; display: flex; gap: 0.5rem; }
-  .paper-links a {
+  .paper-links a,
+  .paper-links .cite-btn {
     font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
     color: #1a1a1a; border: 1.5px solid #1a1a1a; border-radius: 3px;
     padding: 0.1rem 0.5rem; text-decoration: none; transition: background 0.2s, color 0.2s;
   }
-  .paper-links a:hover { background: #1a1a1a; color: #fff; }
+  .paper-links a:hover,
+  .paper-links .cite-btn:hover { background: #1a1a1a; color: #fff; }
+  .paper-links .cite-btn {
+    font-family: inherit; line-height: inherit; background: none; cursor: pointer;
+  }
+  .paper-links .cite-btn.copied { background: #1a1a1a; color: #fff; }
   .paper-abstract {
     font-size: 0.85rem; line-height: 1.6; color: #444;
     margin: 0.6rem 0 0;
