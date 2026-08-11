@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2026-05-18
+date: 2026-08-11
 inline: true
 related_posts: false
 ---
 
-Started Internship at Microsoft (MSR, MDASH)
+Finished Internship at Microsoft (MSR, MDASH) (May-Aug)
