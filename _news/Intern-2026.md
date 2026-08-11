@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Finished Internship at Microsoft (MSR, MDASH) (May-Aug)
+Finished Internship at Microsoft (MSR, MDASH)
