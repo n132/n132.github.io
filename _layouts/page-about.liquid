@@ -10,16 +10,23 @@ layout: default
         <div class="about-intro">{{ content }}</div>
       </section>
 
-      <!-- 30% — News + Projects + Links -->
+      <!-- 30% — News + Work in Progress + Links -->
       <section class="about-col about-col-news">
         {% if page.news and site.announcements.enabled %}
           <h2 class="about-h2"><a href="{{ '/news/' | relative_url }}">News</a></h2>
           {% include news.liquid limit=true %}
         {% endif %}
 
+        {% comment %} Techniques — hidden for now; uncomment to restore.
         <div class="about-block">
           <h2 class="about-h2">Techniques</h2>
           {% include projects-list.html %}
+        </div>
+        {% endcomment %}
+
+        <div class="about-block about-building">
+          <h2 class="about-h2">Work in Progress</h2>
+          {% include building-list.html %}
         </div>
 
         {% if page.social %}
@@ -80,17 +87,44 @@ layout: default
        with the divider line below. */
     grid-template-columns: 40fr 30fr 30fr;
     gap: 2.5rem;
-    align-items: start;
+    /* stretch so the News column can distribute its slack over the full
+       row height and finish level with the taller columns */
+    align-items: stretch;
   }
   .about-col { min-width: 0; }
 
-  /* News column: News, Projects, Links spread to fill the column height
-     so the leftover vertical space is distributed between the sections
-     instead of collecting in one gap. */
+  /* News column: News, Currently Building, Links stack from the top with a
+     consistent gap. (Previously space-between spread them over the full
+     column height, which left huge gaps once a section was removed.) */
+  /* News / Work in Progress / Links spread to fill the column so its bottom
+     edge lands level with the taller Bio and Papers columns, with a minimum
+     gap so the sections never collide. */
   .about-col-news {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1.75rem;
+  }
+
+  /* News table: strip the inherited Bootstrap table margin and the tall
+     `max-height: 60vw` box the news include hardcodes, so the table is only
+     as tall as its rows — no dead space under the last item. */
+  .about-col-news .news .table-responsive { max-height: none !important; }
+  .about-col-news .news table {
+    margin-bottom: 0;
+    border-collapse: collapse;   /* kill Bootstrap's border-spacing offset */
+  }
+  /* Bootstrap sets cell padding via `.table > :not(caption) > * > *`, which
+     outranks a plain `td` selector — match that specificity to override it. */
+  .about-col-news .news table > :not(caption) > * > * {
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    box-shadow: none;            /* Bootstrap draws row borders as shadows */
+  }
+  /* no leading space above the first row: the heading margin alone sets the
+     heading→content gap, matching the Papers column. */
+  .about-col-news .news table > :not(caption) > *:first-child > * {
+    padding-top: 0;
   }
 
   /* news date: month left-aligned, year right-aligned within the cell */
@@ -114,24 +148,43 @@ layout: default
     letter-spacing: 0.05em; color: #888; margin-bottom: 0.6rem;
   }
 
-  /* Projects & Papers: match the heading→content gap that the News table's
-     cell padding creates, so all three sections line up visually. */
+  /* All column headings share one heading→content gap so News, Currently
+     Building and Papers line up visually. */
   .about-col-papers .about-h2,
   .about-block .about-h2 {
     margin-bottom: 0.9rem;
   }
+  /* News heading sits directly above a table whose first row adds ~1.7rem of
+     its own leading, so it needs a smaller margin to match the ~14px gap the
+     Papers column has between its heading and first title. */
+  .about-col-news > .about-h2 { margin-bottom: 0; }
+  .about-col-news .news { margin-top: -0.85rem; }
 
-  /* bio text */
+  /* bio text — line-height/margin tuned so this column's bottom edge lands
+     level with the News and Papers columns. */
   .about-intro p {
-    margin: 0 0 0.9rem;
-    line-height: 1.7;
+    margin: 0 0 0.7rem;
+    line-height: 1.56;
     font-size: 1rem;
   }
   .about-intro p:last-of-type { margin-bottom: 0; }
 
-  .about-col-news .about-social { padding-top: 1.75rem; }
-  .about-social .contact-icons { font-size: 1.8rem; text-align: left; }
-  .about-social .contact-note { text-align: left; font-size: 0.8rem; }
+  /* Links: heading and icons share one row to save vertical space. */
+  .about-social {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0 0.9rem;
+  }
+  .about-social .about-h2 { margin-bottom: 0; }
+  .about-social .contact-icons {
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .about-social .contact-note { flex-basis: 100%; text-align: left; font-size: 0.8rem; }
 
   /* projects list — each project is a box/card */
   .project-list { display: flex; flex-direction: column; gap: 0.6rem; }
@@ -148,6 +201,57 @@ layout: default
   }
   a.project-title:hover { color: #1a1a1a; text-decoration: underline; }
   .project-desc { font-size: 0.8rem; color: #888; margin-top: 0.15rem; }
+
+  /* Featured Work cards: white by default, inverting to solid black on
+     hover. Matches the outlined style the rest of the page uses at rest. */
+  .building-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .building-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 0.6rem 0.8rem 0.55rem;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 6px;
+    background: #fff;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .building-card:hover {
+    background: #1a1a1a;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+  }
+  /* badge inverts too: dark pill on white, light pill once the card is black */
+  .building-badge {
+    display: inline-block;
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #fff; background: #1a1a1a;
+    border-radius: 3px; padding: 0.1rem 0.4rem; margin-bottom: 0.45rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .building-card:hover .building-badge { color: #1a1a1a; background: #fff; }
+  /* the card is an <a>, so the name would otherwise pick up the global link
+     color — pin it to the card's own inverting foreground. */
+  .building-name {
+    display: block; font-size: 1rem; font-weight: 800;
+    line-height: 1.25; color: #1a1a1a;
+    transition: color 0.2s;
+  }
+  .building-card:hover .building-name { color: #fff; }
+  .building-desc {
+    display: block; font-size: 0.8rem; line-height: 1.5;
+    color: #666; margin-top: 0.25rem;
+    transition: color 0.2s;
+  }
+  .building-card:hover .building-desc { color: #cfcfcf; }
+  /* arrow after the name signals the card is clickable; nudges on hover */
+  .building-arrow {
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  .building-card:hover .building-arrow { transform: translateX(3px); }
 
   /* papers list */
   .about-col-papers { overflow: hidden; }          /* hard clamp to the column */
