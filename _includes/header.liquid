@@ -12,15 +12,17 @@
         {% endif %}
       {% endfor %}
       {% for p in site.pages %}
+        {% if p.permalink == '/blog/' %}
+          <a href="{{ '/blog/' | relative_url }}"{% if page.permalink == '/blog/' %} class="active"{% endif %}>Blog</a>
+        {% endif %}
+      {% endfor %}
+      {% for p in site.pages %}
         {% if p.permalink == '/archive' %}
           <a href="{{ '/archive' | relative_url }}"{% if page.permalink == '/archive' %} class="active"{% endif %}>Kernel Archive</a>
         {% endif %}
       {% endfor %}
-      {% for p in site.pages %}
-        {% if p.permalink == '/about' %}
-          <a href="{{ '/about' | relative_url }}"{% if page.permalink == '/about' %} class="active"{% endif %}>About</a>
-        {% endif %}
-      {% endfor %}
+      {% comment %} the about page is now the site root {% endcomment %}
+      <a href="{{ '/' | relative_url }}"{% if page.permalink == '/' %} class="active"{% endif %}>About</a>
     </nav>
     <div class="pz-header-title-row">
       <div class="pz-header-line"></div>
